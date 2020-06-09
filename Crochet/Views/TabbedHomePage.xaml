@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="http://prismlibrary.com" 
+            xmlns:pages="clr-namespace:Crochet.Views"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"            
+            x:Class="Crochet.Views.TabbedHomePage">
+    <pages:InventoryPage IconImageSource="crochet.png" />
+    <pages:ProductPage  IconImageSource="carpet.png"/>
+    <pages:SalePage IconImageSource="money.png"/>
+    <pages:AcquisitionPage/>
+</TabbedPage>

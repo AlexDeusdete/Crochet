@@ -25,15 +25,19 @@ namespace Crochet
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/TabbedHomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
-            containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<NavigationPage>();            
+            containerRegistry.RegisterForNavigation<TabbedHomePage, TabbedHomePageViewModel>();
+            containerRegistry.RegisterForNavigation<InventoryPage, InventoryPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProductPage, ProductPageViewModel>();
+            containerRegistry.RegisterForNavigation<SalePage, SalePageViewModel>();
+            containerRegistry.RegisterForNavigation<AcquisitionPage, AcquisitionPageViewModel>();
         }
     }
 }
