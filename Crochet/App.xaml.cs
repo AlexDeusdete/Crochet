@@ -6,6 +6,8 @@ using Xamarin.Essentials.Interfaces;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Crochet.Interfaces;
+using Crochet.Services.LiteDB;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Crochet
@@ -38,6 +40,9 @@ namespace Crochet
             containerRegistry.RegisterForNavigation<ProductPage, ProductPageViewModel>();
             containerRegistry.RegisterForNavigation<SalePage, SalePageViewModel>();
             containerRegistry.RegisterForNavigation<AcquisitionPage, AcquisitionPageViewModel>();
+            containerRegistry.RegisterForNavigation<FeedStockCreatePage, FeedStockCreatePageViewModel>();
+
+            containerRegistry.Register<IFeedStockService, FeedStockService>();
         }
     }
 }

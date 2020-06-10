@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Crochet.Interfaces
 {
     public interface IFeedStockService
     {
-        IList<FeedStock> GetItems();
-        FeedStock PutItem(FeedStock Item);
+        Task<IList<FeedStock>> GetItems();
+        Task<IList<FeedStockGroup>> GetGroupItems();
+        void UpsertItem(FeedStock Item);
     }
 }

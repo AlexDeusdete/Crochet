@@ -2,14 +2,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Crochet.Views.InventoryPage"
-             Title="Estoque">
+    Title="Estoque">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Tela em Desenvolvimento"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <CollectionView IsGrouped="True" 
+                            ItemsSource="{Binding FeedStockGroups}"
+                            BackgroundColor="Red">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Hue}"
+                                FontSize="Large"/>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+            </CollectionView>
+
+            <controls:FormsFloatingActionButton
+                    BackgroundColor="White"
+                    HorizontalOptions="End"
+                    ImageSource="plus"
+                    VerticalOptions="End"
+                    HeightRequest="90"
+                    WidthRequest="80"
+                    Command="{Binding NavigateToFeedStockCreateCommand}"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

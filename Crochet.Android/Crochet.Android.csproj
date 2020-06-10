@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\FormsFloatingActionButtonRenderer.cs" />
     <Compile Include="Utils\FileHelper.cs" />
     <LinkDescription Include="LinkerSettings.xml" />
   </ItemGroup>
@@ -103,7 +104,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\money.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\plus.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
   </ItemGroup>

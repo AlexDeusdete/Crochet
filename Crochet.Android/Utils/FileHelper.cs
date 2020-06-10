@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
+using Crochet.Droid.Utils;
 using Crochet.Utils;
+using Xamarin.Forms;
 
+[assembly: Dependency(typeof(FileHelper))]
 namespace Crochet.Droid.Utils
 {
     public class FileHelper : IFileHelper
