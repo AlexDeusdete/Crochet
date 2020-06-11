@@ -43,6 +43,7 @@ namespace Crochet
             containerRegistry.RegisterForNavigation<FeedStockCreatePage, FeedStockCreatePageViewModel>();
 
             containerRegistry.Register<IFeedStockService, FeedStockService>();
+            containerRegistry.Register<IBrandService, BrandService>();
         }
     }
 }

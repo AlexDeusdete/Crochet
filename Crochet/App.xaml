@@ -5,7 +5,12 @@
              x:Class="Crochet.App">
   <Application.Resources>
 
-    <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <Color x:Key="colorPrimary">#ffcccc</Color>
+            <Color x:Key="colorPrimaryDark">#ff9999</Color>
+            <Color x:Key="colorAccent">#666699</Color>
+            <Color x:Key="BGColor">#ffffff</Color>
+        </ResourceDictionary>
 
   </Application.Resources>
 </prism:PrismApplication>

@@ -8,5 +8,12 @@ namespace Crochet.Views
         {
             InitializeComponent();
         }
+
+        protected override void OnCurrentPageChanged()
+        {
+            base.OnCurrentPageChanged();
+
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
     }
 }

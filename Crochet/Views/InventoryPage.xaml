@@ -9,8 +9,7 @@
     <ContentPage.Content>
         <Grid>
             <CollectionView IsGrouped="True" 
-                            ItemsSource="{Binding FeedStockGroups}"
-                            BackgroundColor="Red">
+                            ItemsSource="{Binding FeedStockGroups}">
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Hue}"
@@ -20,7 +19,7 @@
             </CollectionView>
 
             <controls:FormsFloatingActionButton
-                    BackgroundColor="White"
+                    BackgroundColor="{StaticResource BGColor}"
                     HorizontalOptions="End"
                     ImageSource="plus"
                     VerticalOptions="End"

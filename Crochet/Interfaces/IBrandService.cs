@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Crochet.Interfaces
 {
-    public interface IBrand
+    public interface IBrandService
     {
-        IList<Brand> GetItems();
-        Brand PutItem(Brand Item);
+        Task<IList<Brand>> GetItems();
+        void PutItem(Brand Item);
     }
 }

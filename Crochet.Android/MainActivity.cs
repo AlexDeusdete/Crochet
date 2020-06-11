@@ -1,6 +1,9 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Crochet.Droid.Utils;
+using Crochet.Utils;
+using DryIoc;
 using Prism;
 using Prism.Ioc;
 

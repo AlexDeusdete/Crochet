@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Crochet.ViewModels
 {
-    public class InventoryPageViewModel : BindableBase, IInitialize
+    public class InventoryPageViewModel : BindableBase, INavigationAware
     {
         private readonly IFeedStockService _feedStockService;
         private readonly INavigationService _navigationService;
@@ -29,18 +29,25 @@ namespace Crochet.ViewModels
 
         private void NavigateToFeedStockCreate()
         {
-            _navigationService.NavigateAsync("NavigationPage/FeedStockCreatePage");
-        }
-
-        public async void Initialize(INavigationParameters parameters)
-        {
-            var feedStockGroups = await GetFeedStockGroups();
-            //FeedStockGroups = new ObservableCollection<FeedStockGroup>(feedStockGroups);            
+            _navigationService.NavigateAsync("FeedStockCreatePage");
         }
 
         private async Task<IList<FeedStockGroup>> GetFeedStockGroups()
         {
             return await _feedStockService.GetGroupItems();
+        }
+
+        public void OnNavigatedFrom(INavigationParameters parameters){}
+
+        public async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            var feedStockGroups = await GetFeedStockGroups();
+            FeedStockGroups.Clear();
+
+            foreach(var item in feedStockGroups)
+            {
+                FeedStockGroups.Add(item);
+            }
         }
     }
 }

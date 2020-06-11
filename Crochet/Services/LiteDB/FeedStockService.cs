@@ -1,6 +1,7 @@
 ﻿using Crochet.Interfaces;
 using Crochet.Models;
 using Crochet.Utils;
+using DryIoc;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ using Xamarin.Forms;
 
 namespace Crochet.Services.LiteDB
 {
-    public class FeedStockService : IFeedStockService
+    public class FeedStockService : LiteDBBase, IFeedStockService
     {
-        private LiteDatabase _dataBase;
+        private readonly ILiteCollection<FeedStock> _liteCollection;
 
         public FeedStockService()
         {
-            _dataBase = new LiteDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("Crochet.db"));
+            var dataBase = GetDBInstance();
+            _liteCollection = dataBase.GetCollection<FeedStock>();
         }
         public async Task<IList<FeedStockGroup>> GetGroupItems()
         {
@@ -33,7 +35,8 @@ namespace Crochet.Services.LiteDB
 
                 var feedStockCollection = new FeedStockCollection();
                 feedStockCollection.AddRange(feedStocks);
-                feedStockGroup.Add(feedStockCollection);                
+                feedStockGroup.Add(feedStockCollection);
+                feedStockGroups.Add(feedStockGroup);                
             }
 
             return feedStockGroups;
@@ -41,16 +44,12 @@ namespace Crochet.Services.LiteDB
 
         public async Task<IList<FeedStock>> GetItems()
         {
-            ILiteCollection<FeedStock> feedStocks = _dataBase.GetCollection<FeedStock>();
-
-            return await Task.FromResult(feedStocks.FindAll().ToList());
+            return await Task.FromResult(_liteCollection.FindAll().ToList());
         }
 
         public void UpsertItem(FeedStock Item)
         {
-            ILiteCollection<FeedStock> feedStocks = _dataBase.GetCollection<FeedStock>();
-
-            feedStocks.Upsert(Item);
+            _liteCollection.Upsert(Item);
         }
     }
 }
