@@ -2,30 +2,37 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Crochet.Views.FeedStockCreatePage"
              NavigationPage.HasNavigationBar="True">
     <ContentPage.Content>
-        <FlexLayout Direction="Column"
-                    Margin="10">
-            <Entry Placeholder="Preço"
-                   Text="{Binding Price}"/>
-            <Entry Placeholder="Quantidade Inicial"
-                   Text="{Binding Inventory}"/>
-            <Entry Placeholder="TEX"
-                   Text="{Binding TEX}"/>
-            <Entry Placeholder="Espessura"
-                   Text="{Binding Thickness}"/>
-            <Picker Title="Selecione a Marca"
-                    ItemsSource="{Binding Brands}"
-                    ItemDisplayBinding="{Binding BrandName}"/>
-            <Label FlexLayout.Grow="1"/>
-            <Button Text="Salvar"
-                    BackgroundColor="{StaticResource BGColor}"
-                    BorderColor="{StaticResource colorAccent}"
-                    BorderWidth="1"
-                    Command="{Binding FeedStockCreateCommand}"/>
-        </FlexLayout>
+        <Grid>
+            <FlexLayout Direction="Column"
+                        Margin="10">
+                <Image x:Name="spoolImage" Source="spool"/>
+                <Entry Placeholder="Preço"
+                       Text="{Binding Price}"/>
+                <Entry Placeholder="Quantidade Inicial"
+                       Text="{Binding Inventory}"/>
+                <Entry Placeholder="TEX"
+                       Text="{Binding TEX}"/>
+                <Entry Placeholder="Espessura"
+                       Text="{Binding Thickness}"/>
+                <Picker Title="Selecione a Marca"
+                        ItemsSource="{Binding Brands}"
+                        ItemDisplayBinding="{Binding BrandName}"/>
+                <Label FlexLayout.Grow="1"></Label>
+                <Button Text="Salvar"
+                        BackgroundColor="{StaticResource BGColor}"
+                        BorderColor="{StaticResource colorAccent}"
+                        BorderWidth="1"
+                        Command="{Binding FeedStockCreateCommand}"/>
+            </FlexLayout>
+            <controls:ColorPickerControl
+                    PickedColorMarginTop="590"
+                    x:Name="ColorPicker"/>
+        </Grid>
     </ContentPage.Content>
 
 </ContentPage>
