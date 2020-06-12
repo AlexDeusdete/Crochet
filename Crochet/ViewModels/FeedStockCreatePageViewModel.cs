@@ -6,10 +6,10 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Crochet.ViewModels
 {
@@ -22,12 +22,18 @@ namespace Crochet.ViewModels
         public ICommand FeedStockCreateCommand { get; private set; }
 
         #region Propertys
+        private Color _color;
         private int? _thickness;
         private string _tEX;
         private float? _price;
         private int? _inventory;
         private string _brandName;
 
+        public Color Color
+        {
+            get { return _color; }
+            set { SetProperty(ref _color, value); }
+        }
         public int? Thickness
         {
             get { return _thickness; }
@@ -62,12 +68,16 @@ namespace Crochet.ViewModels
             _feedStockService = feedStockService;
 
             FeedStockCreateCommand = new DelegateCommand(FeedStockCreate);
+            Brands = new ObservableCollection<Brand>();
         }
 
         public async void Initialize(INavigationParameters parameters)
         {
             var brands = await GetBrands();
-            Brands = new ObservableCollection<Brand>(brands);
+            foreach (var item in brands)
+            {
+                Brands.Add(item);
+            }
         }
 
         private async Task<IList<Brand>> GetBrands()
@@ -80,18 +90,24 @@ namespace Crochet.ViewModels
             var brand = Brands.Where(x => x.Name == _brandName).FirstOrDefault();
 
             if (brand == null)
+            {
                 brand = new Brand()
                 {
                     Name = string.IsNullOrWhiteSpace(_brandName) ? "Sem Marca" : _brandName
                 };
 
+                _brandService.PutItem(brand);
+                brand = _brandService.GetItems().Result.Where(x => x.Name == "Sem Marca").FirstOrDefault();
+            }
+
             var item = new FeedStock()
             {
+                Color = _color,
                 Brand = brand,
                 Inventory = _inventory.Value,
                 Price = _price.Value,
                 TEX = _tEX,
-                Thickness = _thickness.Value
+                Thickness = _thickness.Value               
             };
 
             _feedStockService.UpsertItem(item);

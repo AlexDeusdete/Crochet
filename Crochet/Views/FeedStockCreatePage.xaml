@@ -4,13 +4,23 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Crochet.Views.FeedStockCreatePage"
+             x:Class="Crochet.Views.FeedStockCreatePage"             
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             BackgroundColor="{StaticResource BGColor}"
              NavigationPage.HasNavigationBar="True">
     <ContentPage.Content>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ImageButton Source="spool.png"
+                       BackgroundColor="{Binding Color}"
+                       Clicked="ImageButton_Clicked"
+                       HorizontalOptions="Center"/>
             <FlexLayout Direction="Column"
-                        Margin="10">
-                <Image x:Name="spoolImage" Source="spool"/>
+                        Margin="10"
+                        Grid.Row="1">
                 <Entry Placeholder="Preço"
                        Text="{Binding Price}"/>
                 <Entry Placeholder="Quantidade Inicial"
@@ -21,7 +31,7 @@
                        Text="{Binding Thickness}"/>
                 <Picker Title="Selecione a Marca"
                         ItemsSource="{Binding Brands}"
-                        ItemDisplayBinding="{Binding BrandName}"/>
+                        ItemDisplayBinding="{Binding Name}"/>
                 <Label FlexLayout.Grow="1"></Label>
                 <Button Text="Salvar"
                         BackgroundColor="{StaticResource BGColor}"
@@ -30,7 +40,9 @@
                         Command="{Binding FeedStockCreateCommand}"/>
             </FlexLayout>
             <controls:ColorPickerControl
-                    PickedColorMarginTop="590"
+                 Grid.Row="1"
+                    PickedColor="{Binding Color}"
+                    CardStated="Collapsed"
                     x:Name="ColorPicker"/>
         </Grid>
     </ContentPage.Content>

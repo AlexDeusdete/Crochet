@@ -10,6 +10,10 @@
             <Color x:Key="colorPrimaryDark">#ff9999</Color>
             <Color x:Key="colorAccent">#666699</Color>
             <Color x:Key="BGColor">#ffffff</Color>
+
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+            </Style>
         </ResourceDictionary>
 
   </Application.Resources>

@@ -23,7 +23,11 @@ namespace Crochet.Services.LiteDB
         private void Mapping()
         {
             var mapper = BsonMapper.Global;
-            mapper.Entity<FeedStock>().Ignore(x => x.Color);
+            mapper.Entity<FeedStock>()
+                .Ignore(x => x.Color);
+
+            mapper.Entity<FeedStock>()
+                .DbRef(x => x.Brand, "brand");
         }
     }
 }

@@ -13,21 +13,24 @@ namespace Crochet.Controls
 {
     public enum CardState
     {
-        Collapsed,
-        Expanded
+        Expanded,
+        Collapsed        
     }
 
     //Inspiration https://theconfuzedsourcecode.wordpress.com/2020/02/26/i-built-an-interactive-color-picker-control-for-xamarin-forms/
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ColorPickerControl : ContentView
     {
+        #region Property
         public event EventHandler<Color> PickedColorChanged;
 
         public static readonly BindableProperty PickedColorProperty
             = BindableProperty.Create(
                 nameof(PickedColor),
                 typeof(Color),
-                typeof(ColorPickerControl));
+                typeof(ColorPickerControl),
+                null,
+                BindingMode.TwoWay);
 
         public Color PickedColor 
         { 
@@ -35,24 +38,27 @@ namespace Crochet.Controls
             set { SetValue(PickedColorProperty, value); } 
         }
 
-        public static readonly BindableProperty PickedColorMarginTopProperty
+        public static readonly BindableProperty CardStatedProperty
             = BindableProperty.Create(
-                nameof(PickedColorMarginTop),
-                typeof(float),
+                nameof(CardStated),
+                typeof(CardState),
                 typeof(ColorPickerControl),
-                null);
+                null,
+                propertyChanged: OnCardStatedChanged);
 
-        public float PickedColorMarginTop
+        public CardState CardStated
         {
-            get { return (float)GetValue(PickedColorMarginTopProperty); }
-            set { SetValue(PickedColorMarginTopProperty, value); }
+            get { return (CardState)GetValue(CardStatedProperty); }
+            set { SetValue(CardStatedProperty, value); }
         }
+        #endregion
 
+        private float _cardTopAnimPosition;
         private SKPoint _lastTouchPoint = new SKPoint();
         private readonly float _density;
         
         private float _cornerRadius = 60f;
-        private CardState _cardState = CardState.Collapsed;
+        private CardState _cardState;
 
         private SKRect _colorPickerRect;
         public ColorPickerControl()
@@ -62,6 +68,7 @@ namespace Crochet.Controls
             _density = (float)Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
             _cornerRadius = 30f * _density;
             _colorPickerRect = new SKRect();
+            _cardTopAnimPosition = 1f * _density;
         }
 
         private void SkCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
@@ -83,15 +90,18 @@ namespace Crochet.Controls
 
                 // draw top hero color
                 skCanvas.DrawRoundRect(
-                    rect: new SKRect(0, (float)PickedColorMarginTop, skCanvasWidth, skCanvasHeight),
+                    rect: new SKRect(0, (float)_cardTopAnimPosition, skCanvasWidth, skCanvasHeight),
                     r: new SKSize(_cornerRadius, _cornerRadius),
                     paint: paint);
             }
 
             _colorPickerRect.Left = skCanvasWidth * 0.05f;
-            _colorPickerRect.Top = PickedColorMarginTop * 1.1f;
+            _colorPickerRect.Top = _cardTopAnimPosition + (skCanvasHeight * 0.05f);
             _colorPickerRect.Right = skCanvasWidth * 0.95f;
             _colorPickerRect.Bottom = skCanvasHeight * 0.95f;
+
+            if (_colorPickerRect.Top > _colorPickerRect.Bottom)
+                _colorPickerRect.Bottom = _colorPickerRect.Top;
 
             CreateColorPicker(skImageInfo, skSurface, skCanvas, _colorPickerRect);
         }
@@ -179,6 +189,10 @@ namespace Crochet.Controls
                 touchPointColor = bitmap.GetPixel(0, 0);
             }
 
+            //Dont painting the Touch if card is collapsed
+            if (_cardState == CardState.Collapsed)
+                return;
+
             // Painting the Touch point
             using (var paintTouchPoint = new SKPaint())
             {
@@ -214,6 +228,9 @@ namespace Crochet.Controls
 
         private void SkCanvasView_Touch(object sender, SkiaSharp.Views.Forms.SKTouchEventArgs e)
         {
+            if (_cardState == CardState.Collapsed)
+                return;
+
             _lastTouchPoint = e.Location;
 
             // Check for each touch point XY position to be inside Canvas
@@ -226,6 +243,54 @@ namespace Crochet.Controls
                 // update the Canvas as you wish
                 SkCanvasView.InvalidateSurface();
             }
+        }
+
+        static void OnCardStatedChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            ((ColorPickerControl)bindable).GoToState((CardState)newValue);
+        }
+
+        private void GoToState(CardState cardState)
+        {
+            if (_cardState == cardState)
+                return;
+
+            _cardState = cardState;
+            
+            AnimateTransition(_cardState);
+        }
+
+        private void AnimateTransition(CardState cardState)
+        {
+            this.IsVisible = true;
+            var parentAnimation = new Animation();
+
+            if (cardState == CardState.Expanded)
+                parentAnimation.Add(0.1, 0.7, CreateCardAnimation(cardState));
+            else
+                parentAnimation.Add(0.1, 0.7, CreateCardAnimation(cardState));
+
+            parentAnimation.Commit(this, "CardExpand", 16, 2000, null, (v, c) => this.IsVisible = cardState == CardState.Expanded?true:false);
+        }
+
+        private Animation CreateCardAnimation(CardState cardState)
+        {
+            // work out where the top of the card should be
+            var cardAnimStart = cardState == CardState.Expanded ? 2000f : 0;
+            var cardAnimEnd = cardState == CardState.Expanded ? 0 : 2000f;
+            
+            var cardAnim = new Animation(
+                v =>
+                {
+
+                    _cardTopAnimPosition = (float)v;
+                    SkCanvasView.InvalidateSurface();
+                },
+                cardAnimStart,
+                cardAnimEnd,
+                Easing.SinInOut
+                );
+            return cardAnim;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Xamarin.Essentials;
 
 namespace Crochet.Models
 {
@@ -8,16 +9,19 @@ namespace Crochet.Models
     {
         public int FeedStockId { get; set; }
 
-        public int ColorArgb { 
+        public int ColorArgb { get; set; } 
+
+        public Color Color
+        {
             get
             {
-                return Color.ToArgb();
-            } 
+                return Color.FromArgb(ColorArgb); 
+            }
             set
             {
-                Color = Color.FromArgb(ColorArgb);
-            } }
-        public Color Color { get; set; }
+                ColorArgb = value.ToArgb();
+            }
+        }
         public int Thickness { get; set; }
         public string TEX { get; set; }
         public float Price { get; set; }
