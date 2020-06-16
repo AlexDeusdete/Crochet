@@ -4,11 +4,10 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
+             Title="Linhas"
              x:Class="Crochet.Views.FeedStockCreatePage"             
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             BackgroundColor="{StaticResource BGColor}"
-             Title="Linhas"
-             NavigationPage.HasNavigationBar="True">
+             BackgroundColor="{StaticResource BGColor}">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

@@ -7,8 +7,29 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"            
             x:Class="Crochet.Views.TabbedHomePage">
-    <pages:InventoryPage IconImageSource="crochet.png" />
-    <pages:ProductPage  IconImageSource="carpet.png"/>
-    <pages:SalePage IconImageSource="money.png"/>
-    <pages:AcquisitionPage/>
+    <TabbedPage.Children>
+        <NavigationPage IconImageSource="crochet" Title="Linhas">
+            <x:Arguments>
+                <pages:InventoryPage/>
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage IconImageSource="carpet" Title="Produtos">
+            <x:Arguments>
+                <pages:ProductPage/>
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage IconImageSource="money" Title="Vendas">
+            <x:Arguments>
+                <pages:SalePage/>
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Compras">
+            <x:Arguments>
+                <pages:AcquisitionPage/>
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
 </TabbedPage>

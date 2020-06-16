@@ -4,8 +4,10 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Crochet.Views.InventoryPage"
-    Title="Estoque">
+             x:Class="Crochet.Views.InventoryPage">
+    <NavigationPage.TitleView>
+        <Label Text="Linhas" Style="{StaticResource TitleNavigationPage}"/>
+    </NavigationPage.TitleView>    
     <ContentPage.Content>
         <Grid>
             <CollectionView IsGrouped="True" 
