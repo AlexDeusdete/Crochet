@@ -7,6 +7,7 @@
              x:Class="Crochet.Views.FeedStockCreatePage"             
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              BackgroundColor="{StaticResource BGColor}"
+             Title="Linhas"
              NavigationPage.HasNavigationBar="True">
     <ContentPage.Content>
         <Grid>
@@ -19,25 +20,47 @@
                        Clicked="ImageButton_Clicked"
                        HorizontalOptions="Center"/>
             <FlexLayout Direction="Column"
-                        Margin="10"
-                        Grid.Row="1">
+                        Margin="25,10"
+                        Grid.Row="1"
+                        AutomationId="FlexForm">
                 <Entry Placeholder="Preço"
-                       Text="{Binding Price}"/>
+                       Keyboard="Numeric"
+                       Text="{Binding Price, StringFormat='{0:C}'}"
+                       Style="{StaticResource EntryStyle}"/>
                 <Entry Placeholder="Quantidade Inicial"
-                       Text="{Binding Inventory}"/>
+                       Keyboard="Numeric"
+                       Text="{Binding Inventory}"
+                       Style="{StaticResource EntryStyle}"/>
                 <Entry Placeholder="TEX"
-                       Text="{Binding TEX}"/>
+                       Keyboard="Numeric"
+                       Text="{Binding TEX}"
+                       Style="{StaticResource EntryStyle}"/>
+                <Entry Placeholder="Código da Cor"
+                       Keyboard="Numeric"
+                       Text="{Binding ColorCode}"
+                       Style="{StaticResource EntryStyle}"/>
                 <Entry Placeholder="Espessura"
-                       Text="{Binding Thickness}"/>
-                <Picker Title="Selecione a Marca"
-                        ItemsSource="{Binding Brands}"
-                        ItemDisplayBinding="{Binding Name}"/>
-                <Label FlexLayout.Grow="1"></Label>
+                       Keyboard="Numeric"
+                       Text="{Binding Thickness}"
+                       Style="{StaticResource EntryStyle}"/>
+                <FlexLayout Direction="Row"
+                            FlexLayout.Grow="1" 
+                            AlignItems="Start">
+                    <Picker Title="Selecione a Marca"
+                            ItemsSource="{Binding Brands}"
+                            ItemDisplayBinding="{Binding Name}"
+                            Style="{StaticResource PickerStyle}"
+                            FlexLayout.Basis="80%"
+                            Margin="0,15"/>
+                    <Button Text="+"
+                            Command="{Binding FeedStockCreateBrandCommand}"
+                            Style="{StaticResource ButtonStyleAdd}"
+                            FontSize="Large"
+                            FlexLayout.Basis="20%"/>
+                </FlexLayout>
                 <Button Text="Salvar"
-                        BackgroundColor="{StaticResource BGColor}"
-                        BorderColor="{StaticResource colorAccent}"
-                        BorderWidth="1"
-                        Command="{Binding FeedStockCreateCommand}"/>
+                        Command="{Binding FeedStockCreateCommand}"
+                        Style="{StaticResource ButtonStyle}"/>
             </FlexLayout>
             <controls:ColorPickerControl
                  Grid.Row="1"

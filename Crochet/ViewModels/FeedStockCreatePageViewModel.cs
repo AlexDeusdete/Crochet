@@ -20,6 +20,7 @@ namespace Crochet.ViewModels
         private readonly IFeedStockService _feedStockService;
         public ObservableCollection<Brand> Brands { get; private set; }
         public ICommand FeedStockCreateCommand { get; private set; }
+        public ICommand FeedStockCreateBrandCommand { get; private set; }
 
         #region Propertys
         private Color _color;
@@ -28,6 +29,7 @@ namespace Crochet.ViewModels
         private float? _price;
         private int? _inventory;
         private string _brandName;
+        private string _colorCode;
 
         public Color Color
         {
@@ -59,6 +61,11 @@ namespace Crochet.ViewModels
             get { return _brandName; }
             set { SetProperty(ref _brandName, value); }
         }
+        public string ColorCode
+        {
+            get { return _colorCode; }
+            set { SetProperty(ref _colorCode, value); }
+        }
         #endregion
 
         public FeedStockCreatePageViewModel(IBrandService brandService, IFeedStockService feedStockService, INavigationService navigationService)
@@ -68,6 +75,7 @@ namespace Crochet.ViewModels
             _feedStockService = feedStockService;
 
             FeedStockCreateCommand = new DelegateCommand(FeedStockCreate);
+            FeedStockCreateBrandCommand = new DelegateCommand(FeedStockCreateBrand);
             Brands = new ObservableCollection<Brand>();
         }
 
@@ -87,17 +95,19 @@ namespace Crochet.ViewModels
 
         private void FeedStockCreate()
         {
-            var brand = Brands.Where(x => x.Name == _brandName).FirstOrDefault();
+            var brandSelected = string.IsNullOrWhiteSpace(_brandName) ? "Sem Marca" : _brandName;
+
+            var brand = Brands.Where(x => x.Name == brandSelected).FirstOrDefault();
 
             if (brand == null)
             {
                 brand = new Brand()
                 {
-                    Name = string.IsNullOrWhiteSpace(_brandName) ? "Sem Marca" : _brandName
+                    Name = brandSelected
                 };
 
                 _brandService.PutItem(brand);
-                brand = _brandService.GetItems().Result.Where(x => x.Name == "Sem Marca").FirstOrDefault();
+                brand = _brandService.GetItems().Result.Where(x => x.Name == brandSelected).FirstOrDefault();
             }
 
             var item = new FeedStock()
@@ -107,12 +117,43 @@ namespace Crochet.ViewModels
                 Inventory = _inventory.Value,
                 Price = _price.Value,
                 TEX = _tEX,
-                Thickness = _thickness.Value               
+                Thickness = _thickness.Value,
+                ColorCode = _colorCode
             };
 
             _feedStockService.UpsertItem(item);
 
             _navigationService.GoBackAsync();
+        }
+
+        private async void FeedStockCreateBrand()
+        {
+            string result = await Prism.PrismApplicationBase.Current.MainPage.DisplayPromptAsync("Marca", "Nome da Marca :", "Salvar", "Cancelar", "Sem Marca");
+            if (string.IsNullOrEmpty(result))
+                return;
+
+            var brand = Brands.Where(x => x.Name == result).FirstOrDefault();
+
+            if (brand != null)
+            {
+                _brandName = brand.Name;
+                return;
+            }
+
+            var brandCreate = new Brand()
+            {
+                Name = result
+            };
+
+            _brandService.PutItem(brandCreate);
+
+            Brands.Clear();
+
+            var brands = await GetBrands();
+            foreach (var item in brands)
+            {
+                Brands.Add(item);
+            }
         }
     }
 }

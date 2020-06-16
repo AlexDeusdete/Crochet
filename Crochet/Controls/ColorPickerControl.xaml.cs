@@ -59,6 +59,7 @@ namespace Crochet.Controls
         
         private float _cornerRadius = 60f;
         private CardState _cardState;
+        private float _canvasHeight;
 
         private SKRect _colorPickerRect;
         public ColorPickerControl()
@@ -78,7 +79,7 @@ namespace Crochet.Controls
             var skCanvas = skSurface.Canvas;
 
             var skCanvasWidth = skImageInfo.Width;
-            var skCanvasHeight = skImageInfo.Height;
+            _canvasHeight = skImageInfo.Height;
 
             skCanvas.Clear(SKColors.Transparent);
 
@@ -90,15 +91,15 @@ namespace Crochet.Controls
 
                 // draw top hero color
                 skCanvas.DrawRoundRect(
-                    rect: new SKRect(0, (float)_cardTopAnimPosition, skCanvasWidth, skCanvasHeight),
+                    rect: new SKRect(0, (float)_cardTopAnimPosition, skCanvasWidth, _canvasHeight),
                     r: new SKSize(_cornerRadius, _cornerRadius),
                     paint: paint);
             }
 
             _colorPickerRect.Left = skCanvasWidth * 0.05f;
-            _colorPickerRect.Top = _cardTopAnimPosition + (skCanvasHeight * 0.05f);
+            _colorPickerRect.Top = _cardTopAnimPosition + (_canvasHeight * 0.05f);
             _colorPickerRect.Right = skCanvasWidth * 0.95f;
-            _colorPickerRect.Bottom = skCanvasHeight * 0.95f;
+            _colorPickerRect.Bottom = _canvasHeight * 0.95f;
 
             if (_colorPickerRect.Top > _colorPickerRect.Bottom)
                 _colorPickerRect.Bottom = _colorPickerRect.Top;
@@ -266,18 +267,18 @@ namespace Crochet.Controls
             var parentAnimation = new Animation();
 
             if (cardState == CardState.Expanded)
-                parentAnimation.Add(0.1, 0.7, CreateCardAnimation(cardState));
+                parentAnimation.Add(0, 1, CreateCardAnimation(cardState));
             else
-                parentAnimation.Add(0.1, 0.7, CreateCardAnimation(cardState));
+                parentAnimation.Add(0, 1, CreateCardAnimation(cardState));
 
-            parentAnimation.Commit(this, "CardExpand", 16, 2000, null, (v, c) => this.IsVisible = cardState == CardState.Expanded?true:false);
+            parentAnimation.Commit(this, "CardExpand", 16, 1000, null, (v, c) => this.IsVisible = cardState == CardState.Expanded?true:false);
         }
 
         private Animation CreateCardAnimation(CardState cardState)
         {
             // work out where the top of the card should be
-            var cardAnimStart = cardState == CardState.Expanded ? 2000f : 0;
-            var cardAnimEnd = cardState == CardState.Expanded ? 0 : 2000f;
+            var cardAnimStart = cardState == CardState.Expanded ? _canvasHeight : 0;
+            var cardAnimEnd = cardState == CardState.Expanded ? 0 : _canvasHeight;
             
             var cardAnim = new Animation(
                 v =>
@@ -288,7 +289,7 @@ namespace Crochet.Controls
                 },
                 cardAnimStart,
                 cardAnimEnd,
-                Easing.SinInOut
+                Easing.CubicIn
                 );
             return cardAnim;
         }

@@ -22,6 +22,7 @@ namespace Crochet.Models
                 ColorArgb = value.ToArgb();
             }
         }
+        public string ColorCode { get; set; }
         public int Thickness { get; set; }
         public string TEX { get; set; }
         public float Price { get; set; }

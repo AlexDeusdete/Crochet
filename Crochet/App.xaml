@@ -11,9 +11,34 @@
             <Color x:Key="colorAccent">#666699</Color>
             <Color x:Key="BGColor">#ffffff</Color>
 
-            <Style TargetType="ContentPage">
-                <Setter Property="BackgroundColor" Value="#ffffff" />
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="FontSize" Value="Small" />                
             </Style>
+
+            <Style x:Key="PickerStyle" TargetType="Picker">
+                <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="TitleColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource BGColor}" />
+                <Setter Property="BorderColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource colorPrimaryDark}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style x:Key="ButtonStyleAdd" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource BGColor}" />
+                <Setter Property="BorderColor" Value="LightGreen" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="TextColor" Value="LightGreen" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>            
         </ResourceDictionary>
 
   </Application.Resources>
