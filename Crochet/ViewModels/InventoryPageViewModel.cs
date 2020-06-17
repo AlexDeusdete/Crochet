@@ -18,18 +18,25 @@ namespace Crochet.ViewModels
         private readonly INavigationService _navigationService;
         public ObservableCollection<FeedStockGroup> FeedStockGroups { get; private set; }
         public ICommand NavigateToFeedStockCreateCommand { get; private set; }
+        public ICommand NavigateToFeedStockEditCommand { get; private set; }
         public InventoryPageViewModel(IFeedStockService feedStockService, INavigationService navigationService)
         {
             _feedStockService = feedStockService;
             _navigationService = navigationService;
 
             NavigateToFeedStockCreateCommand = new DelegateCommand(NavigateToFeedStockCreate);
+            NavigateToFeedStockEditCommand = new DelegateCommand(NavigateToFeedStockEdit);
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
         }
 
         private void NavigateToFeedStockCreate()
         {
-            _navigationService.NavigateAsync("FeedStockCreatePage");
+            _navigationService.NavigateAsync("FeedStockCreateEditPage");
+        }
+
+        private void NavigateToFeedStockEdit()
+        {
+
         }
 
         private async Task<IList<FeedStockGroup>> GetFeedStockGroups()

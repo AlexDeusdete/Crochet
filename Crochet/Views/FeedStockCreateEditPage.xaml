@@ -6,7 +6,7 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              prism:ViewModelLocator.AutowireViewModel="True"
              Title="Linhas"
-             x:Class="Crochet.Views.FeedStockCreatePage"             
+             x:Class="Crochet.Views.FeedStockCreateEditPage"             
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              BackgroundColor="{StaticResource BGColor}">
     <ContentPage.Content>

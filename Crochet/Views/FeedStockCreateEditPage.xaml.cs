@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace Crochet.Views
 {
-    public partial class FeedStockCreatePage : ContentPage
+    public partial class FeedStockCreateEditPage : ContentPage
     {
-        public FeedStockCreatePage()
+        public FeedStockCreateEditPage()
         {
             InitializeComponent();
 

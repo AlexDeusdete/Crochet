@@ -27,7 +27,8 @@
                     <DataTemplate>
                         <CollectionView 
                             ItemsSource="{Binding FeedStocks}"
-                            HeightRequest="125">
+                            HeightRequest="125"
+                            SelectionMode="Single">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
                             </CollectionView.ItemsLayout>
