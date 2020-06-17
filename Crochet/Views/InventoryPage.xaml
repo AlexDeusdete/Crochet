@@ -18,7 +18,8 @@
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Hue}"
-                                FontSize="Medium"/>
+                                FontSize="Medium"
+                               Padding="0,20,0,10"/>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
 

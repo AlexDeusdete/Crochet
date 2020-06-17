@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              prism:ViewModelLocator.AutowireViewModel="True"
              Title="Linhas"
              x:Class="Crochet.Views.FeedStockCreatePage"             
@@ -22,34 +23,46 @@
                         Margin="25,10"
                         Grid.Row="1"
                         AutomationId="FlexForm">
-                <Entry Placeholder="Preço"
+                <Entry x:Name="EnPrice"
+                       Placeholder="Preço"
+                       ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding Price, StringFormat='{0:C}'}"
                        Style="{StaticResource EntryStyle}"/>
                 <StackLayout Orientation="Horizontal">
-                    <Entry Placeholder="Quantidade Disponível"
+                    <Entry x:Name="EnInvAva"
+                       Placeholder="Quantidade Disponível"
+                       ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding InventoryAvailable}"
                        Style="{StaticResource EntryStyle}"
                        HorizontalOptions="FillAndExpand"/>
                     <Label Text="/"
                            FontSize="Large"/>
-                    <Entry Placeholder="Quantidade Total"
+                    <Entry x:Name="EnInvTot"
+                       Placeholder="Quantidade Total"
+                       ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding InventoryTotal}"
                        Style="{StaticResource EntryStyle}"
                            HorizontalOptions="FillAndExpand"/>
                     <Label Text="g" FontSize="Large"/>
                 </StackLayout>
-                <Entry Placeholder="TEX"
+                <Entry x:Name="EnTEX"
+                       Placeholder="TEX"
+                       ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding TEX}"
                        Style="{StaticResource EntryStyle}"/>
-                <Entry Placeholder="Código da Cor"
+                <Entry x:Name="EnColorCode"
+                       Placeholder="Código da Cor"
+                       ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding ColorCode}"
                        Style="{StaticResource EntryStyle}"/>
-                <Entry Placeholder="Espessura"
+                <Entry x:Name="EnThic"
+                       Placeholder="Espessura"
+                       ReturnType="Done"
                        Keyboard="Numeric"
                        Text="{Binding Thickness}"
                        Style="{StaticResource EntryStyle}"/>
@@ -58,6 +71,7 @@
                             AlignItems="Start">
                     <Picker Title="Selecione a Marca"
                             ItemsSource="{Binding Brands}"
+                            SelectedItem="{Binding Brand, Mode=TwoWay}"                            
                             ItemDisplayBinding="{Binding Name}"
                             Style="{StaticResource PickerStyle}"
                             FlexLayout.Basis="80%"

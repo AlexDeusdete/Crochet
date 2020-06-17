@@ -58,9 +58,9 @@ namespace Crochet.Controls
         private readonly float _density;
         
         private readonly float _cornerRadius = 60f;
-        private CardState _cardState;
         private float _canvasHeight;
-
+        private bool _isTheFristTime;
+        private CardState _cardState = CardState.Collapsed;
         private SKRect _colorPickerRect;
         public ColorPickerControl()
         {
@@ -70,6 +70,7 @@ namespace Crochet.Controls
             _cornerRadius = 30f * _density;
             _colorPickerRect = new SKRect();
             _cardTopAnimPosition = 1f * _density;
+            _isTheFristTime = true; 
         }
 
         private void SkCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
@@ -80,6 +81,13 @@ namespace Crochet.Controls
 
             var skCanvasWidth = skImageInfo.Width;
             _canvasHeight = skImageInfo.Height;
+
+            if (_isTheFristTime)
+            {
+                _cardTopAnimPosition = _canvasHeight;
+                _isTheFristTime = false;
+                this.IsVisible = false;
+            }
 
             skCanvas.Clear(SKColors.Transparent);
 

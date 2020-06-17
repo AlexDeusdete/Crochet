@@ -29,7 +29,7 @@ namespace Crochet.ViewModels
         private float? _price;
         private int? _inventoryAvailable;
         private int? _inventoryTotal;
-        private string _brandName;
+        private Brand _brand;
         private string _colorCode;
 
         public Color Color
@@ -62,10 +62,10 @@ namespace Crochet.ViewModels
             get { return _inventoryTotal; }
             set { SetProperty(ref _inventoryTotal, value); }
         }
-        public string BrandName
+        public Brand Brand
         {
-            get { return _brandName; }
-            set { SetProperty(ref _brandName, value); }
+            get { return _brand; }
+            set { SetProperty(ref _brand, value); }
         }
         public string ColorCode
         {
@@ -101,25 +101,26 @@ namespace Crochet.ViewModels
 
         private void FeedStockCreate()
         {
-            var brandSelected = string.IsNullOrWhiteSpace(_brandName) ? "Sem Marca" : _brandName;
-
-            var brand = Brands.Where(x => x.Name == brandSelected).FirstOrDefault();
-
-            if (brand == null)
+            if (Brand == null)
             {
-                brand = new Brand()
-                {
-                    Name = brandSelected
-                };
+                Brand = Brands.Where(x => x.Name == "Sem Marca").FirstOrDefault();
 
-                _brandService.PutItem(brand);
-                brand = _brandService.GetItems().Result.Where(x => x.Name == brandSelected).FirstOrDefault();
+                if (Brand == null)
+                {
+                    var brand = new Brand()
+                    {
+                        Name = "Sem Marca"
+                    };
+
+                    _brandService.PutItem(brand);
+                    Brand = _brandService.GetItems().Result.Where(x => x.Name == "Sem Marca").FirstOrDefault();
+                }
             }
 
             var item = new FeedStock()
             {
                 Color = _color,
-                Brand = brand,
+                Brand = Brand,
                 InventoryAvailable = _inventoryAvailable.Value,
                 InventoryTotal = _inventoryTotal.Value,
                 Price = _price.Value,
@@ -141,26 +142,25 @@ namespace Crochet.ViewModels
 
             var brand = Brands.Where(x => x.Name == result).FirstOrDefault();
 
-            if (brand != null)
+            if (brand == null)
             {
-                _brandName = brand.Name;
-                return;
+                brand = new Brand()
+                {
+                    Name = result
+                };
+
+                _brandService.PutItem(brand);
+
+                Brands.Clear();
+
+                var brands = await GetBrands();
+                foreach (var item in brands)
+                {
+                    Brands.Add(item);
+                }
             }
 
-            var brandCreate = new Brand()
-            {
-                Name = result
-            };
-
-            _brandService.PutItem(brandCreate);
-
-            Brands.Clear();
-
-            var brands = await GetBrands();
-            foreach (var item in brands)
-            {
-                Brands.Add(item);
-            }
+           Brand = Brands.Where(x => x.BrandId == brand.BrandId).FirstOrDefault();
         }
     }
 }
