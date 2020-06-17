@@ -40,7 +40,7 @@ namespace Crochet
             containerRegistry.RegisterForNavigation<ProductPage, ProductPageViewModel>();
             containerRegistry.RegisterForNavigation<SalePage, SalePageViewModel>();
             containerRegistry.RegisterForNavigation<AcquisitionPage, AcquisitionPageViewModel>();
-            containerRegistry.RegisterForNavigation<FeedStockCreateEditPage, FeedStockCreatePageViewModel>();
+            containerRegistry.RegisterForNavigation<FeedStockCreateEditPage, FeedStockCreateEditPageViewModel>();
 
             containerRegistry.Register<IFeedStockService, FeedStockService>();
             containerRegistry.Register<IBrandService, BrandService>();

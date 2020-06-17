@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace Crochet.ViewModels
 {
-    public class FeedStockCreatePageViewModel : BindableBase, IInitialize
+    public class FeedStockCreateEditPageViewModel : BindableBase, IInitialize
     {
         private readonly IBrandService _brandService;
         private readonly INavigationService _navigationService;
@@ -74,7 +74,7 @@ namespace Crochet.ViewModels
         }
         #endregion
 
-        public FeedStockCreatePageViewModel(IBrandService brandService, IFeedStockService feedStockService, INavigationService navigationService)
+        public FeedStockCreateEditPageViewModel(IBrandService brandService, IFeedStockService feedStockService, INavigationService navigationService)
         {
             _brandService = brandService;
             _navigationService = navigationService;
