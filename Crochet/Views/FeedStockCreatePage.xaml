@@ -26,10 +26,21 @@
                        Keyboard="Numeric"
                        Text="{Binding Price, StringFormat='{0:C}'}"
                        Style="{StaticResource EntryStyle}"/>
-                <Entry Placeholder="Quantidade Inicial"
+                <StackLayout Orientation="Horizontal">
+                    <Entry Placeholder="Quantidade Disponível"
                        Keyboard="Numeric"
-                       Text="{Binding Inventory}"
-                       Style="{StaticResource EntryStyle}"/>
+                       Text="{Binding InventoryAvailable}"
+                       Style="{StaticResource EntryStyle}"
+                       HorizontalOptions="FillAndExpand"/>
+                    <Label Text="/"
+                           FontSize="Large"/>
+                    <Entry Placeholder="Quantidade Total"
+                       Keyboard="Numeric"
+                       Text="{Binding InventoryTotal}"
+                       Style="{StaticResource EntryStyle}"
+                           HorizontalOptions="FillAndExpand"/>
+                    <Label Text="g" FontSize="Large"/>
+                </StackLayout>
                 <Entry Placeholder="TEX"
                        Keyboard="Numeric"
                        Text="{Binding TEX}"

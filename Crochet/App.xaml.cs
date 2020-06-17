@@ -27,7 +27,7 @@ namespace Crochet
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("TabbedHomePage");
+            await NavigationService.NavigateAsync("NavigationPage/TabbedHomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

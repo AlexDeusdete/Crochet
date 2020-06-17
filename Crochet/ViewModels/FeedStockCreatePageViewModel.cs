@@ -27,7 +27,8 @@ namespace Crochet.ViewModels
         private int? _thickness;
         private string _tEX;
         private float? _price;
-        private int? _inventory;
+        private int? _inventoryAvailable;
+        private int? _inventoryTotal;
         private string _brandName;
         private string _colorCode;
 
@@ -51,10 +52,15 @@ namespace Crochet.ViewModels
             get { return _price; }
             set { SetProperty(ref _price, value); }
         }
-        public int? Inventory
+        public int? InventoryAvailable
         {
-            get { return _inventory; }
-            set { SetProperty(ref _inventory, value); }
+            get { return _inventoryAvailable; }
+            set { SetProperty(ref _inventoryAvailable, value); }
+        }
+        public int? InventoryTotal
+        {
+            get { return _inventoryTotal; }
+            set { SetProperty(ref _inventoryTotal, value); }
         }
         public string BrandName
         {
@@ -114,7 +120,8 @@ namespace Crochet.ViewModels
             {
                 Color = _color,
                 Brand = brand,
-                Inventory = _inventory.Value,
+                InventoryAvailable = _inventoryAvailable.Value,
+                InventoryTotal = _inventoryTotal.Value,
                 Price = _price.Value,
                 TEX = _tEX,
                 Thickness = _thickness.Value,

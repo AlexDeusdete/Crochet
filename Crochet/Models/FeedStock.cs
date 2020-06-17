@@ -26,7 +26,8 @@ namespace Crochet.Models
         public int Thickness { get; set; }
         public string TEX { get; set; }
         public float Price { get; set; }
-        public int Inventory { get; set; }
+        public int InventoryAvailable { get; set; }
+        public int InventoryTotal { get; set; }
         public Brand Brand { get; set; }
     }
 

@@ -57,7 +57,7 @@ namespace Crochet.Controls
         private SKPoint _lastTouchPoint = new SKPoint();
         private readonly float _density;
         
-        private float _cornerRadius = 60f;
+        private readonly float _cornerRadius = 60f;
         private CardState _cardState;
         private float _canvasHeight;
 

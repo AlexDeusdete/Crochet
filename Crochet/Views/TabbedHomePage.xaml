@@ -6,30 +6,12 @@
             prism:ViewModelLocator.AutowireViewModel="True"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"            
-            x:Class="Crochet.Views.TabbedHomePage">
+            x:Class="Crochet.Views.TabbedHomePage"
+            Title="Crochet">
     <TabbedPage.Children>
-        <NavigationPage IconImageSource="crochet" Title="Linhas">
-            <x:Arguments>
-                <pages:InventoryPage/>
-            </x:Arguments>
-        </NavigationPage>
-
-        <NavigationPage IconImageSource="carpet" Title="Produtos">
-            <x:Arguments>
-                <pages:ProductPage/>
-            </x:Arguments>
-        </NavigationPage>
-
-        <NavigationPage IconImageSource="money" Title="Vendas">
-            <x:Arguments>
-                <pages:SalePage/>
-            </x:Arguments>
-        </NavigationPage>
-
-        <NavigationPage Title="Compras">
-            <x:Arguments>
-                <pages:AcquisitionPage/>
-            </x:Arguments>
-        </NavigationPage>
+        <pages:InventoryPage IconImageSource="crochet" Title="Linhas"/>
+        <pages:ProductPage IconImageSource="carpet" Title="Produtos"/>
+        <pages:SalePage IconImageSource="money" Title="Vendas"/>
+        <pages:AcquisitionPage  Title="Compras"/>
     </TabbedPage.Children>
 </TabbedPage>

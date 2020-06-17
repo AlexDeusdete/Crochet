@@ -1,4 +1,5 @@
-﻿using Crochet.Interfaces;
+﻿using Crochet.Extensions;
+using Crochet.Interfaces;
 using Crochet.Models;
 using Crochet.Utils;
 using DryIoc;
@@ -27,11 +28,11 @@ namespace Crochet.Services.LiteDB
             var feedStockItems = await GetItems();
 
             foreach (var feedStocks in feedStockItems
-                                        .GroupBy(x => x.Color.GetHue())
+                                        .GroupBy(x => x.Color.GetHueName())
                                         .Select(grp => grp.ToList())
                                         .ToList())
             {                
-                var feedStockGroup = new FeedStockGroup(feedStocks[0].Color.GetHue().ToString());
+                var feedStockGroup = new FeedStockGroup(feedStocks[0].Color.GetHueName());
 
                 var feedStockCollection = new FeedStockCollection();
                 feedStockCollection.AddRange(feedStocks);
@@ -44,7 +45,7 @@ namespace Crochet.Services.LiteDB
 
         public async Task<IList<FeedStock>> GetItems()
         {
-            return await Task.FromResult(_liteCollection.FindAll().ToList());
+            return await Task.FromResult(_liteCollection.Include(x => x.Brand).FindAll().ToList());
         }
 
         public void UpsertItem(FeedStock Item)

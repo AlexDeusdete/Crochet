@@ -4,20 +4,68 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Crochet.Views.InventoryPage">
+             x:Class="Crochet.Views.InventoryPage"
+             BackgroundColor="{StaticResource BGColor}"
+             Title="TESTE">
     <NavigationPage.TitleView>
         <Label Text="Linhas" Style="{StaticResource TitleNavigationPage}"/>
     </NavigationPage.TitleView>    
     <ContentPage.Content>
         <Grid>
             <CollectionView IsGrouped="True" 
-                            ItemsSource="{Binding FeedStockGroups}">
+                            ItemsSource="{Binding FeedStockGroups}"
+                            Margin="10">
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Hue}"
-                                FontSize="Large"/>
+                                FontSize="Medium"/>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <CollectionView 
+                            ItemsSource="{Binding FeedStocks}"
+                            HeightRequest="125">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="5"
+                                           BorderColor="{Binding Color}">
+                                    <FlexLayout
+                                            Direction="Column"
+                                            WidthRequest="85">
+                                        <Image Source="spool"
+                                               BackgroundColor="{Binding Color}"
+                                               HeightRequest="60"
+                                               FlexLayout.AlignSelf="Center"/>
+                                        <Label
+                                            Text="{Binding Brand.Name}"
+                                            FontSize="Micro"/>
+                                        <StackLayout Orientation="Horizontal" Spacing="0">
+                                            <Label
+                                                Text="{Binding InventoryAvailable, StringFormat='{0} /'}"
+                                                FontSize="Micro"/>
+                                            <Label
+                                                Text="{Binding InventoryTotal, StringFormat=' {0} gramas'}"
+                                                FontSize="Micro"/>
+                                            </StackLayout>
+                                        <Label
+                                            Text="{Binding Price, StringFormat='{0:C}'}"
+                                            FontSize="Micro"/>
+                                        <Label
+                                            Text="{Binding TEX, StringFormat='TEX {0}'}"
+                                            FontSize="Micro"/>
+                                        </FlexLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
             </CollectionView>
 
             <controls:FormsFloatingActionButton
