@@ -29,25 +29,26 @@
                        Keyboard="Numeric"
                        Text="{Binding Price, StringFormat='{0:C}'}"
                        Style="{StaticResource EntryStyle}"/>
-                <StackLayout Orientation="Horizontal">
+                <FlexLayout Direction="Row" HeightRequest="40">
                     <Entry x:Name="EnInvAva"
-                       Placeholder="Quantidade Disponível"
+                       Placeholder="Qtde. Disponível"
                        ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding InventoryAvailable}"
                        Style="{StaticResource EntryStyle}"
-                       HorizontalOptions="FillAndExpand"/>
+                       FlexLayout.Grow="1"/>
                     <Label Text="/"
                            FontSize="Large"/>
                     <Entry x:Name="EnInvTot"
-                       Placeholder="Quantidade Total"
+                       Placeholder="Qtde. Total"
                        ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding InventoryTotal}"
                        Style="{StaticResource EntryStyle}"
-                           HorizontalOptions="FillAndExpand"/>
-                    <Label Text="g" FontSize="Large"/>
-                </StackLayout>
+                       FlexLayout.Grow="1"/>
+                    <Label Text="g" FontSize="Medium"
+                           Margin="0,10,0,0"/>
+                </FlexLayout>
                 <Entry x:Name="EnTEX"
                        Placeholder="TEX"
                        ReturnType="Next"

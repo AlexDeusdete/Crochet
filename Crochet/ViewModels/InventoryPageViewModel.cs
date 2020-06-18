@@ -12,20 +12,22 @@ using System.Windows.Input;
 
 namespace Crochet.ViewModels
 {
-    public class InventoryPageViewModel : BindableBase, INavigationAware
+    public class InventoryPageViewModel : ViewModelBase
     {
         private readonly IFeedStockService _feedStockService;
         private readonly INavigationService _navigationService;
+
         public ObservableCollection<FeedStockGroup> FeedStockGroups { get; private set; }
         public ICommand NavigateToFeedStockCreateCommand { get; private set; }
         public ICommand NavigateToFeedStockEditCommand { get; private set; }
         public InventoryPageViewModel(IFeedStockService feedStockService, INavigationService navigationService)
+            : base(navigationService)
         {
             _feedStockService = feedStockService;
             _navigationService = navigationService;
 
             NavigateToFeedStockCreateCommand = new DelegateCommand(NavigateToFeedStockCreate);
-            NavigateToFeedStockEditCommand = new DelegateCommand(NavigateToFeedStockEdit);
+            NavigateToFeedStockEditCommand = new DelegateCommand<object>(NavigateToFeedStockEdit);
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
         }
 
@@ -34,9 +36,12 @@ namespace Crochet.ViewModels
             _navigationService.NavigateAsync("FeedStockCreateEditPage");
         }
 
-        private void NavigateToFeedStockEdit()
+        private void NavigateToFeedStockEdit(object parameter)
         {
+            var navParameters = new NavigationParameters();
+            navParameters.Add("feedStock", parameter);
 
+            _navigationService.NavigateAsync("FeedStockCreateEditPage", navParameters);
         }
 
         private async Task<IList<FeedStockGroup>> GetFeedStockGroups()
@@ -44,9 +49,7 @@ namespace Crochet.ViewModels
             return await _feedStockService.GetGroupItems();
         }
 
-        public void OnNavigatedFrom(INavigationParameters parameters){}
-
-        public async void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             var feedStockGroups = await GetFeedStockGroups();
             FeedStockGroups.Clear();

@@ -5,7 +5,8 @@
              xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Crochet.Views.InventoryPage"
-             BackgroundColor="{StaticResource BGColor}"
+             x:Name="root"
+             BackgroundColor="AliceBlue"
              Title="TESTE">
     <NavigationPage.TitleView>
         <Label Text="Linhas" Style="{StaticResource TitleNavigationPage}"/>
@@ -14,58 +15,75 @@
         <Grid>
             <CollectionView IsGrouped="True" 
                             ItemsSource="{Binding FeedStockGroups}"
-                            Margin="10">
+                            VerticalScrollBarVisibility="Never">
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding Hue}"
-                                FontSize="Medium"
-                               Padding="0,20,0,10"/>
+                        <FlexLayout Direction="ColumnReverse"
+                                    Margin="20">
+                            <Label Text="{Binding Hue}"
+                                    FontSize="Medium"
+                                    BackgroundColor="{StaticResource BGColor}"
+                                    TextColor="{StaticResource colorAccent}"
+                                    HorizontalOptions="EndAndExpand"
+                                    Padding="10,0"
+                                    />
+                        </FlexLayout>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <CollectionView 
-                            ItemsSource="{Binding FeedStocks}"
-                            HeightRequest="125"
-                            SelectionMode="Single">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
-                            </CollectionView.ItemsLayout>
+                        <FlexLayout Direction="Column"
+                                    HeightRequest="140"
+                                    BackgroundColor="{StaticResource BGColor}">
+                            <CollectionView 
+                                x:Name="MyCollectionView"
+                                HorizontalScrollBarVisibility="Never"
+                                ItemsSource="{Binding FeedStocks}"
+                                HeightRequest="135"
+                                SelectionMode="Single"
+                                SelectionChangedCommand="{Binding BindingContext.NavigateToFeedStockEditCommand, Source={x:Reference root}}"
+                                SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference MyCollectionView}}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal"/>
+                                </CollectionView.ItemsLayout>
 
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Frame Padding="5"
-                                           BorderColor="{Binding Color}">
-                                    <FlexLayout
-                                            Direction="Column"
-                                            WidthRequest="85">
-                                        <Image Source="spool"
-                                               BackgroundColor="{Binding Color}"
-                                               HeightRequest="60"
-                                               FlexLayout.AlignSelf="Center"/>
-                                        <Label
-                                            Text="{Binding Brand.Name}"
-                                            FontSize="Micro"/>
-                                        <StackLayout Orientation="Horizontal" Spacing="0">
-                                            <Label
-                                                Text="{Binding InventoryAvailable, StringFormat='{0} /'}"
-                                                FontSize="Micro"/>
-                                            <Label
-                                                Text="{Binding InventoryTotal, StringFormat=' {0} gramas'}"
-                                                FontSize="Micro"/>
-                                            </StackLayout>
-                                        <Label
-                                            Text="{Binding Price, StringFormat='{0:C}'}"
-                                            FontSize="Micro"/>
-                                        <Label
-                                            Text="{Binding TEX, StringFormat='TEX {0}'}"
-                                            FontSize="Micro"/>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <FlexLayout Padding="10,0,0,0">
+                                            <Frame Padding="5"
+                                                   BorderColor="{Binding Color}">
+                                            <FlexLayout WidthRequest="90"
+                                                    Direction="Column">
+                                                <Image Source="spool"
+                                                       BackgroundColor="{Binding Color}"
+                                                       HeightRequest="60"
+                                                       FlexLayout.AlignSelf="Center"/>
+                                                <Label
+                                                    Text="{Binding Brand.Name}"
+                                                    FontSize="Micro"/>
+                                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                                    <Label
+                                                        Text="{Binding InventoryAvailable, StringFormat='{0} /'}"
+                                                        FontSize="Micro"/>
+                                                    <Label
+                                                        Text="{Binding InventoryTotal, StringFormat=' {0} gramas'}"
+                                                        FontSize="Micro"
+                                                        LineBreakMode="TailTruncation"/>
+                                                </StackLayout>
+                                                <Label
+                                                    Text="{Binding Price, StringFormat='{0:C}'}"
+                                                    FontSize="Micro"/>
+                                                <Label
+                                                    Text="{Binding TEX, StringFormat='TEX {0}'}"
+                                                    FontSize="Micro"/>
+                                                </FlexLayout>
+                                            </Frame>
                                         </FlexLayout>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </FlexLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

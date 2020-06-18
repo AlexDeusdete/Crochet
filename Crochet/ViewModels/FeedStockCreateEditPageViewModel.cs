@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace Crochet.ViewModels
 {
-    public class FeedStockCreateEditPageViewModel : BindableBase, IInitialize
+    public class FeedStockCreateEditPageViewModel : ViewModelBase
     {
         private readonly IBrandService _brandService;
         private readonly INavigationService _navigationService;
@@ -21,6 +21,8 @@ namespace Crochet.ViewModels
         public ObservableCollection<Brand> Brands { get; private set; }
         public ICommand FeedStockCreateCommand { get; private set; }
         public ICommand FeedStockCreateBrandCommand { get; private set; }
+
+        private int _feedStockID;
 
         #region Propertys
         private Color _color;
@@ -75,6 +77,7 @@ namespace Crochet.ViewModels
         #endregion
 
         public FeedStockCreateEditPageViewModel(IBrandService brandService, IFeedStockService feedStockService, INavigationService navigationService)
+            :base(navigationService)
         {
             _brandService = brandService;
             _navigationService = navigationService;
@@ -83,15 +86,6 @@ namespace Crochet.ViewModels
             FeedStockCreateCommand = new DelegateCommand(FeedStockCreate);
             FeedStockCreateBrandCommand = new DelegateCommand(FeedStockCreateBrand);
             Brands = new ObservableCollection<Brand>();
-        }
-
-        public async void Initialize(INavigationParameters parameters)
-        {
-            var brands = await GetBrands();
-            foreach (var item in brands)
-            {
-                Brands.Add(item);
-            }
         }
 
         private async Task<IList<Brand>> GetBrands()
@@ -119,6 +113,7 @@ namespace Crochet.ViewModels
 
             var item = new FeedStock()
             {
+                FeedStockId = _feedStockID,
                 Color = _color,
                 Brand = Brand,
                 InventoryAvailable = _inventoryAvailable.Value,
@@ -132,6 +127,31 @@ namespace Crochet.ViewModels
             _feedStockService.UpsertItem(item);
 
             _navigationService.GoBackAsync();
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            LoadBrands();
+            var feedStock = parameters.GetValue<FeedStock>("feedStock");
+
+            _feedStockID = feedStock.FeedStockId;
+            Color = feedStock.Color;
+            Thickness = feedStock.Thickness;
+            TEX = feedStock.TEX;
+            Price = feedStock.Price;
+            InventoryAvailable = feedStock.InventoryAvailable;
+            InventoryTotal = feedStock.InventoryTotal;
+            Brand = Brands.Where(x => x.BrandId == feedStock.Brand.BrandId).FirstOrDefault();
+            ColorCode = feedStock.ColorCode;
+        }
+
+        private async void LoadBrands()
+        {
+            var brands = await GetBrands();
+            foreach (var item in brands)
+            {
+                Brands.Add(item);
+            }
         }
 
         private async void FeedStockCreateBrand()
