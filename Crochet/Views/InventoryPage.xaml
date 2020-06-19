@@ -64,10 +64,10 @@
                                                     FontSize="Micro"/>
                                                 <StackLayout Orientation="Horizontal" Spacing="0">
                                                     <Label
-                                                        Text="{Binding InventoryAvailable, StringFormat='{0} /'}"
+                                                        Text="{Binding InventoryAvailable, StringFormat='{0}'}"
                                                         FontSize="Micro"/>
                                                     <Label
-                                                        Text="{Binding InventoryTotal, StringFormat=' {0} gramas'}"
+                                                        Text="{Binding InventoryTotal, StringFormat=' / {0} gramas'}"
                                                         FontSize="Micro"
                                                         LineBreakMode="TailTruncation"/>
                                                 </StackLayout>
