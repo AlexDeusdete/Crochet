@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Xamarin.Essentials;
 
 namespace Crochet.Models
@@ -9,17 +11,17 @@ namespace Crochet.Models
     {
         public int FeedStockId { get; set; }
 
-        public int ColorArgb { get; set; } 
+        public int[] ColorsArgb { get; set; } 
 
-        public Color Color
+        public IList<Color> Colors
         {
             get
             {
-                return Color.FromArgb(ColorArgb); 
+                return ColorsArgb.Select(x => Color.FromArgb(x)).ToList();                
             }
             set
             {
-                ColorArgb = value.ToArgb();
+                ColorsArgb = value.Select(x => x.ToArgb()).ToArray();
             }
         }
         public string ColorCode { get; set; }

@@ -24,7 +24,7 @@ namespace Crochet.Services.LiteDB
         {
             var mapper = BsonMapper.Global;
             mapper.Entity<FeedStock>()
-                .Ignore(x => x.Color);
+                .Ignore(x => x.Colors);
 
             mapper.Entity<FeedStock>()
                 .DbRef(x => x.Brand, "brand");

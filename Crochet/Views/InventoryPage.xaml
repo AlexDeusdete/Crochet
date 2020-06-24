@@ -4,10 +4,16 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:Crochet.Converters"
              x:Class="Crochet.Views.InventoryPage"
              x:Name="root"
              BackgroundColor="AliceBlue"
              Title="TESTE">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:SDColorListToFormsColorList x:Key="sDColorListToFormsColorList"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>    
     <NavigationPage.TitleView>
         <Label Text="Linhas" Style="{StaticResource TitleNavigationPage}"/>
     </NavigationPage.TitleView>    
@@ -52,20 +58,22 @@
                                     <DataTemplate>
                                         <FlexLayout Padding="10,0,0,0">
                                             <Frame Padding="5"
-                                                   BorderColor="{Binding Color}">
+                                                   BorderColor="{StaticResource colorAccent}">
                                             <FlexLayout WidthRequest="90"
                                                     Direction="Column">
-                                                <Image Source="spool"
-                                                       BackgroundColor="{Binding Color}"
-                                                       HeightRequest="60"
-                                                       FlexLayout.AlignSelf="Center"/>
+                                                <controls:YarnSpoolControl x:Name="spool"
+                                                    Colors="{Binding Colors, Converter={StaticResource sDColorListToFormsColorList}}"
+                                                    HeightRequest="60"
+                                                    FlexLayout.AlignSelf="Center"/>
                                                 <Label
                                                     Text="{Binding Brand.Name}"
                                                     FontSize="Micro"/>
                                                 <StackLayout Orientation="Horizontal" Spacing="0">
                                                     <Label
-                                                        Text="{Binding InventoryAvailable, StringFormat='{0}'}"
-                                                        FontSize="Micro"/>
+                                                        Text="{Binding InventoryAvailable}"
+                                                        FontSize="Micro"
+                                                        WidthRequest="25"
+                                                        LineBreakMode="WordWrap"/>
                                                     <Label
                                                         Text="{Binding InventoryTotal, StringFormat=' / {0} gramas'}"
                                                         FontSize="Micro"

@@ -3,8 +3,6 @@ using Crochet.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-using SkiaSharp;
-using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +19,7 @@ namespace Crochet.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IFeedStockService _feedStockService;
         public ObservableCollection<Brand> Brands { get; private set; }
-        public ObservableCollection<SKColor> Colors { get; private set; }
+        public ObservableCollection<Color> Colors { get; private set; }
         public ICommand FeedStockCreateCommand { get; private set; }
         public ICommand FeedStockCreateBrandCommand { get; private set; }
         public ICommand FeedStockAddColorCommand { get; private set; }
@@ -91,10 +89,10 @@ namespace Crochet.ViewModels
             FeedStockCreateBrandCommand = new DelegateCommand(FeedStockCreateBrand);
             FeedStockAddColorCommand = new DelegateCommand(() =>
             {
-                Colors.Add(Color.ToSKColor());
+                Colors.Add(Color);
             });
             Brands = new ObservableCollection<Brand>();
-            Colors = new ObservableCollection<SKColor>();
+            Colors = new ObservableCollection<Color>();
         }
 
         private async Task<IList<Brand>> GetBrands()
@@ -123,7 +121,7 @@ namespace Crochet.ViewModels
             var item = new FeedStock()
             {
                 FeedStockId = _feedStockID,
-                Color = _color,
+                Colors = Colors.Select(x => (System.Drawing.Color)x).ToList(),
                 Brand = Brand,
                 InventoryAvailable = _inventoryAvailable.Value,
                 InventoryTotal = _inventoryTotal.Value,
@@ -144,7 +142,9 @@ namespace Crochet.ViewModels
             var feedStock = parameters.GetValue<FeedStock>("feedStock");
 
             _feedStockID = feedStock.FeedStockId;
-            Color = feedStock.Color;
+            foreach (var item in feedStock.Colors)
+                Colors.Add(item);
+
             Thickness = feedStock.Thickness;
             TEX = feedStock.TEX;
             Price = feedStock.Price;

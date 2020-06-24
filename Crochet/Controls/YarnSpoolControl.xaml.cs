@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,24 +18,25 @@ namespace Crochet.Controls
         public static readonly BindableProperty ColorsProperty
             = BindableProperty.Create(
                 nameof(Colors),
-                typeof(ObservableCollection<SKColor>),
+                typeof(IEnumerable<Color>),
                 typeof(YarnSpoolControl),
                 null,
-                BindingMode.OneWay,
+                BindingMode.TwoWay,
                 propertyChanged: (b, o, n) =>
                 {
                     var yarnSpoolControl = (YarnSpoolControl)b;
-                    var colors = (ObservableCollection<SKColor>)n;
-
-                    colors.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) =>
+                    if (n is ObservableCollection<Color> colors)
                     {
-                        yarnSpoolControl.skColors.InvalidateSurface();
-                    };
+                        colors.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) =>
+                        {
+                            yarnSpoolControl.skColors.InvalidateSurface();
+                        };
+                    }
                 });
-        public ObservableCollection<SKColor> Colors
+        public IEnumerable<Color> Colors
         {
-            get { return (ObservableCollection<SKColor>)GetValue(ColorsProperty); }
-            set { SetValue(ColorsProperty, value); }
+            get { return (IEnumerable<Color>)GetValue(ColorsProperty); }
+            set { SetValue(ColorsProperty, value);}
         }
         public YarnSpoolControl()
         {
@@ -58,7 +60,7 @@ namespace Crochet.Controls
                 paint.Shader = SKShader.CreateLinearGradient(
                                 new SKPoint(0, rect.Top),
                                 new SKPoint(0, rect.Bottom),
-                                Colors.ToArray(),
+                                Colors.Select(x => x.ToSKColor()).ToArray(),
                                 null,
                                 SKShaderTileMode.Repeat);
 

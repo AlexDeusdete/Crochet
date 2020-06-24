@@ -28,11 +28,11 @@ namespace Crochet.Services.LiteDB
             var feedStockItems = await GetItems();
 
             foreach (var feedStocks in feedStockItems
-                                        .GroupBy(x => x.Color.GetHueName())
+                                        .GroupBy(x => x.Colors[0].GetHueName())
                                         .Select(grp => grp.ToList())
                                         .ToList())
             {                
-                var feedStockGroup = new FeedStockGroup(feedStocks[0].Color.GetHueName());
+                var feedStockGroup = new FeedStockGroup(feedStocks[0].Colors[0].GetHueName());
 
                 var feedStockCollection = new FeedStockCollection();
                 feedStockCollection.AddRange(feedStocks);
