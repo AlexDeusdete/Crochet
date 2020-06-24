@@ -3,22 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:local="clr-namespace:Crochet.Converters"
              prism:ViewModelLocator.AutowireViewModel="True"
              Title="Linhas"
              x:Class="Crochet.Views.FeedStockCreateEditPage"             
-             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              BackgroundColor="{StaticResource BGColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:SKColorToXamarinColor x:Key="sKColorToXamarinColor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ImageButton Source="spool.png"
-                       BackgroundColor="{Binding Color}"
-                       Clicked="ImageButton_Clicked"
-                       HorizontalOptions="Center"/>
+            <FlexLayout HeightRequest="200"
+                        JustifyContent="SpaceEvenly">
+
+                <controls:YarnSpoolControl x:Name="Spool"
+                                           Colors="{Binding Colors}"/>
+
+                <FlexLayout Direction="Column"                            
+                            WidthRequest="{Binding Source={x:Reference Spool},Path=Width}">
+                    <Button x:Name="btnAddColor"
+                            Text="+Add Cor"
+                            Style="{StaticResource ButtonStyleAdd}"
+                            Clicked="Button_Clicked"
+                            FlexLayout.Basis="70"/>
+                    <CollectionView ItemsSource="{Binding Colors}"
+                                    FlexLayout.Grow="1">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <FlexLayout Direction="Column" Padding="0,5,0,0">
+                                    <BoxView BackgroundColor="{Binding ., Converter={StaticResource sKColorToXamarinColor}}"
+                                             CornerRadius="20"/>
+                                </FlexLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </FlexLayout>
+            </FlexLayout>
             <FlexLayout Direction="Column"
                         Margin="25,10"
                         Grid.Row="1"
@@ -56,7 +82,7 @@
                        Text="{Binding TEX}"
                        Style="{StaticResource EntryStyle}"/>
                 <Entry x:Name="EnColorCode"
-                       Placeholder="Código da Cor"
+                       Placeholder="Código da Cor/Mescla"
                        ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding ColorCode}"

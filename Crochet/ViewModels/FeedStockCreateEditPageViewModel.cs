@@ -3,6 +3,8 @@ using Crochet.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,8 +21,10 @@ namespace Crochet.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IFeedStockService _feedStockService;
         public ObservableCollection<Brand> Brands { get; private set; }
+        public ObservableCollection<SKColor> Colors { get; private set; }
         public ICommand FeedStockCreateCommand { get; private set; }
         public ICommand FeedStockCreateBrandCommand { get; private set; }
+        public ICommand FeedStockAddColorCommand { get; private set; }
 
         private int _feedStockID;
 
@@ -85,7 +89,12 @@ namespace Crochet.ViewModels
 
             FeedStockCreateCommand = new DelegateCommand(FeedStockCreate);
             FeedStockCreateBrandCommand = new DelegateCommand(FeedStockCreateBrand);
+            FeedStockAddColorCommand = new DelegateCommand(() =>
+            {
+                Colors.Add(Color.ToSKColor());
+            });
             Brands = new ObservableCollection<Brand>();
+            Colors = new ObservableCollection<SKColor>();
         }
 
         private async Task<IList<Brand>> GetBrands()

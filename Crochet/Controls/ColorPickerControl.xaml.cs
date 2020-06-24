@@ -94,7 +94,7 @@ namespace Crochet.Controls
             using(var paint = new SKPaint())
             {
                 paint.IsAntialias = true;
-                Color color = (Color)Application.Current.Resources["colorPrimary"];
+                Color color = PickedColor != null ? PickedColor : (Color)Application.Current.Resources["colorPrimary"];
                 paint.Color = color.ToSKColor();
 
                 // draw top hero color

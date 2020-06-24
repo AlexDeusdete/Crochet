@@ -38,8 +38,10 @@ namespace Crochet.ViewModels
 
         private void NavigateToFeedStockEdit(object parameter)
         {
-            var navParameters = new NavigationParameters();
-            navParameters.Add("feedStock", parameter);
+            var navParameters = new NavigationParameters
+            {
+                { "feedStock", parameter }
+            };
 
             _navigationService.NavigateAsync("FeedStockCreateEditPage", navParameters);
         }
