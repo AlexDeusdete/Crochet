@@ -2,14 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:controls="clr-namespace:Crochet.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Crochet.Views.ProductPage"
              Title="Produtos">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Tela em Desenvolvimento"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
-        </StackLayout>
+        <Grid>
+            <CollectionView>
+                
+            </CollectionView>
+            <controls:FormsFloatingActionButton
+                    BackgroundColor="{StaticResource BGColor}"
+                    HorizontalOptions="End"
+                    ImageSource="plus"
+                    VerticalOptions="End"
+                    HeightRequest="90"
+                    WidthRequest="80"
+                    Command="{Binding NavigateToProductCreateCommand}"/>
+        </Grid>
     </ContentPage.Content>  
 </ContentPage>

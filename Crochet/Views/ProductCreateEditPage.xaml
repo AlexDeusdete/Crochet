@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Crochet.Views.ProductCreateEditPage"
+             Title="Peças">
+    <ContentPage.Content>
+        <Grid Padding="10,5,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <FlexLayout Grid.Row="0" Direction="Column" BackgroundColor="Red">
+                <Label Text="Referencia"/>
+                <Entry Placeholder="00000"
+                       Style="{StaticResource EntryStyle}"/>
+                <Label Text="Descrição"/>
+                <Entry Placeholder="Descrição da Peça"
+                       Style="{StaticResource EntryStyle}"/>                
+            </FlexLayout>
+            <FlexLayout Grid.Row="1">
+                <Grid FlexLayout.Grow="1">
+                    <Label Text="Geral"/>
+                </Grid>
+                <Grid FlexLayout.Grow="1">
+                    <Label Text="Fotos"/>
+                </Grid>
+                <Grid FlexLayout.Grow="1">
+                    <Label Text="Custos"/>
+                </Grid>
+                <Grid FlexLayout.Grow="1">
+                    <Label Text="Produção"/>
+                </Grid>
+                <Grid FlexLayout.Grow="1">
+                    <Label Text="Financeiro"/>
+                </Grid>
+            </FlexLayout>
+            <StackLayout Grid.Row="2">
+                <IndicatorView x:Name="indicatorView"
+                   IndicatorColor="LightGray"
+                   SelectedIndicatorColor="DarkGray"
+                   HorizontalOptions="Center">
+                    <IndicatorView.IndicatorTemplate>
+                        <DataTemplate>
+                            <Label Text="AAAA"/>
+                        </DataTemplate>
+                    </IndicatorView.IndicatorTemplate>
+                </IndicatorView>                
+                <CarouselView BackgroundColor="Yellow"
+                              IndicatorView="indicatorView">
+                    <CarouselView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Baboon</x:String>
+                            <x:String>Capuchin Monkey</x:String>
+                            <x:String>Blue Monkey</x:String>
+                            <x:String>Squirrel Monkey</x:String>
+                            <x:String>Golden Lion Tamarin</x:String>
+                            <x:String>Howler Monkey</x:String>
+                            <x:String>Japanese Macaque</x:String>
+                        </x:Array>
+                    </CarouselView.ItemsSource>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="AAAAA"/>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

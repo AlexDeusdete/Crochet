@@ -16,7 +16,6 @@ namespace Crochet.ViewModels
     public class FeedStockCreateEditPageViewModel : ViewModelBase
     {
         private readonly IBrandService _brandService;
-        private readonly INavigationService _navigationService;
         private readonly IFeedStockService _feedStockService;
         public ObservableCollection<Brand> Brands { get; private set; }
         public ObservableCollection<Color> Colors { get; private set; }
@@ -82,7 +81,6 @@ namespace Crochet.ViewModels
             :base(navigationService)
         {
             _brandService = brandService;
-            _navigationService = navigationService;
             _feedStockService = feedStockService;
 
             FeedStockCreateCommand = new DelegateCommand(FeedStockCreate);
@@ -133,7 +131,7 @@ namespace Crochet.ViewModels
 
             _feedStockService.UpsertItem(item);
 
-            _navigationService.GoBackAsync();
+            NavigationService.GoBackAsync();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

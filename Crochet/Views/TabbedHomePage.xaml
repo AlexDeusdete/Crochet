@@ -9,8 +9,8 @@
             x:Class="Crochet.Views.TabbedHomePage"
             Title="Crochet">
     <TabbedPage.Children>
-        <pages:InventoryPage IconImageSource="crochet" Title="Linhas"/>
         <pages:ProductPage IconImageSource="carpet" Title="Produtos"/>
+        <pages:InventoryPage IconImageSource="crochet" Title="Linhas"/>
         <pages:SalePage IconImageSource="money" Title="Vendas"/>
         <pages:AcquisitionPage  Title="Compras"/>
     </TabbedPage.Children>

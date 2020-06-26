@@ -79,7 +79,7 @@
     <PackageReference Include="SkiaSharp.Views.Forms">
       <Version>1.68.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
     <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.5.2" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
@@ -142,20 +142,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DotfuscatorConfig.xml" />
-  </ItemGroup>  
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <PropertyGroup>
-	<DotfuscatorXamarinConfigFileName>DotfuscatorConfig.xml</DotfuscatorXamarinConfigFileName>
-	<DotfuscatorXamarinCliPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\PreEmptiveSolutions\DotfuscatorCE\dotfuscatorCLI.exe</DotfuscatorXamarinCliPath>
-	<DotfuscatorXamarinGenerateNewConfigFile>true</DotfuscatorXamarinGenerateNewConfigFile>
-	<!-- Enable Dotfuscator for Release -->
-	<DotfuscatorXamarinEnabled Condition="'$(Configuration)' == 'Release'">true</DotfuscatorXamarinEnabled>
-
-	<!-- Enable Dotfuscator for Ad-Hoc (only needed for iOS) -->
-	<DotfuscatorXamarinEnabled Condition="'$(Configuration)' == 'Ad-Hoc'">true</DotfuscatorXamarinEnabled>
-
-	<!-- Enable Dotfuscator for AppStore (only needed for iOS) -->
-	<DotfuscatorXamarinEnabled Condition="'$(Configuration)' == 'AppStore'">true</DotfuscatorXamarinEnabled>	
+    <DotfuscatorXamarinConfigFileName>DotfuscatorConfig.xml</DotfuscatorXamarinConfigFileName>
+    <DotfuscatorXamarinCliPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\PreEmptiveSolutions\DotfuscatorCE\dotfuscatorCLI.exe</DotfuscatorXamarinCliPath>
+    <DotfuscatorXamarinGenerateNewConfigFile>true</DotfuscatorXamarinGenerateNewConfigFile>
+    <!-- Enable Dotfuscator for Release -->
+    <DotfuscatorXamarinEnabled Condition="'$(Configuration)' == 'Release'">true</DotfuscatorXamarinEnabled>
+    <!-- Enable Dotfuscator for Ad-Hoc (only needed for iOS) -->
+    <DotfuscatorXamarinEnabled Condition="'$(Configuration)' == 'Ad-Hoc'">true</DotfuscatorXamarinEnabled>
+    <!-- Enable Dotfuscator for AppStore (only needed for iOS) -->
+    <DotfuscatorXamarinEnabled Condition="'$(Configuration)' == 'AppStore'">true</DotfuscatorXamarinEnabled>
   </PropertyGroup>
-  <Import Project="../../Crochet/PreEmptive.Dotfuscator.Xamarin.targets"/>
+  <Import Project="../../Crochet/PreEmptive.Dotfuscator.Xamarin.targets" />
 </Project>

@@ -60,7 +60,7 @@
                     <Label Text="/"
                            FontSize="Large"/>
                     <Entry x:Name="EnInvTot"
-                       Placeholder="Qtde. Total"
+                       Placeholder="Tam. do Rolo"
                        ReturnType="Next"
                        Keyboard="Numeric"
                        Text="{Binding InventoryTotal}"

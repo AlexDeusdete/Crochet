@@ -41,9 +41,11 @@ namespace Crochet
             containerRegistry.RegisterForNavigation<SalePage, SalePageViewModel>();
             containerRegistry.RegisterForNavigation<AcquisitionPage, AcquisitionPageViewModel>();
             containerRegistry.RegisterForNavigation<FeedStockCreateEditPage, FeedStockCreateEditPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProductCreateEditPage, ProductCreateEditPageViewModel>();
 
             containerRegistry.Register<IFeedStockService, FeedStockService>();
             containerRegistry.Register<IBrandService, BrandService>();
+           
         }
     }
 }

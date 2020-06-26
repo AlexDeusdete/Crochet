@@ -15,7 +15,6 @@ namespace Crochet.ViewModels
     public class InventoryPageViewModel : ViewModelBase
     {
         private readonly IFeedStockService _feedStockService;
-        private readonly INavigationService _navigationService;
 
         public ObservableCollection<FeedStockGroup> FeedStockGroups { get; private set; }
         public ICommand NavigateToFeedStockCreateCommand { get; private set; }
@@ -24,7 +23,6 @@ namespace Crochet.ViewModels
             : base(navigationService)
         {
             _feedStockService = feedStockService;
-            _navigationService = navigationService;
 
             NavigateToFeedStockCreateCommand = new DelegateCommand(NavigateToFeedStockCreate);
             NavigateToFeedStockEditCommand = new DelegateCommand<object>(NavigateToFeedStockEdit);
@@ -33,17 +31,17 @@ namespace Crochet.ViewModels
 
         private void NavigateToFeedStockCreate()
         {
-            _navigationService.NavigateAsync("FeedStockCreateEditPage");
+            NavigationService.NavigateAsync("FeedStockCreateEditPage");
         }
 
-        private void NavigateToFeedStockEdit(object parameter)
+        private async void NavigateToFeedStockEdit(object parameter)
         {
             var navParameters = new NavigationParameters
             {
                 { "feedStock", parameter }
             };
 
-            _navigationService.NavigateAsync("FeedStockCreateEditPage", navParameters);
+            await NavigationService.NavigateAsync("FeedStockCreateEditPage", navParameters);
         }
 
         private async Task<IList<FeedStockGroup>> GetFeedStockGroups()
@@ -51,15 +49,25 @@ namespace Crochet.ViewModels
             return await _feedStockService.GetGroupItems();
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
+        {
+            LoadItens();
+        }
+
+        private async Task LoadItens()
         {
             var feedStockGroups = await GetFeedStockGroups();
             FeedStockGroups.Clear();
 
-            foreach(var item in feedStockGroups)
+            foreach (var item in feedStockGroups)
             {
                 FeedStockGroups.Add(item);
             }
+        }
+
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            await LoadItens();
         }
     }
 }
