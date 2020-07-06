@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Crochet.Views.ProductContentView.ProductGeneralView">
+  <ContentView.Content>
+        <FlexLayout Padding="10,2"
+                    Wrap="Wrap"
+                    AlignItems="Start"
+                    AlignContent="Start">
+            <Label Text="Largura" 
+                       Style="{StaticResource LabelStyle}"
+                       FlexLayout.Basis="50%"/>
+            <Label Text="Comprimento" 
+                       Style="{StaticResource LabelStyle}"
+                       FlexLayout.Basis="50%"/>
+            <Entry Placeholder="0"
+                       Style="{StaticResource EntryStyle}"
+                       FlexLayout.Basis="45%"
+                       Text="{Binding Width}"/>
+            <Label Text="cm"
+                   FontSize="Micro"
+                   FlexLayout.Basis="5%"
+                   VerticalTextAlignment="End"
+                   FlexLayout.AlignSelf="Stretch"/>
+            <Entry Placeholder="0"
+                       Style="{StaticResource EntryStyle}"
+                       FlexLayout.Basis="45%"
+                       Text="{Binding Height}"/>
+            <Label Text="cm"
+                   FontSize="Micro"
+                   FlexLayout.Basis="5%"
+                   VerticalTextAlignment="End"
+                   FlexLayout.AlignSelf="Stretch"/>
+            <Label Text="Peso" 
+                       Style="{StaticResource LabelStyle}"
+                       FlexLayout.Basis="100%"/>
+            <Entry Placeholder="0"
+                       Style="{StaticResource EntryStyle}"
+                       FlexLayout.Basis="45%"
+                       Text="{Binding Weight}"/>
+            <Label Text="g"
+                   FontSize="Micro"
+                   FlexLayout.Basis="55%"
+                   VerticalTextAlignment="End"
+                   FlexLayout.AlignSelf="Stretch"/>
+            <Label Text="Dificuldade" 
+                       Style="{StaticResource LabelStyle}"
+                       FlexLayout.Basis="100%"/>            
+            <Picker FlexLayout.Basis="70%"
+                    Title="Seleciona a Dificuldade"
+                    Style="{StaticResource PickerStyle}"
+                    SelectedItem="{Binding Difficulty}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Fácil</x:String>
+                        <x:String>Médio</x:String>
+                        <x:String>Difícil</x:String>
+                        <x:String>Muito Difícil</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Label Text="Observações" 
+                       Style="{StaticResource LabelStyle}"
+                       FlexLayout.Basis="100%"/>
+            <Editor FlexLayout.Basis="100%"
+                    Style="{StaticResource EditorStyle}"
+                    HeightRequest="150"
+                    Text="{Binding Comments}"/>
+        </FlexLayout>
+  </ContentView.Content>
+</ContentView>

@@ -1,72 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:prism="http://prismlibrary.com"               
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:contentView="clr-namespace:Crochet.Views.ProductContentView"
+             prism:ViewModelLocator.AutowireViewModel="True"             
              x:Class="Crochet.Views.ProductCreateEditPage"
+             x:Name="this"
+             BackgroundColor="{StaticResource BGColor}"
              Title="Peças">
     <ContentPage.Content>
-        <Grid Padding="10,5,10,0">
+        <Grid Padding="10,5,10,10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <FlexLayout Grid.Row="0" Direction="Column" BackgroundColor="Red">
-                <Label Text="Referencia"/>
+            <FlexLayout Grid.Row="0" Direction="Column">
+                <Label Text="Referencia" Style="{StaticResource LabelStyle}"/>
                 <Entry Placeholder="00000"
-                       Style="{StaticResource EntryStyle}"/>
-                <Label Text="Descrição"/>
-                <Entry Placeholder="Descrição da Peça"
-                       Style="{StaticResource EntryStyle}"/>                
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding ProductCode}"
+                       IsEnabled="False"/>
+                <Label Text="Nome" Style="{StaticResource LabelStyle}"/>
+                <Entry Placeholder="Nome da Peça"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding Name}"/>
             </FlexLayout>
-            <FlexLayout Grid.Row="1">
-                <Grid FlexLayout.Grow="1">
-                    <Label Text="Geral"/>
-                </Grid>
-                <Grid FlexLayout.Grow="1">
-                    <Label Text="Fotos"/>
-                </Grid>
-                <Grid FlexLayout.Grow="1">
-                    <Label Text="Custos"/>
-                </Grid>
-                <Grid FlexLayout.Grow="1">
-                    <Label Text="Produção"/>
-                </Grid>
-                <Grid FlexLayout.Grow="1">
-                    <Label Text="Financeiro"/>
-                </Grid>
-            </FlexLayout>
-            <StackLayout Grid.Row="2">
+            <StackLayout Grid.Row="1">
                 <IndicatorView x:Name="indicatorView"
                    IndicatorColor="LightGray"
-                   SelectedIndicatorColor="DarkGray"
-                   HorizontalOptions="Center">
+                   SelectedIndicatorColor="{StaticResource colorAccent}"
+                   PropertyChanged="indicatorView_PropertyChanged"
+                   HorizontalOptions="Fill">
+                    <IndicatorView.ItemsSource>
+                        <x:Array Type="{x:Type ContentView}">
+                            <contentView:ProductGeneralView/>
+                            <contentView:ProductPhotosView/>
+                            <contentView:ProductCostView/>
+                            <contentView:ProductProductionView/>
+                            <contentView:ProductFinalcialView/>
+                        </x:Array>
+                    </IndicatorView.ItemsSource>
                     <IndicatorView.IndicatorTemplate>
                         <DataTemplate>
-                            <Label Text="AAAA"/>
+                            <FlexLayout Direction="Column" ChildAdded="FlexLayout_ChildAdded" HorizontalOptions="FillAndExpand">
+                                <Label BackgroundColor="{StaticResource BGColor}"
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type FlexLayout}}, Path=BackgroundColor}"  
+                                       HorizontalTextAlignment="Center"
+                                       FontSize="Subtitle"/>
+                                <BoxView HeightRequest="4"/>
+                            </FlexLayout>
                         </DataTemplate>
                     </IndicatorView.IndicatorTemplate>
-                </IndicatorView>                
-                <CarouselView BackgroundColor="Yellow"
-                              IndicatorView="indicatorView">
-                    <CarouselView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Baboon</x:String>
-                            <x:String>Capuchin Monkey</x:String>
-                            <x:String>Blue Monkey</x:String>
-                            <x:String>Squirrel Monkey</x:String>
-                            <x:String>Golden Lion Tamarin</x:String>
-                            <x:String>Howler Monkey</x:String>
-                            <x:String>Japanese Macaque</x:String>
-                        </x:Array>
-                    </CarouselView.ItemsSource>
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <Label Text="AAAAA"/>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
+                </IndicatorView>
+                <Grid VerticalOptions="FillAndExpand">
+                    <Grid.GestureRecognizers>
+                        <SwipeGestureRecognizer Direction="Left" Swiped="SwipeGestureRecognizer_Left"/>
+                        <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureRecognizer_Right"/>
+                    </Grid.GestureRecognizers>
+                    <contentView:ProductGeneralView mvvm:ViewModelLocator.AutowirePartialView="{x:Reference this}"
+                                                    x:Name="productGeneralView"/>
+                    <contentView:ProductPhotosView mvvm:ViewModelLocator.AutowirePartialView="{x:Reference this}"
+                                                   IsVisible="False"
+                                                   x:Name="productPhotosView"/>
+                    <contentView:ProductCostView mvvm:ViewModelLocator.AutowirePartialView="{x:Reference this}"
+                                                 IsVisible="False"
+                                                 x:Name="productCostView"/>
+                    <contentView:ProductProductionView mvvm:ViewModelLocator.AutowirePartialView="{x:Reference this}"
+                                                       IsVisible="False"
+                                                       x:Name="productProductionView"/>
+                    <contentView:ProductFinalcialView mvvm:ViewModelLocator.AutowirePartialView="{x:Reference this}"
+                                                      IsVisible="False"
+                                                      x:Name="productFinalcialView"/>
+                </Grid>
+                <Button Text="Salvar"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding SaveCommand}"/>                
             </StackLayout>
         </Grid>
     </ContentPage.Content>

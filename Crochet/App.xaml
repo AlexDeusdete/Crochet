@@ -17,6 +17,16 @@
                 <Setter Property="FontSize" Value="Small" />                
             </Style>
 
+            <Style x:Key="EditorStyle" TargetType="Editor">
+                <Setter Property="PlaceholderColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Micro" />
+            </Style>
+
             <Style x:Key="PickerStyle" TargetType="Picker">
                 <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
                 <Setter Property="TitleColor" Value="{StaticResource colorAccent}" />

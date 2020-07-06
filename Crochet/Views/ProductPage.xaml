@@ -8,8 +8,51 @@
              Title="Produtos">
     <ContentPage.Content>
         <Grid>
-            <CollectionView>
-                
+            <CollectionView ItemsSource="{Binding Products}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding NavigateToProductEditCommand}"
+                            SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <FlexLayout Direction="Column" 
+                                    BackgroundColor="{StaticResource BGColor}"
+                                    Padding="5,0">
+                            <Frame BorderColor="{StaticResource colorAccent}"
+                                   Padding="5">
+                                <FlexLayout Direction="Row">
+                                    <Image BackgroundColor="Red"
+                                           HeightRequest="85"
+                                           WidthRequest="85"/>
+                                    <FlexLayout Direction="Column"
+                                                Padding="5,0"
+                                                FlexLayout.Grow="1">
+                                        <Label Text="{Binding ProductCode}"
+                                               Style="{StaticResource LabelStyle}"/>                                        
+                                        <Label Text="{Binding Name}"
+                                               Style="{StaticResource LabelStyle}"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Weight}"
+                                               Style="{StaticResource LabelStyle}"/>
+                                            <Label Text="gramas   /"
+                                               Style="{StaticResource LabelStyle}"/>
+                                            <Label Text="{Binding Width}"
+                                               Style="{StaticResource LabelStyle}"/>
+                                            <Label Text="x"
+                                               Style="{StaticResource LabelStyle}"/>                                            
+                                            <Label Text="{Binding Height}"
+                                               Style="{StaticResource LabelStyle}"/>
+                                            <Label Text="cm"
+                                               Style="{StaticResource LabelStyle}"/>                                            
+                                        </StackLayout>
+                                        <Label Text="{Binding Difficulty, StringFormat='Dificuldade : {0}'}"
+                                               Style="{StaticResource LabelStyle}"/>                                        
+                                    </FlexLayout>
+                                </FlexLayout>
+                            </Frame>                                                        
+                        </FlexLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>    
             </CollectionView>
             <controls:FormsFloatingActionButton
                     BackgroundColor="{StaticResource BGColor}"

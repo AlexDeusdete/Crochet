@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Crochet.Interfaces;
 using Crochet.Services.LiteDB;
+using Prism.Mvvm;
+using Crochet.Views.ProductContentView;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Crochet
@@ -45,7 +47,8 @@ namespace Crochet
 
             containerRegistry.Register<IFeedStockService, FeedStockService>();
             containerRegistry.Register<IBrandService, BrandService>();
-           
+            containerRegistry.Register<IProductService, ProductService>();
+
         }
     }
 }
