@@ -18,6 +18,15 @@ namespace Crochet.Services.LiteDB
             var dataBase = GetDBInstance();
             _liteCollection = dataBase.GetCollection<Product>();
         }
+
+        public async Task<Product> GetItemByName(string Name)
+        {
+            return await Task.FromResult(_liteCollection
+                                                .Query()
+                                                .Where(x => x.Name == Name)
+                                                .FirstOrDefault());
+        }
+
         public async Task<IList<Product>> GetItems()
         {
             return await Task.FromResult(_liteCollection.FindAll().ToList());

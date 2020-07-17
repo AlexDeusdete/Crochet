@@ -3,11 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:convert="clr-namespace:Crochet.Converters"
+             xmlns:controls="clr-namespace:Crochet.Controls"
+             x:Name="root"
              mc:Ignorable="d"
              x:Class="Crochet.Views.ProductContentView.ProductPhotosView">
   <ContentView.Content>
-      <StackLayout>
-          <Label Text="Fotos" />
-      </StackLayout>
+        <Grid>
+            <CollectionView ItemsSource="{Binding Pictures}"
+                            x:Name="MyCollectionView"
+                            SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="3"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <FlexLayout Direction="Column"
+                                    DescendantAdded="FlexLayout_DescendantAdded">
+                            <Image Aspect="AspectFill"
+                                   HeightRequest="90"
+                                   WidthRequest="90"
+                                   BackgroundColor="Yellow"
+                                   FlexLayout.AlignSelf="Center"/>
+                            <ImageButton Source="remove" 
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding  BindingContext.DeletePictureCommand , Source={x:Reference root}}"
+                                    CommandParameter="{Binding .}"
+                                    HeightRequest="30"
+                                    Margin="5,5"/>
+                        </FlexLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <controls:FormsFloatingActionButton
+                    BackgroundColor="{StaticResource BGColor}"
+                    HorizontalOptions="End"
+                    ImageSource="plus"
+                    VerticalOptions="End"
+                    HeightRequest="90"
+                    WidthRequest="80"
+                    Command="{Binding SavePictureCommand}"/>            
+        </Grid>
   </ContentView.Content>
 </ContentView>

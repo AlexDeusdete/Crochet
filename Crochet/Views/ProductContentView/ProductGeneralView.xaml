@@ -18,6 +18,7 @@
                        FlexLayout.Basis="50%"/>
             <Entry Placeholder="0"
                        Style="{StaticResource EntryStyle}"
+                       Keyboard="Numeric"
                        FlexLayout.Basis="45%"
                        Text="{Binding Width}"/>
             <Label Text="cm"
@@ -27,6 +28,7 @@
                    FlexLayout.AlignSelf="Stretch"/>
             <Entry Placeholder="0"
                        Style="{StaticResource EntryStyle}"
+                       Keyboard="Numeric"
                        FlexLayout.Basis="45%"
                        Text="{Binding Height}"/>
             <Label Text="cm"
@@ -39,6 +41,7 @@
                        FlexLayout.Basis="100%"/>
             <Entry Placeholder="0"
                        Style="{StaticResource EntryStyle}"
+                       Keyboard="Numeric"
                        FlexLayout.Basis="45%"
                        Text="{Binding Weight}"/>
             <Label Text="g"

@@ -54,7 +54,7 @@ namespace Crochet.ViewModels
             LoadItens();
         }
 
-        private async Task LoadItens()
+        private async void LoadItens()
         {
             var feedStockGroups = await GetFeedStockGroups();
             FeedStockGroups.Clear();
@@ -65,9 +65,9 @@ namespace Crochet.ViewModels
             }
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            await LoadItens();
+            LoadItens();
         }
     }
 }

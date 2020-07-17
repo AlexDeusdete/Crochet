@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:conver="clr-namespace:Crochet.Converters"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="root"
+             mc:Ignorable="d"
+             x:Class="Crochet.Controls.YarnPickerControl">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <conver:SDColorListToFormsColorList x:Key="sDColorListToFormsColorList"/>
+        </ResourceDictionary>        
+    </ContentView.Resources>
+    <ContentView.Content>
+        <FlexLayout Direction="ColumnReverse">
+            <Frame x:Name="fWorkArea" 
+                   BackgroundColor="{StaticResource colorPrimary}"
+                   HeightRequest="250"
+                   Padding="0">
+                <Grid>
+                    <CollectionView x:Name="ContainnerCollectionView" 
+                                IsGrouped="True" 
+                                ItemsSource="{Binding Yarns, Source={x:Reference root}}"
+                                VerticalScrollBarVisibility="Never">
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <FlexLayout Direction="ColumnReverse"
+                                    Margin="10">
+                                    <Label Text="{Binding Hue}"
+                                    FontSize="Micro"
+                                    TextColor="{StaticResource colorAccent}"
+                                    HorizontalOptions="EndAndExpand"
+                                    Padding="10,0"
+                                    />
+                                </FlexLayout>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <FlexLayout Direction="Column"
+                                    HeightRequest="65">
+                                    <CollectionView 
+                                x:Name="MyCollectionView"
+                                HorizontalScrollBarVisibility="Never"
+                                ItemsSource="{Binding FeedStocks}"
+                                SelectionMode="Single"
+                                SelectionChanged="MyCollectionView_SelectionChanged">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal"/>
+                                        </CollectionView.ItemsLayout>
+
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <FlexLayout Padding="10,0,0,0">
+                                                    <Frame Padding="5"
+                                                   BorderColor="{StaticResource colorAccent}">
+                                                        <FlexLayout WidthRequest="90"
+                                                                Direction="Row">
+                                                            <controls:YarnSpoolControl 
+                                                            x:Name="spool"
+                                                            Colors="{Binding Colors, Converter={StaticResource sDColorListToFormsColorList}}"
+                                                            HeightRequest="50"
+                                                            WidthRequest="34"/>
+                                                            <FlexLayout Direction="Column"
+                                                                    FlexLayout.Grow="1">
+                                                                <Label
+                                                                Text="{Binding Brand.Name}"
+                                                                FontSize="Micro"/>
+                                                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                                                    <Label
+                                                                    Text="{Binding InventoryAvailable}"
+                                                                    FontSize="Micro"
+                                                                    LineBreakMode="WordWrap"/>
+                                                                    <Label
+                                                                    Text="{Binding InventoryTotal, StringFormat=' / {0} g'}"
+                                                                    FontSize="Micro"
+                                                                    LineBreakMode="TailTruncation"/>
+                                                                </StackLayout>
+                                                                <Label
+                                                                Text="{Binding Price, StringFormat='{0:C}'}"
+                                                                FontSize="Micro"/>
+                                                                <Label
+                                                                Text="{Binding Thickness, StringFormat='Fio {0}'}"
+                                                                FontSize="Micro"/>
+                                                            </FlexLayout>
+                                                        </FlexLayout>
+                                                    </Frame>
+                                                </FlexLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </FlexLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+        </FlexLayout>
+    </ContentView.Content>
+</ContentView>

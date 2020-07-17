@@ -1,4 +1,6 @@
-﻿using Foundation;
+﻿using Crochet.Interfaces;
+using Crochet.iOS.Utils;
+using Foundation;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -33,6 +35,7 @@ namespace Crochet.iOS
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
+            containerRegistry.Register<IPictureGalleryService, PictureGalleryService>();
         }
     }
 }

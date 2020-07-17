@@ -21,5 +21,10 @@ namespace Crochet.Views.ProductContentView
         {
             return "Fotos";
         }
+
+        private void FlexLayout_DescendantAdded(object sender, ElementEventArgs e)
+        {
+
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace Crochet.Interfaces
     public interface IProductService
     {
         Task<IList<Product>> GetItems();
+
+        Task<Product> GetItemByName(string Name);
         void UpsertItem(Product Item);
     }
 }

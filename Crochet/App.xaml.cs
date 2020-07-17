@@ -48,7 +48,9 @@ namespace Crochet
             containerRegistry.Register<IFeedStockService, FeedStockService>();
             containerRegistry.Register<IBrandService, BrandService>();
             containerRegistry.Register<IProductService, ProductService>();
-
+            containerRegistry.Register<IProductPictureService, ProductPictureService>();
+            containerRegistry.Register<IProductYarnService, ProductYarnService>();
+            containerRegistry.Register<IProductFinalcialService, ProductFinalcialService>();
         }
     }
 }

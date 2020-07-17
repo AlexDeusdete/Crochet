@@ -29,8 +29,26 @@ namespace Crochet.Services.LiteDB
             mapper.Entity<FeedStock>()
                 .DbRef(x => x.Brand, "brand");
 
+            mapper.Entity<ProductYarn>()
+                .DbRef(x => x.Yarn, "feedstock");
+
             mapper.Entity<Product>()
                 .Ignore(x => x.ProductCode);
+
+            mapper.Entity<ProductPicture>()
+                .Ignore(x => x.Uri);
+
+            mapper.Entity<ProductFinalcial>()
+                .Ignore(x => x.LaborCost);
+
+            mapper.Entity<ProductFinalcial>()
+                .Ignore(x => x.SuggestedPrice);
+
+            mapper.Entity<ProductFinalcial>()
+                .Ignore(x => x.ProfitPracticed);
+
+            mapper.Entity<ProductFinalcial>()
+                .Ignore(x => x.ProfitValue);
         }
     }
 }

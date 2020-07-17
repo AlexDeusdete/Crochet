@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"             
+             xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:conver="clr-namespace:Crochet.Converters"             
+             mc:Ignorable="d"
+             BackgroundColor="AliceBlue"
+             x:Class="Crochet.Views.ProductContentView.ProductCostView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <conver:SDColorListToFormsColorList x:Key="sDColorListToFormsColorList"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <CollectionView IsGrouped="True"
+                        ItemsSource="{Binding YarnGroups}">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <FlexLayout Direction="Column">
+                            <Label Text="{Binding VariationName}"
+                                    BackgroundColor="{StaticResource BGColor}"
+                                    Style="{StaticResource LabelSmallStyle}"
+                                    HorizontalOptions="EndAndExpand"
+                                    Padding="10,0"
+                                    Margin="0,10,0,0"
+                                    />
+                        </FlexLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.GroupFooterTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal"
+                                     FlowDirection="RightToLeft"
+                                     BackgroundColor="{StaticResource BGColor}">
+                            <Label Text="{Binding TotalCost, StringFormat='Custo: {0:C}'}"
+                                   Style="{StaticResource LabelSmallStyle}"/>
+                            <Label Text="{Binding TotalConsumption, StringFormat='Total => Consumo: {0}g'}"
+                                   Style="{StaticResource LabelSmallStyle}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupFooterTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <FlexLayout Direction="Column" HeightRequest="70" BackgroundColor="{StaticResource BGColor}">
+                            <CollectionView ItemsSource="{Binding ProductYarns}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" 
+                                                       ItemSpacing="10"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Padding="0"
+                                                   BorderColor="{StaticResource colorAccent}">
+                                            <FlexLayout WidthRequest="90"
+                                                                Direction="Row"
+                                                        AlignItems="Center"
+                                                        Padding="2">
+                                                <controls:YarnSpoolControl 
+                                                            x:Name="spool"
+                                                            Colors="{Binding Yarn.Colors, Converter={StaticResource sDColorListToFormsColorList}}"
+                                                            HeightRequest="50"
+                                                            WidthRequest="34"/>
+                                                <FlexLayout Direction="Column"
+                                                            FlexLayout.Grow="1"
+                                                            JustifyContent="Center">
+                                                    <Label
+                                                                Text="{Binding Yarn.Brand.Name}"
+                                                                FontSize="Micro"/>
+                                                    <Label
+                                                                Text="{Binding Consumption, StringFormat='Qtd: {0}g'}"
+                                                                FontSize="Micro"/>
+                                                    <Label
+                                                                Text="{Binding Cost, StringFormat='{0:C}'}"
+                                                                FontSize="Micro"/>
+                                                    <Label
+                                                                Text="{Binding Yarn.Thickness, StringFormat='Fio {0}'}"
+                                                                FontSize="Micro"/>
+                                                </FlexLayout>
+                                            </FlexLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                                <CollectionView.Footer>
+                                    <yummy:PancakeView WidthRequest="80">
+                                        <yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                        </yummy:PancakeView.GestureRecognizers>
+                                        <yummy:PancakeView.Border>
+                                            <yummy:Border Color="Gray" Thickness="2" DashPattern="6,3"/>
+                                        </yummy:PancakeView.Border>
+                                        <Label Text="Add&#10;Linha"
+                                           HorizontalTextAlignment="Center"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                    </yummy:PancakeView>
+                                </CollectionView.Footer>
+                            </CollectionView>
+                        </FlexLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <FlexLayout Direction="Column">
+                        <yummy:PancakeView HeightRequest="60" Margin="0,10,0,0" BackgroundColor="{StaticResource BGColor}">
+                            <yummy:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CreateVariationCommand}"/>
+                            </yummy:PancakeView.GestureRecognizers>
+                            <yummy:PancakeView.Border>
+                                <yummy:Border Color="Gray" Thickness="2" DashPattern="8,5"/>
+                            </yummy:PancakeView.Border>
+                            <Label Text="Add Nova Variação" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </yummy:PancakeView>
+                    </FlexLayout>
+                </CollectionView.Footer>
+            </CollectionView>
+            <controls:YarnPickerControl x:Name="yarnPC"
+                                        Yarns="{Binding FeedStockGroups}"
+                                        Command="{Binding CreateYarnCommand}"
+                                        CommandParameter="{Binding .,Source={x:Reference yarnPC}}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

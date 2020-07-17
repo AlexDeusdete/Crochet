@@ -7,20 +7,27 @@
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.8" />
     <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.3" />
-    <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
-    <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.5.2" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+    <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.5.3.2" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.0.0.691" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Views\FeedStockCreateEditPage.xaml.cs">
       <DependentUpon>FeedStockCreateEditPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ProductContentView\ProductYarnView.xaml.cs">
+      <DependentUpon>ProductYarnView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Controls\ColorPickerControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\YarnPickerControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\YarnSpoolControl.xaml">
@@ -35,7 +42,7 @@
     <EmbeddedResource Update="Views\InventoryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ProductContentView\ProductCostView.xaml">
+    <EmbeddedResource Update="Views\ProductContentView\ProductYarnView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ProductContentView\ProductFinalcialView.xaml">

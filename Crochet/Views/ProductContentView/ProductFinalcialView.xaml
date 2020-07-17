@@ -5,9 +5,100 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Crochet.Views.ProductContentView.ProductFinalcialView">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Financeiro" />
-      </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <ScrollView>
+            <StackLayout Spacing="0">
+                <Picker Title="Selecione a Variação"
+                        Style="{StaticResource PickerStyle}"
+                        ItemsSource="{Binding YarnGroups}"
+                        ItemDisplayBinding="{Binding VariationName}"
+                        SelectedItem="{Binding Variation}"/>
+                <Label Text="Custo da Materia Prima" 
+                       Style="{StaticResource LabelStyle}"/>
+                <Entry Placeholder="0"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding YarnsCost, StringFormat='{0:c}'}"
+                           IsEnabled="False"/>
+
+                <FlexLayout Direction="Row"
+                        FlexLayout.Grow="1"
+                        AlignItems="Start"
+                        Wrap="Wrap"         
+                        AlignContent="Start">
+                    <Label Text="Tempo Produção(horas)"
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Label Text="Valor Hora" 
+                       FlexLayout.Basis="50%"
+                   Style="{StaticResource LabelStyle}"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding ProductionHours}"
+                           Keyboard="Numeric"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding HourCost, StringFormat='{0:0.00}'}"
+                           Keyboard="Numeric"/>
+                    <Label Text="Mão de Obra" 
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Label Text="Custo Adcionais" 
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding LaborCost, StringFormat='{0:0.00}'}"
+                           IsEnabled="False"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding AdditionalCost, StringFormat='{0:0.00}'}"
+                           Keyboard="Numeric"/>
+                    <Label Text="Lucro(%)" 
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Label Text="Preço Sugerido" 
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding ProfitPercentage, StringFormat='{0:0.00}'}"
+                           Keyboard="Numeric"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding SuggestedPrice, StringFormat='{0:0.00}'}"
+                           IsEnabled="False"/>
+                    <Label Text="Preço Final" 
+                       FlexLayout.Basis="100%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="100%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding FinalPrice, StringFormat='{0:0.00}'}"
+                           Keyboard="Numeric"/>
+                    <Label Text="Lucro Final(%)" 
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Label Text="Lucro Final" 
+                       FlexLayout.Basis="50%"
+                       Style="{StaticResource LabelStyle}"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding ProfitPracticed, StringFormat='{0:0.00}'}"
+                           IsEnabled="False"/>
+                    <Entry Placeholder="0"
+                       FlexLayout.Basis="50%"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding ProfitValue, StringFormat='{0:0.00}'}"
+                           IsEnabled="False"/>
+                </FlexLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
 </ContentView>
