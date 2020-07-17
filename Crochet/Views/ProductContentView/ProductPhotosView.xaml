@@ -19,12 +19,11 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <FlexLayout Direction="Column"
-                                    DescendantAdded="FlexLayout_DescendantAdded">
+                        <FlexLayout Direction="Column">
                             <Image Aspect="AspectFill"
                                    HeightRequest="90"
                                    WidthRequest="90"
-                                   BackgroundColor="Yellow"
+                                   BindingContextChanged="Image_BindingContextChanged"
                                    FlexLayout.AlignSelf="Center"/>
                             <ImageButton Source="remove" 
                                     BackgroundColor="Transparent"

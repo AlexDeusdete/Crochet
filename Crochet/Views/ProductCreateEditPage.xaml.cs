@@ -26,7 +26,7 @@ namespace Crochet.Views
             };
         }
 
-        private void indicatorView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void IndicatorView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName != "Position")
                 return;
@@ -65,14 +65,14 @@ namespace Crochet.Views
             if (indicatorView.Position == indicatorView.Count - 1)
                 return;
 
-            indicatorView.Position = indicatorView.Position + 1;
+            indicatorView.Position += 1;
         }
 
         private void SwipeGestureRecognizer_Right(object sender, SwipedEventArgs e)
         {
             if (indicatorView.Position == 0)
                 return;
-            indicatorView.Position = indicatorView.Position - 1 ;
+            indicatorView.Position -= 1 ;
         }
     }
 }

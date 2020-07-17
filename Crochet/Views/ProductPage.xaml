@@ -13,6 +13,9 @@
                             SelectionChangedCommand="{Binding NavigateToProductEditCommand}"
                             SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}"
                             >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <FlexLayout Direction="Column" 
@@ -21,7 +24,7 @@
                             <Frame BorderColor="{StaticResource colorAccent}"
                                    Padding="5">
                                 <FlexLayout Direction="Row">
-                                    <Image BackgroundColor="Red"
+                                    <Image BindingContextChanged="Image_BindingContextChanged"
                                            HeightRequest="85"
                                            WidthRequest="85"/>
                                     <FlexLayout Direction="Column"

@@ -44,10 +44,10 @@
                         Grid.Row="1"
                         AutomationId="FlexForm">
                 <Entry x:Name="EnPrice"
-                       Placeholder="Preço"
+                       Placeholder="Preço (0,00)" 
                        ReturnType="Next"
                        Keyboard="Numeric"
-                       Text="{Binding Price, StringFormat='{0:C}'}"
+                       Text="{Binding Price}"
                        Style="{StaticResource EntryStyle}"/>
                 <FlexLayout Direction="Row" HeightRequest="40">
                     <Entry x:Name="EnInvAva"

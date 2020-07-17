@@ -39,7 +39,7 @@
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                        Style="{StaticResource EntryStyle}"
-                       Text="{Binding HourCost, StringFormat='{0:0.00}'}"
+                       Text="{Binding HourCost}"
                            Keyboard="Numeric"/>
                     <Label Text="Mão de Obra" 
                        FlexLayout.Basis="50%"
@@ -50,12 +50,12 @@
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding LaborCost, StringFormat='{0:0.00}'}"
+                           Text="{Binding LaborCost}"
                            IsEnabled="False"/>
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding AdditionalCost, StringFormat='{0:0.00}'}"
+                           Text="{Binding AdditionalCost}"
                            Keyboard="Numeric"/>
                     <Label Text="Lucro(%)" 
                        FlexLayout.Basis="50%"
@@ -66,12 +66,12 @@
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding ProfitPercentage, StringFormat='{0:0.00}'}"
+                           Text="{Binding ProfitPercentage}"
                            Keyboard="Numeric"/>
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding SuggestedPrice, StringFormat='{0:0.00}'}"
+                           Text="{Binding SuggestedPrice}"
                            IsEnabled="False"/>
                     <Label Text="Preço Final" 
                        FlexLayout.Basis="100%"
@@ -79,7 +79,7 @@
                     <Entry Placeholder="0"
                        FlexLayout.Basis="100%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding FinalPrice, StringFormat='{0:0.00}'}"
+                           Text="{Binding FinalPrice}"
                            Keyboard="Numeric"/>
                     <Label Text="Lucro Final(%)" 
                        FlexLayout.Basis="50%"
@@ -90,12 +90,12 @@
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding ProfitPracticed, StringFormat='{0:0.00}'}"
+                           Text="{Binding ProfitPracticed}"
                            IsEnabled="False"/>
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding ProfitValue, StringFormat='{0:0.00}'}"
+                           Text="{Binding ProfitValue}"
                            IsEnabled="False"/>
                 </FlexLayout>
             </StackLayout>

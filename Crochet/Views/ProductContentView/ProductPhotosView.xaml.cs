@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Crochet.Interfaces;
+using Crochet.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +24,16 @@ namespace Crochet.Views.ProductContentView
         {
             return "Fotos";
         }
-
-        private void FlexLayout_DescendantAdded(object sender, ElementEventArgs e)
+        private void Image_BindingContextChanged(object sender, EventArgs e)
         {
+            var image = (Image)sender;
+            if (image.BindingContext == null)
+                return;
 
+            var service  = DependencyService.Resolve<IProductPictureService>();
+            Stream stream = service.GetPictureById("IMG"+(image.BindingContext as ProductPicture).Id.ToString());
+            if(stream != null)
+                image.Source = ImageSource.FromStream(() => stream);
         }
     }
 }

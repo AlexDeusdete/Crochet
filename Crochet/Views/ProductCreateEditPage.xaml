@@ -30,7 +30,7 @@
                 <IndicatorView x:Name="indicatorView"
                    IndicatorColor="LightGray"
                    SelectedIndicatorColor="{StaticResource colorAccent}"
-                   PropertyChanged="indicatorView_PropertyChanged"
+                   PropertyChanged="IndicatorView_PropertyChanged"
                    HorizontalOptions="Fill">
                     <IndicatorView.ItemsSource>
                         <x:Array Type="{x:Type ContentView}">

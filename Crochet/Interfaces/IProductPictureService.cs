@@ -15,6 +15,8 @@ namespace Crochet.Interfaces
 
         Task<ProductPicture> GetPictureById(int id);
 
+        Stream GetPictureById(string id);
+
         void UpsertPicture(ProductPicture picture, Stream pictureStream);
 
         Task DeletePicture(ProductPicture picture);

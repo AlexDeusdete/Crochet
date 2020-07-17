@@ -210,7 +210,6 @@ namespace Crochet.ViewModels
             YarnGroups = new ObservableCollection<ProductYarnGroup>();
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
         }
-
         private void CreateYarn(object obj)
         {
             var pickerYarn = (YarnPickerControl)obj;

@@ -23,7 +23,7 @@ namespace Crochet
          */
         public App() : this(null) { }
 
-        public App(IPlatformInitializer initializer) : base(initializer) { }
+        public App(IPlatformInitializer initializer) : base(initializer, true) { }
 
         protected override async void OnInitialized()
         {
@@ -48,7 +48,7 @@ namespace Crochet
             containerRegistry.Register<IFeedStockService, FeedStockService>();
             containerRegistry.Register<IBrandService, BrandService>();
             containerRegistry.Register<IProductService, ProductService>();
-            containerRegistry.Register<IProductPictureService, ProductPictureService>();
+            containerRegistry.RegisterSingleton<IProductPictureService, ProductPictureService>();
             containerRegistry.Register<IProductYarnService, ProductYarnService>();
             containerRegistry.Register<IProductFinalcialService, ProductFinalcialService>();
         }
