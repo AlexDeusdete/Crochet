@@ -66,19 +66,25 @@
                                                     HeightRequest="60"
                                                     FlexLayout.AlignSelf="Center"/>
                                                 <Label
-                                                    Text="{Binding Brand.Name}"
-                                                    FontSize="Micro"/>
-                                                <StackLayout Orientation="Horizontal" Spacing="0">
-                                                    <Label
-                                                        Text="{Binding InventoryAvailable}"
-                                                        FontSize="Micro"
-                                                        WidthRequest="25"
-                                                        LineBreakMode="WordWrap"/>
-                                                    <Label
-                                                        Text="{Binding InventoryTotal, StringFormat=' / {0} gramas'}"
-                                                        FontSize="Micro"
-                                                        LineBreakMode="TailTruncation"/>
-                                                </StackLayout>
+                                                    Text="{Binding }"
+                                                    FontSize="Micro">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                                            <Binding Path="Brand.Name"/>
+                                                            <Binding Path="ColorName"/>
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+                                                <Label                                                    
+                                                    FontSize="Micro"
+                                                    LineBreakMode="TailTruncation">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{}{0} / {1} gramas">
+                                                            <Binding Path="InventoryAvailable"/>
+                                                            <Binding Path="InventoryTotal"/>
+                                                        </MultiBinding>
+                                                    </Label.Text>        
+                                                </Label>
                                                 <Label
                                                     Text="{Binding Price, StringFormat='{0:C}'}"
                                                     FontSize="Micro"/>

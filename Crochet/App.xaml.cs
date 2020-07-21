@@ -7,9 +7,9 @@ using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Crochet.Interfaces;
-using Crochet.Services.LiteDB;
 using Prism.Mvvm;
 using Crochet.Views.ProductContentView;
+using Crochet.Services.API;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Crochet
@@ -51,6 +51,7 @@ namespace Crochet
             containerRegistry.RegisterSingleton<IProductPictureService, ProductPictureService>();
             containerRegistry.Register<IProductYarnService, ProductYarnService>();
             containerRegistry.Register<IProductFinalcialService, ProductFinalcialService>();
+            containerRegistry.Register<IApi, API>();
         }
     }
 }

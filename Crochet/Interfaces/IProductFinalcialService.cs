@@ -10,6 +10,6 @@ namespace Crochet.Interfaces
     {
         Task<IList<ProductFinalcial>> GetFinalcialsByProductId(int productId);
         Task<ProductFinalcial> GetFinalcialByVariationId(int productId, int variationId);
-        void UpSertItem(ProductFinalcial productFinalcial);
+        Task<ProductFinalcial> UpSertItem(ProductFinalcial productFinalcial);
     }
 }

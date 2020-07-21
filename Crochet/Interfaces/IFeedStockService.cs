@@ -10,6 +10,6 @@ namespace Crochet.Interfaces
     {
         Task<IList<FeedStock>> GetItems();
         Task<IList<FeedStockGroup>> GetGroupItems();
-        void UpsertItem(FeedStock Item);
+        Task<FeedStock> UpsertItem(FeedStock Item);
     }
 }

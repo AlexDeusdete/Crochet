@@ -37,9 +37,10 @@ namespace Crochet.Services.LiteDB
             return _liteCollection.FindAll().Max(x => x.Id) + 1;
         }
 
-        public void UpsertItem(Product Item)
+        public Task<Product> UpsertItem(Product Item)
         {
             _liteCollection.Upsert(Item);
+            return null;
         }
     }
 }

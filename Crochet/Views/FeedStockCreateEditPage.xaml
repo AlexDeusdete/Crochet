@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:local="clr-namespace:Crochet.Converters"
              prism:ViewModelLocator.AutowireViewModel="True"
              Title="Linhas"
              x:Class="Crochet.Views.FeedStockCreateEditPage"             
              BackgroundColor="{StaticResource BGColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:FloatToString x:Key="FloatToStringConvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -43,11 +49,9 @@
                         Margin="25,10"
                         Grid.Row="1"
                         AutomationId="FlexForm">
-                <Entry x:Name="EnPrice"
-                       Placeholder="Preço (0,00)" 
-                       ReturnType="Next"
-                       Keyboard="Numeric"
-                       Text="{Binding Price}"
+                <controls:EntryFloat x:Name="EnPrice"
+                       Placeholder="Preço (0,00)"
+                       Text="{Binding Price, Converter={StaticResource FloatToStringConvert}}"
                        Style="{StaticResource EntryStyle}"/>
                 <FlexLayout Direction="Row" HeightRequest="40">
                     <Entry x:Name="EnInvAva"
@@ -75,12 +79,21 @@
                        Keyboard="Numeric"
                        Text="{Binding TEX}"
                        Style="{StaticResource EntryStyle}"/>
-                <Entry x:Name="EnColorCode"
-                       Placeholder="Código da Cor/Mescla"
-                       ReturnType="Next"
-                       Keyboard="Numeric"
-                       Text="{Binding ColorCode}"
-                       Style="{StaticResource EntryStyle}"/>
+                <FlexLayout Direction="Row" HeightRequest="40">
+                    <Entry x:Name="EnColorCode"
+                           Placeholder="Código da Cor/Mescla"
+                           ReturnType="Next"
+                           Keyboard="Numeric"
+                           Text="{Binding ColorCode}"
+                           Style="{StaticResource EntryStyle}"
+                           FlexLayout.Grow="1"/>
+                    <Entry x:Name="EnColorName"
+                           Placeholder="Nome da Cor"
+                           ReturnType="Next"
+                           Text="{Binding ColorName}"
+                           Style="{StaticResource EntryStyle}"
+                           FlexLayout.Grow="1"/>                    
+                </FlexLayout>
                 <Entry x:Name="EnThic"
                        Placeholder="Espessura"
                        ReturnType="Done"

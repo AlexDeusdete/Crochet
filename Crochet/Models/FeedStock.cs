@@ -1,18 +1,19 @@
-﻿using SkiaSharp;
+﻿using Newtonsoft.Json;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Xamarin.Essentials;
 
 namespace Crochet.Models
 {
     public class FeedStock
     {
+        [JsonProperty("id")]
         public int FeedStockId { get; set; }
-
+        public int BrandId { get { return Brand.BrandId; } set {} }
         public int[] ColorsArgb { get; set; } 
-
+        [JsonIgnore]
         public IList<Color> Colors
         {
             get
@@ -25,6 +26,7 @@ namespace Crochet.Models
             }
         }
         public string ColorCode { get; set; }
+        public string ColorName { get; set; }
         public int Thickness { get; set; }
         public string TEX { get; set; }
         public float Price { get; set; }

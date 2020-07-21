@@ -12,6 +12,6 @@ namespace Crochet.Interfaces
 
         Task<IList<ProductYarnGroup>> GetProductYarnsGroup(int productId);
 
-        void UpsertItem(ProductYarn productYarn);
+        Task<ProductYarn> UpsertItem(ProductYarn productYarn);
     }
 }

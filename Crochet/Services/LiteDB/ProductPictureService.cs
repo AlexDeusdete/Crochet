@@ -19,13 +19,12 @@ namespace Crochet.Services.LiteDB
             var dataBase = GetDBInstance();
             _liteCollection = dataBase.GetCollection<ProductPicture>();
         }
-        public Task DeletePicture(ProductPicture picture)
+        public Task<ProductPicture> DeletePicture(ProductPicture picture)
         {
             if(picture != null && picture.Name != null)
                 GetDBInstance().FileStorage.Delete(picture.Name);
-            return Task.FromResult(
-                _liteCollection.Delete(picture.Id)
-                );
+            _liteCollection.Delete(picture.Id);
+            return null;
         }
         public Task<ProductPicture> GetPictureById(int id)
         {
@@ -54,7 +53,7 @@ namespace Crochet.Services.LiteDB
                                                 .Query()
                                                 .Where(x => x.ProductId == id).ToList());
         }
-        public void UpsertPicture(ProductPicture picture, Stream pictureStream)
+        public Task<ProductPicture> UpsertPicture(ProductPicture picture, Stream pictureStream)
         {
             _liteCollection.Insert(picture);
             ProductPicture updatedPicture = _liteCollection.Query().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -64,6 +63,8 @@ namespace Crochet.Services.LiteDB
 
             updatedPicture.Name = imgName;
             _liteCollection.Update(updatedPicture);
+
+            return null;
         }
     }
 }

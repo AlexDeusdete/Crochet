@@ -3,8 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:local="clr-namespace:Crochet.Converters"             
              mc:Ignorable="d"
              x:Class="Crochet.Views.ProductContentView.ProductFinalcialView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:FloatToString x:Key="FloatToStringConvert"/>
+        </ResourceDictionary>
+    </ContentView.Resources>    
     <ContentView.Content>
         <ScrollView>
             <StackLayout Spacing="0">
@@ -36,10 +43,10 @@
                        Style="{StaticResource EntryStyle}"
                        Text="{Binding ProductionHours}"
                            Keyboard="Numeric"/>
-                    <Entry Placeholder="0"
+                    <controls:EntryFloat Placeholder="0"
                        FlexLayout.Basis="50%"
                        Style="{StaticResource EntryStyle}"
-                       Text="{Binding HourCost}"
+                       Text="{Binding HourCost, Converter={StaticResource FloatToStringConvert}}"
                            Keyboard="Numeric"/>
                     <Label Text="Mão de Obra" 
                        FlexLayout.Basis="50%"
@@ -52,10 +59,10 @@
                            Style="{StaticResource EntryStyle}"
                            Text="{Binding LaborCost}"
                            IsEnabled="False"/>
-                    <Entry Placeholder="0"
+                    <controls:EntryFloat Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding AdditionalCost}"
+                           Text="{Binding AdditionalCost, Converter={StaticResource FloatToStringConvert}}"
                            Keyboard="Numeric"/>
                     <Label Text="Lucro(%)" 
                        FlexLayout.Basis="50%"
@@ -63,20 +70,20 @@
                     <Label Text="Preço Sugerido" 
                        FlexLayout.Basis="50%"
                        Style="{StaticResource LabelStyle}"/>
-                    <Entry Placeholder="0"
+                    <controls:EntryFloat Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding ProfitPercentage}"
+                           Text="{Binding ProfitPercentage, Converter={StaticResource FloatToStringConvert}}"
                            Keyboard="Numeric"/>
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding SuggestedPrice}"
+                           Text="{Binding SuggestedPrice, StringFormat='{0:c}'}"
                            IsEnabled="False"/>
                     <Label Text="Preço Final" 
                        FlexLayout.Basis="100%"
                        Style="{StaticResource LabelStyle}"/>
-                    <Entry Placeholder="0"
+                    <controls:EntryFloat Placeholder="0"
                        FlexLayout.Basis="100%"
                            Style="{StaticResource EntryStyle}"
                            Text="{Binding FinalPrice}"
@@ -90,12 +97,12 @@
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding ProfitPracticed}"
+                           Text="{Binding ProfitPracticed, StringFormat='{0}%'}"
                            IsEnabled="False"/>
                     <Entry Placeholder="0"
                        FlexLayout.Basis="50%"
                            Style="{StaticResource EntryStyle}"
-                           Text="{Binding ProfitValue}"
+                           Text="{Binding ProfitValue, StringFormat='{0:c}'}"
                            IsEnabled="False"/>
                 </FlexLayout>
             </StackLayout>

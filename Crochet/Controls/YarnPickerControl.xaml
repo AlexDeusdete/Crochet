@@ -56,7 +56,7 @@
                                                 <FlexLayout Padding="10,0,0,0">
                                                     <Frame Padding="5"
                                                    BorderColor="{StaticResource colorAccent}">
-                                                        <FlexLayout WidthRequest="90"
+                                                        <FlexLayout WidthRequest="95"
                                                                 Direction="Row">
                                                             <controls:YarnSpoolControl 
                                                             x:Name="spool"
@@ -65,25 +65,29 @@
                                                             WidthRequest="34"/>
                                                             <FlexLayout Direction="Column"
                                                                     FlexLayout.Grow="1">
+                                                                <Label FontSize="Micro"
+                                                                       Text="{Binding Brand.Name}"/>                                                                
+                                                                <Label FontSize="Micro">
+                                                                    <Label.Text>
+                                                                        <MultiBinding StringFormat="{}{0} N°{1}">
+                                                                            <Binding Path="ColorName"/>
+                                                                            <Binding Path="Thickness"/>
+                                                                        </MultiBinding>
+                                                                    </Label.Text>
+                                                                </Label>
                                                                 <Label
-                                                                Text="{Binding Brand.Name}"
-                                                                FontSize="Micro"/>
-                                                                <StackLayout Orientation="Horizontal" Spacing="0">
-                                                                    <Label
-                                                                    Text="{Binding InventoryAvailable}"
                                                                     FontSize="Micro"
-                                                                    LineBreakMode="WordWrap"/>
-                                                                    <Label
-                                                                    Text="{Binding InventoryTotal, StringFormat=' / {0} g'}"
+                                                                    LineBreakMode="TailTruncation">
+                                                                    <Label.Text>
+                                                                        <MultiBinding StringFormat="{}{0} / {1} g">
+                                                                            <Binding Path="InventoryAvailable"/>
+                                                                            <Binding Path="InventoryTotal"/>
+                                                                        </MultiBinding>
+                                                                    </Label.Text>
+                                                                </Label>
+                                                                <Label
                                                                     FontSize="Micro"
-                                                                    LineBreakMode="TailTruncation"/>
-                                                                </StackLayout>
-                                                                <Label
-                                                                Text="{Binding Price, StringFormat='{0:C}'}"
-                                                                FontSize="Micro"/>
-                                                                <Label
-                                                                Text="{Binding Thickness, StringFormat='Fio {0}'}"
-                                                                FontSize="Micro"/>
+                                                                    Text="{Binding Price, StringFormat='{0:C}'}"/>
                                                             </FlexLayout>
                                                         </FlexLayout>
                                                     </Frame>

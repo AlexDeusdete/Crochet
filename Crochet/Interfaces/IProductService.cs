@@ -11,6 +11,6 @@ namespace Crochet.Interfaces
         Task<IList<Product>> GetItems();
 
         Task<Product> GetItemByName(string Name);
-        void UpsertItem(Product Item);
+        Task<Product> UpsertItem(Product Item);
     }
 }

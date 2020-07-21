@@ -11,11 +11,11 @@ using Xamarin.Forms;
 
 namespace Crochet.Services.LiteDB
 {
-    public class BrandService : LiteDBBase, IBrandService
+    public class BrandServiceOLD : LiteDBBase, IBrandService
     {
-        private ILiteCollection<Brand> _liteCollection;
+        private readonly ILiteCollection<Brand> _liteCollection;
 
-        public BrandService()
+        public BrandServiceOLD()
         {
             var dataBase = GetDBInstance();
             _liteCollection = dataBase.GetCollection<Brand>();
@@ -25,9 +25,10 @@ namespace Crochet.Services.LiteDB
             return await Task.FromResult(_liteCollection.FindAll().ToList());
         }
 
-        public void PutItem(Brand Item)
+        Task<Brand> IBrandService.PutItem(Brand Item)
         {
             _liteCollection.Upsert(Item);
+            return null;
         }
     }
 }

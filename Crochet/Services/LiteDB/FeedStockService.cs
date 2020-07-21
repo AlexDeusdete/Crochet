@@ -48,9 +48,10 @@ namespace Crochet.Services.LiteDB
             return await Task.FromResult(_liteCollection.Include(x => x.Brand).FindAll().ToList());
         }
 
-        public void UpsertItem(FeedStock Item)
+        public Task<FeedStock> UpsertItem(FeedStock Item)
         {
             _liteCollection.Upsert(Item);
+            return null;
         }
     }
 }

@@ -19,7 +19,8 @@ namespace Crochet.ViewModels
         public ICommand NavigateToProductCreateCommand { get; private set; }
         public ICommand NavigateToProductEditCommand { get; private set; }
         public ObservableCollection<Product> Products { get; private set; }        
-        public ProductPageViewModel(INavigationService navigationService, IProductService productService)
+        public ProductPageViewModel(INavigationService navigationService, 
+                                    IProductService productService)
             : base(navigationService)
         {
             NavigateToProductCreateCommand = new DelegateCommand(NavigateToProductCreate);

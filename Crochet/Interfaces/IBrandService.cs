@@ -9,6 +9,6 @@ namespace Crochet.Interfaces
     public interface IBrandService
     {
         Task<IList<Brand>> GetItems();
-        void PutItem(Brand Item);
+        Task<Brand> PutItem(Brand Item);
     }
 }

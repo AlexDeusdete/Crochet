@@ -34,6 +34,7 @@ namespace Crochet.ViewModels
         private int? _inventoryTotal;
         private Brand _brand;
         private string _colorCode;
+        private string _colorName;
 
         public Color Color
         {
@@ -75,6 +76,11 @@ namespace Crochet.ViewModels
             get { return _colorCode; }
             set { SetProperty(ref _colorCode, value); }
         }
+        public string ColorName
+        {
+            get { return _colorName; }
+            set { SetProperty(ref _colorName, value); }
+        }
         #endregion
 
         public FeedStockCreateEditPageViewModel(IBrandService brandService, IFeedStockService feedStockService, INavigationService navigationService)
@@ -98,7 +104,7 @@ namespace Crochet.ViewModels
             return await _brandService.GetItems();
         }
 
-        private void FeedStockCreate()
+        private async void FeedStockCreate()
         {
             if (Brand == null)
             {
@@ -111,8 +117,7 @@ namespace Crochet.ViewModels
                         Name = "Sem Marca"
                     };
 
-                    _brandService.PutItem(brand);
-                    Brand = _brandService.GetItems().Result.Where(x => x.Name == "Sem Marca").FirstOrDefault();
+                    Brand = await _brandService.PutItem(brand);                     
                 }
             }
 
@@ -126,18 +131,22 @@ namespace Crochet.ViewModels
                 Price = _price.Value,
                 TEX = _tEX,
                 Thickness = _thickness.Value,
-                ColorCode = _colorCode
+                ColorCode = _colorCode,
+                ColorName = _colorName
             };
 
-            _feedStockService.UpsertItem(item);
+            await _feedStockService.UpsertItem(item);
 
-            NavigationService.GoBackAsync();
+            await NavigationService.GoBackAsync();
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public async override void OnNavigatedTo(INavigationParameters parameters)
         {
-            LoadBrands();
+            await LoadBrands();
             var feedStock = parameters.GetValue<FeedStock>("feedStock");
+
+            if (feedStock == null)
+                return;
 
             _feedStockID = feedStock.FeedStockId;
             foreach (var item in feedStock.Colors)
@@ -150,9 +159,10 @@ namespace Crochet.ViewModels
             InventoryTotal = feedStock.InventoryTotal;
             Brand = Brands.Where(x => x.BrandId == feedStock.Brand.BrandId).FirstOrDefault();
             ColorCode = feedStock.ColorCode;
+            ColorName = feedStock.ColorName;
         }
 
-        private async void LoadBrands()
+        private async Task LoadBrands()
         {
             var brands = await GetBrands();
             foreach (var item in brands)
@@ -176,15 +186,9 @@ namespace Crochet.ViewModels
                     Name = result
                 };
 
-                _brandService.PutItem(brand);
+                brand = await _brandService.PutItem(brand);
 
-                Brands.Clear();
-
-                var brands = await GetBrands();
-                foreach (var item in brands)
-                {
-                    Brands.Add(item);
-                }
+                Brands.Add(brand);
             }
 
            Brand = Brands.Where(x => x.BrandId == brand.BrandId).FirstOrDefault();

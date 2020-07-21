@@ -51,9 +51,10 @@ namespace Crochet.Services.LiteDB
                                             .ToList());
         }
 
-        public void UpsertItem(ProductYarn productYarn)
+        public Task<ProductYarn> UpsertItem(ProductYarn productYarn)
         {
             _liteCollection.Upsert(productYarn);
+            return null;
         }
     }
 }

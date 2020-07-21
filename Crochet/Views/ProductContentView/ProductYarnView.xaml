@@ -70,14 +70,19 @@
                                                     <Label
                                                                 Text="{Binding Yarn.Brand.Name}"
                                                                 FontSize="Micro"/>
+                                                    <Label FontSize="Micro">
+                                                        <Label.Text>
+                                                            <MultiBinding StringFormat="{}{0} N°{1}">
+                                                                <Binding Path="Yarn.ColorName"/>
+                                                                <Binding Path="Yarn.Thickness"/>
+                                                            </MultiBinding>
+                                                        </Label.Text>
+                                                    </Label>
                                                     <Label
                                                                 Text="{Binding Consumption, StringFormat='Qtd: {0}g'}"
                                                                 FontSize="Micro"/>
                                                     <Label
                                                                 Text="{Binding Cost, StringFormat='{0:C}'}"
-                                                                FontSize="Micro"/>
-                                                    <Label
-                                                                Text="{Binding Yarn.Thickness, StringFormat='Fio {0}'}"
                                                                 FontSize="Micro"/>
                                                 </FlexLayout>
                                             </FlexLayout>

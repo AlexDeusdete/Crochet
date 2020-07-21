@@ -7,6 +7,7 @@ namespace Crochet.Models
     public class ProductYarn
     {
         public int Id { get; set; }
+        public int YarnId { get { return Yarn.FeedStockId; } set { } }
         public int ProductId { get; set; }
         public float Cost { get; set; }
         public float Consumption { get; set; }

@@ -18,7 +18,8 @@ namespace Crochet.Views
             EnInvAva.ReturnCommand = new Command(() => EnInvTot.Focus());
             EnInvTot.ReturnCommand = new Command(() => EnTEX.Focus());
             EnTEX.ReturnCommand = new Command(() => EnColorCode.Focus());
-            EnColorCode.ReturnCommand = new Command(() => EnThic.Focus());
+            EnColorCode.ReturnCommand = new Command(() => EnColorName.Focus());
+            EnColorName.ReturnCommand = new Command(() => EnThic.Focus());
         }
 
         private void Button_Clicked(object sender, System.EventArgs e)

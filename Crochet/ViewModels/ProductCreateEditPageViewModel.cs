@@ -17,7 +17,7 @@ namespace Crochet.ViewModels
 {
     public class ProductCreateEditPageViewModel : ViewModelBase
     {
-        private int _idProduct = 0;
+        private int _idProduct = -1;
         private List<ProductFinalcial> _productFinalcials;
 
         private readonly IProductService _productService;
@@ -210,7 +210,7 @@ namespace Crochet.ViewModels
             YarnGroups = new ObservableCollection<ProductYarnGroup>();
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
         }
-        private void CreateYarn(object obj)
+        private async void CreateYarn(object obj)
         {
             var pickerYarn = (YarnPickerControl)obj;
             var yarn = new ProductYarn() 
@@ -223,7 +223,7 @@ namespace Crochet.ViewModels
                 VariationName = _variationName
             };
 
-            _productYarnService.UpsertItem(yarn);
+            await _productYarnService.UpsertItem(yarn);
 
             LoadYarnsGroups();
         }
@@ -296,12 +296,12 @@ namespace Crochet.ViewModels
                 {
                     ProductId = _idProduct
                 };
-                _productPictureService.UpsertPicture(picture, stream);
 
-                GetPictures();
+                var newpic = await _productPictureService.UpsertPicture(picture, stream);
+                Pictures.Add(newpic);
             }
         }
-        private void Save()
+        private async void Save()
         {
             var product = new Product()
             {
@@ -314,16 +314,21 @@ namespace Crochet.ViewModels
                 Difficulty = Difficulty
             };
 
-            _productService.UpsertItem(product);
+            await _productService.UpsertItem(product);
 
             foreach(var item in _productFinalcials)
             {
-                _productFinalcialService.UpSertItem(item);
+                await _productFinalcialService.UpSertItem(item);
             }
-            NavigationService.GoBackAsync();
-        }
-        public override void OnNavigatedTo(INavigationParameters parameters)
+
+            await NavigationService.GoBackAsync();
+        }       
+        public async override void OnNavigatedTo(INavigationParameters parameters)
         {
+            if (_idProduct >= 0)
+                return;
+
+            _idProduct = 0;
             string productName = parameters.GetValue<string>("ProductName");
 
             if (String.IsNullOrEmpty(productName))
@@ -333,7 +338,7 @@ namespace Crochet.ViewModels
             }
             else
             {
-                var product = _productService.GetItemByName(productName).Result;
+                var product = await _productService.GetItemByName(productName);
                 if (product == null)
                 {
                     product = new Product()
@@ -341,8 +346,7 @@ namespace Crochet.ViewModels
                         Name = productName
                     };
 
-                    _productService.UpsertItem(product);
-                    product = _productService.GetItemByName(productName).Result;
+                    product = await _productService.UpsertItem(product);
                 }
 
                 LoadPropertys(product);
@@ -391,7 +395,7 @@ namespace Crochet.ViewModels
                 HourCost = 0;
                 AdditionalCost = 0;
                 ProfitPercentage = 0;
-                FinalPrice = Variation.TotalCost;
+                FinalPrice = 0;
                 LaborCost = 0;
                 SuggestedPrice = Variation.TotalCost;
                 ProfitPracticed = 0;
@@ -409,8 +413,7 @@ namespace Crochet.ViewModels
                     VariationId = Variation.VariationId           
                 };
 
-                _productFinalcialService.UpSertItem(financialItem);
-                _productFinalcials = (await _productFinalcialService.GetFinalcialsByProductId(_idProduct)).ToList();
+                _productFinalcials.Add(await _productFinalcialService.UpSertItem(financialItem));
             }            
         }        
         private void UpdateCalculedFinancialFields(string propertyName)
