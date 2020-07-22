@@ -19,6 +19,11 @@ namespace Crochet.Services.LiteDB
             _liteCollection = dataBase.GetCollection<Product>();
         }
 
+        public Task<IList<ProductGroup>> GetGroupItems()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Product> GetItemByName(string Name)
         {
             return await Task.FromResult(_liteCollection

@@ -18,7 +18,7 @@ namespace Crochet.ViewModels
         private readonly IProductService _productService;
         public ICommand NavigateToProductCreateCommand { get; private set; }
         public ICommand NavigateToProductEditCommand { get; private set; }
-        public ObservableCollection<Product> Products { get; private set; }        
+        public ObservableCollection<ProductGroup> Products { get; private set; }        
         public ProductPageViewModel(INavigationService navigationService, 
                                     IProductService productService)
             : base(navigationService)
@@ -26,7 +26,7 @@ namespace Crochet.ViewModels
             NavigateToProductCreateCommand = new DelegateCommand(NavigateToProductCreate);
             NavigateToProductEditCommand = new DelegateCommand<object>(NavigateToProductEdit);
             _productService = productService;
-            Products = new ObservableCollection<Product>();
+            Products = new ObservableCollection<ProductGroup>();
         }
         private async void NavigateToProductEdit(object parameter)
         {
@@ -56,9 +56,9 @@ namespace Crochet.ViewModels
         {
             LoadItems();
         }
-        private async Task<IList<Product>> GetProductsAsync()
+        private async Task<IList<ProductGroup>> GetProductsAsync()
         {
-            return await _productService.GetItems();
+            return await _productService.GetGroupItems();
         }
         private async void NavigateToProductCreate()
         {

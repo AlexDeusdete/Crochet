@@ -16,10 +16,43 @@ namespace Crochet.Models
             set { }
         }
         public string Name { get; set; }
+        public string GroupName { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public int Weight { get; set; }
         public string Difficulty { get; set; }
         public string Comments { get; set; }
+    }
+
+    public class ProductCollection
+    {
+        public List<Product> Products { get; private set; }
+
+        public ProductCollection()
+        {
+            Products = new List<Product>();
+        }
+
+        public void Add(Product product)
+        {
+            Products.Add(product);
+        }
+
+        public void AddRange(IEnumerable<Product> products)
+        {
+            Products.AddRange(products);
+        }
+    }
+
+    public class ProductGroup : List<ProductCollection>
+    {
+        public string Grupo { get; set; }
+        public ProductGroup(string grupo)
+        {
+            if (string.IsNullOrEmpty(grupo))
+                Grupo = "Sem Grupo";
+            else
+                Grupo = grupo;
+        }
     }
 }

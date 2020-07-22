@@ -38,6 +38,7 @@ namespace Crochet.ViewModels
         #region Propertys
         private string _productCode;
         private string _name;
+        private string _groupName;
         //General
         private int _width;
         private int _height;
@@ -157,6 +158,11 @@ namespace Crochet.ViewModels
         {
             get { return _name; }
             set { SetProperty(ref _name, value); }
+        }
+        public string GroupName
+        {
+            get { return _groupName; }
+            set { SetProperty(ref _groupName, value); }
         }
         public int Width
         {
@@ -307,6 +313,7 @@ namespace Crochet.ViewModels
             {
                 Id = _idProduct,
                 Name = Name,
+                GroupName = GroupName,
                 Width = Width,
                 Height = Height,
                 Weight = Weight,
@@ -357,6 +364,7 @@ namespace Crochet.ViewModels
             _idProduct = product.Id;
             ProductCode = product.ProductCode;
             Name = product.Name;
+            GroupName = product.GroupName;
             Width = product.Width;
             Height = product.Height;
             Weight = product.Weight;

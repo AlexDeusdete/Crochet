@@ -2,6 +2,7 @@
 using Crochet.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,30 @@ namespace Crochet.Services.API
     public class ProductService : ApiBase, IProductService
     {
         public ProductService(IApi api):base(api){}
+
+        public async Task<IList<ProductGroup>> GetGroupItems()
+        {
+            var productGroups = new List<ProductGroup>();
+
+            var productItems = await GetItems();
+
+            foreach (var products in productItems
+                                        .OrderByDescending(x => x.Id)
+                                        .GroupBy(x => x.GroupName) 
+                                        .Select(grp => grp.ToList())
+                                        .ToList())
+            {
+                var productGroup = new ProductGroup(products[0].GroupName);
+
+                var productCollection = new ProductCollection();
+                productCollection.AddRange(products);
+                productGroup.Add(productCollection);
+                productGroups.Add(productGroup);
+            }
+
+            return productGroups;
+        }
+
         public async Task<Product> GetItemByName(string Name)
         {
             var result = await API.GetProducts(Name);

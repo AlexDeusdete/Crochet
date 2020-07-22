@@ -21,10 +21,28 @@
                        Style="{StaticResource EntryStyle}"
                        Text="{Binding ProductCode}"
                        IsEnabled="False"/>
-                <Label Text="Nome" Style="{StaticResource LabelStyle}"/>
-                <Entry Placeholder="Nome da Peça"
+                <FlexLayout FlexLayout.Grow="1"
+                            Direction="Row"
+                        AlignItems="Start"
+                        Wrap="Wrap"         
+                        AlignContent="Start">
+                    <Label Text="Nome" 
+                           Style="{StaticResource LabelStyle}"
+                           FlexLayout.Basis="50%"/>
+                    <Label Text="Grupo" 
+                           Style="{StaticResource LabelStyle}"
+                           FlexLayout.Basis="50%"
+                           Margin="10,0,0,0"/>
+                    <Entry Placeholder="Nome da Peça"
                        Style="{StaticResource EntryStyle}"
-                       Text="{Binding Name}"/>
+                       Text="{Binding Name}"
+                       FlexLayout.Basis="50%"/>
+                    <Entry Placeholder="Nome do Grupo"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding GroupName}"
+                       FlexLayout.Basis="50%"
+                       Margin="10,0,0,0"/>                    
+                </FlexLayout>
             </FlexLayout>
             <StackLayout Grid.Row="1">
                 <IndicatorView x:Name="indicatorView"
