@@ -18,13 +18,28 @@ namespace Crochet.ViewModels
         private readonly IProductService _productService;
         public ICommand NavigateToProductCreateCommand { get; private set; }
         public ICommand NavigateToProductEditCommand { get; private set; }
-        public ObservableCollection<ProductGroup> Products { get; private set; }        
+        public ICommand RefreshCommand { get; private set; }
+        public ObservableCollection<ProductGroup> Products { get; private set; }
+
+        #region Property
+        private bool _isRefreshing;
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set { SetProperty(ref _isRefreshing, value); }
+        }
+        #endregion
         public ProductPageViewModel(INavigationService navigationService, 
                                     IProductService productService)
             : base(navigationService)
         {
             NavigateToProductCreateCommand = new DelegateCommand(NavigateToProductCreate);
             NavigateToProductEditCommand = new DelegateCommand<object>(NavigateToProductEdit);
+            RefreshCommand = new DelegateCommand(() =>
+            {
+                LoadItems();
+            });
             _productService = productService;
             Products = new ObservableCollection<ProductGroup>();
         }
@@ -39,6 +54,7 @@ namespace Crochet.ViewModels
         }
         private async void LoadItems()
         {
+            IsRefreshing = true;
             var products = await GetProductsAsync();
             Products.Clear();
 
@@ -46,7 +62,7 @@ namespace Crochet.ViewModels
             {
                 Products.Add(item);
             }
-
+            IsRefreshing = false;
         }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {

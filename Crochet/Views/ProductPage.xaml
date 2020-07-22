@@ -9,7 +9,9 @@
              Title="Produtos">
     <ContentPage.Content>
         <Grid>
-            <CollectionView IsGrouped="True"
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshCommand}">
+                <CollectionView IsGrouped="True"
                             VerticalScrollBarVisibility="Never"
                             ItemsSource="{Binding Products}">
                 <CollectionView.GroupHeaderTemplate>
@@ -83,7 +85,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
+            </RefreshView>
             <controls:FormsFloatingActionButton
                     BackgroundColor="{StaticResource BGColor}"
                     HorizontalOptions="End"
