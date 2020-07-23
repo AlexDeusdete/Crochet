@@ -12,6 +12,11 @@ namespace Crochet.Services.API
     {
         public ProductYarnService(IApi api):base(api){}
 
+        public async Task<ProductYarn> DeleteItem(ProductYarn productYarn)
+        {
+            return await API.DeleteProductYarn(productYarn.Id);
+        }
+
         public async Task<IList<ProductYarnGroup>> GetProductYarnsGroup(int productId)
         {
             var yarnGroups = new List<ProductYarnGroup>();

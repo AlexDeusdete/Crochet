@@ -11,5 +11,7 @@ namespace Crochet.Interfaces
         Task<IList<FeedStock>> GetItems();
         Task<IList<FeedStockGroup>> GetGroupItems();
         Task<FeedStock> UpsertItem(FeedStock Item);
+
+        Task<FeedStock> DeleteItem(FeedStock Item);
     }
 }

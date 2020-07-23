@@ -10,6 +10,7 @@ using Prism;
 using Prism.Ioc;
 using System.IO;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Crochet.Droid
 {
@@ -24,6 +25,7 @@ namespace Crochet.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Forms.SetFlags("SwipeView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App(new AndroidInitializer()));

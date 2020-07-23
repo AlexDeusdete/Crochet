@@ -12,6 +12,12 @@ namespace Crochet.Services.API
     public class FeedStockService : ApiBase, IFeedStockService
     {
         public FeedStockService(IApi api) : base(api){}
+
+        public async Task<FeedStock> DeleteItem(FeedStock Item)
+        {
+            return await API.DeleteYarn(Item.FeedStockId);
+        }
+
         public async Task<IList<FeedStockGroup>> GetGroupItems()
         {
             var feedStockGroups = new List<FeedStockGroup>();

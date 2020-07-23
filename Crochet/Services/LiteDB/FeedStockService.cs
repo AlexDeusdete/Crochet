@@ -21,6 +21,12 @@ namespace Crochet.Services.LiteDB
             var dataBase = GetDBInstance();
             _liteCollection = dataBase.GetCollection<FeedStock>();
         }
+
+        public Task<FeedStock> DeleteItem(FeedStock Item)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IList<FeedStockGroup>> GetGroupItems()
         {
             var feedStockGroups = new List<FeedStockGroup>();

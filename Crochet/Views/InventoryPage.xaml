@@ -56,48 +56,68 @@
 
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <FlexLayout Padding="10,0,0,0">
-                                            <Frame Padding="5"
+                                        <SwipeView>
+                                            <SwipeView.LeftItems>
+                                                <SwipeItems>
+                                                    <SwipeItemView Command="{Binding BindingContext.DeleteFeedStockCommand, Source={x:Reference root}}"
+                                                                   CommandParameter="{Binding BindingContext, Source={x:Reference sl}}">
+                                                        <StackLayout x:Name="sl"
+                                                                     WidthRequest="50"
+                                                                     Spacing="0">
+                                                            <ImageButton Source="remove"
+                                                                         VerticalOptions="Center"
+                                                                         Margin="10"/>
+                                                            <Label Text="Excluir"
+                                                                   HorizontalTextAlignment="End"
+                                                                   HorizontalOptions="Center"
+                                                                   Style="{StaticResource LabelSmallStyle}"/>
+                                                        </StackLayout>
+                                                    </SwipeItemView>
+                                                </SwipeItems>
+                                            </SwipeView.LeftItems>
+                                            <FlexLayout Padding="10,0,0,0">
+                                                <Frame Padding="5"
                                                    BorderColor="{StaticResource colorAccent}">
-                                            <FlexLayout WidthRequest="90"
+                                                    <FlexLayout WidthRequest="90"
                                                     Direction="Column">
-                                                <controls:YarnSpoolControl x:Name="spool"
+                                                        <controls:YarnSpoolControl x:Name="spool"
                                                     Colors="{Binding Colors, Converter={StaticResource sDColorListToFormsColorList}}"
                                                     HeightRequest="60"
                                                     FlexLayout.AlignSelf="Center"/>
-                                                <Label
+                                                        <Label
                                                     Text="{Binding Brand.Name}"
                                                     FontSize="Micro">
-                                                </Label>
-                                                <Label                                                    
+                                                        </Label>
+                                                        <Label                                                    
                                                     FontSize="Micro"
                                                     LineBreakMode="TailTruncation">
-                                                    <Label.Text>
-                                                        <MultiBinding StringFormat="{}{0} - N° {1}">
-                                                            <Binding Path="ColorName"/>
-                                                            <Binding Path="Thickness"/>
-                                                        </MultiBinding>
-                                                    </Label.Text>
-                                                </Label>
-                                                <Label                                                    
+                                                            <Label.Text>
+                                                                <MultiBinding StringFormat="{}{0} - N° {1}">
+                                                                    <Binding Path="ColorName"/>
+                                                                    <Binding Path="Thickness"/>
+                                                                </MultiBinding>
+                                                            </Label.Text>
+                                                        </Label>
+                                                        <Label                                                    
                                                     FontSize="Micro"
                                                     LineBreakMode="TailTruncation">
-                                                <Label.Text>
-                                                    <MultiBinding StringFormat="{}{0} / {1} gramas">
-                                                        <Binding Path="InventoryAvailable"/>
-                                                        <Binding Path="InventoryTotal"/>
-                                                    </MultiBinding>
-                                                </Label.Text>        
-                                                </Label>
-                                                <Label
+                                                            <Label.Text>
+                                                                <MultiBinding StringFormat="{}{0} / {1} gramas">
+                                                                    <Binding Path="InventoryAvailable"/>
+                                                                    <Binding Path="InventoryTotal"/>
+                                                                </MultiBinding>
+                                                            </Label.Text>
+                                                        </Label>
+                                                        <Label
                                                     Text="{Binding Price, StringFormat='{0:C}'}"
                                                     FontSize="Micro"/>
-                                                <Label
+                                                        <Label
                                                     Text="{Binding TEX, StringFormat='TEX {0}'}"
                                                     FontSize="Micro"/>
-                                                </FlexLayout>
-                                            </Frame>
-                                        </FlexLayout>
+                                                    </FlexLayout>
+                                                </Frame>
+                                            </FlexLayout>
+                                        </SwipeView>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>

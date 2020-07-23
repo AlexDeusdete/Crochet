@@ -8,6 +8,7 @@
              xmlns:conver="clr-namespace:Crochet.Converters"             
              mc:Ignorable="d"
              BackgroundColor="AliceBlue"
+             x:Name="root"
              x:Class="Crochet.Views.ProductContentView.ProductCostView">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -53,40 +54,61 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Frame Padding="0"
-                                                   BorderColor="{StaticResource colorAccent}">
-                                            <FlexLayout WidthRequest="90"
-                                                                Direction="Row"
-                                                        AlignItems="Center"
-                                                        Padding="2">
-                                                <controls:YarnSpoolControl 
-                                                            x:Name="spool"
-                                                            Colors="{Binding Yarn.Colors, Converter={StaticResource sDColorListToFormsColorList}}"
-                                                            HeightRequest="50"
-                                                            WidthRequest="34"/>
-                                                <FlexLayout Direction="Column"
-                                                            FlexLayout.Grow="1"
-                                                            JustifyContent="Center">
-                                                    <Label
-                                                                Text="{Binding Yarn.Brand.Name}"
-                                                                FontSize="Micro"/>
-                                                    <Label FontSize="Micro">
-                                                        <Label.Text>
-                                                            <MultiBinding StringFormat="{}{0} N°{1}">
-                                                                <Binding Path="Yarn.ColorName"/>
-                                                                <Binding Path="Yarn.Thickness"/>
-                                                            </MultiBinding>
-                                                        </Label.Text>
-                                                    </Label>
-                                                    <Label
-                                                                Text="{Binding Consumption, StringFormat='Qtd: {0}g'}"
-                                                                FontSize="Micro"/>
-                                                    <Label
-                                                                Text="{Binding Cost, StringFormat='{0:C}'}"
-                                                                FontSize="Micro"/>
+                                        <SwipeView>
+                                            <SwipeView.LeftItems>
+                                                <SwipeItems>
+                                                    <SwipeItemView Command="{Binding BindingContext.DeleteYarnCommand, Source={x:Reference root}}"
+                                                                   CommandParameter="{Binding BindingContext, Source={x:Reference sl}}">
+                                                        <StackLayout x:Name="sl"
+                                                                     WidthRequest="50"
+                                                                     Spacing="0">
+                                                            <ImageButton Source="remove"
+                                                                         VerticalOptions="Center"
+                                                                         Margin="10"/>
+                                                            <Label Text="Excluir"
+                                                                   HorizontalTextAlignment="End"
+                                                                   HorizontalOptions="Center"
+                                                                   Style="{StaticResource LabelSmallStyle}"/>
+                                                        </StackLayout>
+                                                    </SwipeItemView>
+                                                </SwipeItems>
+                                            </SwipeView.LeftItems>
+                                            <!-- Content -->                                    
+                                            <Frame Padding="0"
+                                                       BorderColor="{StaticResource colorAccent}">
+                                                <FlexLayout WidthRequest="90"
+                                                                    Direction="Row"
+                                                            AlignItems="Center"
+                                                            Padding="2">
+                                                    <controls:YarnSpoolControl 
+                                                                x:Name="spool"
+                                                                Colors="{Binding Yarn.Colors, Converter={StaticResource sDColorListToFormsColorList}}"
+                                                                HeightRequest="50"
+                                                                WidthRequest="34"/>
+                                                    <FlexLayout Direction="Column"
+                                                                FlexLayout.Grow="1"
+                                                                JustifyContent="Center">
+                                                        <Label
+                                                                    Text="{Binding Yarn.Brand.Name}"
+                                                                    FontSize="Micro"/>
+                                                        <Label FontSize="Micro">
+                                                            <Label.Text>
+                                                                <MultiBinding StringFormat="{}{0} N°{1}">
+                                                                    <Binding Path="Yarn.ColorName"/>
+                                                                    <Binding Path="Yarn.Thickness"/>
+                                                                </MultiBinding>
+                                                            </Label.Text>
+                                                        </Label>
+                                                        <Label
+                                                                    Text="{Binding Consumption, StringFormat='Qtd: {0}g'}"
+                                                                    FontSize="Micro"/>
+                                                        <Label
+                                                                    Text="{Binding Cost, StringFormat='{0:C}'}"
+                                                                    FontSize="Micro"/>
+                                                    </FlexLayout>
                                                 </FlexLayout>
-                                            </FlexLayout>
-                                        </Frame>
+                                            </Frame>
+                                        </SwipeView>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                                 <CollectionView.Footer>

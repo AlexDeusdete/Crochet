@@ -19,6 +19,7 @@ namespace Crochet.ViewModels
         public ObservableCollection<FeedStockGroup> FeedStockGroups { get; private set; }
         public ICommand NavigateToFeedStockCreateCommand { get; private set; }
         public ICommand NavigateToFeedStockEditCommand { get; private set; }
+        public ICommand DeleteFeedStockCommand { get; private set; }
         public InventoryPageViewModel(IFeedStockService feedStockService, INavigationService navigationService)
             : base(navigationService)
         {
@@ -26,7 +27,14 @@ namespace Crochet.ViewModels
 
             NavigateToFeedStockCreateCommand = new DelegateCommand(NavigateToFeedStockCreate);
             NavigateToFeedStockEditCommand = new DelegateCommand<object>(NavigateToFeedStockEdit);
+            DeleteFeedStockCommand = new DelegateCommand<object>(DeleteFeedStock);
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
+        }
+
+        private async void DeleteFeedStock(object obj)
+        {
+            await _feedStockService.DeleteItem((FeedStock)obj);
+            LoadItens();
         }
 
         private void NavigateToFeedStockCreate()

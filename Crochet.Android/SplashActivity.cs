@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Crochet.Droid
 {
-    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "Crochet", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity
     {
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
@@ -32,10 +32,8 @@ namespace Crochet.Droid
         public override void OnBackPressed() { }
 
         // Simulates background work that happens behind the splash screen
-        async void SimulateStartup()
+        void SimulateStartup()
         {
-            await Task.Delay(2000);
-
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

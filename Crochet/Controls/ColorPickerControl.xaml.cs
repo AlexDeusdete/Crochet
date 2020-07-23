@@ -138,13 +138,13 @@ namespace Crochet.Controls
 
             //Triangulo
             if(CardTopAnimPosition <= 0.7f * skImageInfo.Height)
-                using (SKPaint fillPaint = new SKPaint())
+            using (SKPaint fillPaint = new SKPaint())
             {
                 fillPaint.IsAntialias = true;
                 SKPath path = new SKPath();
 
                 _trinangleV1.X = _circleCenter.X;
-                _trinangleV1.Y = (float)strokeWidth + 10 + CardTopAnimPosition;
+                _trinangleV1.Y = _circleCenter.Y - _circleRadios + (float)strokeWidth + 10 + CardTopAnimPosition;
 
                 _trinangleV2.X = 0.4f * _circleCenter.X + 10;
                 _trinangleV2.Y = 0.7f * skImageInfo.Height;
@@ -187,7 +187,16 @@ namespace Crochet.Controls
                         SKShaderTileMode.Clamp);
 
                 skCanvas.DrawPath(path, fillPaint);
-            }
+
+                SKPaint strokePaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Stroke,
+                    Color = SKColors.White,
+                    StrokeWidth = 1
+                };
+
+                skCanvas.DrawPath(path, strokePaint);
+             }
 
             SKColor touchPointColor = new SKColor();
 
@@ -224,8 +233,8 @@ namespace Crochet.Controls
 
                     // Outer circle (Ring)
                     var outerRingRadius =
-                        (skImageInfo.Width /
-                            skImageInfo.Height) * (float)18;
+                        ((float)skImageInfo.Width /
+                            (float)skImageInfo.Height) * (float)26;
                     skCanvas.DrawCircle(
                         _lastTouchPointHue.X,
                         _lastTouchPointHue.Y,
@@ -236,8 +245,8 @@ namespace Crochet.Controls
 
                     // Outer circle (Ring)
                     var innerRingRadius =
-                        (skImageInfo.Width /
-                            skImageInfo.Height) * (float)12;
+                        ((float)skImageInfo.Width /
+                            (float)skImageInfo.Height) * (float)20;
                     skCanvas.DrawCircle(
                         _lastTouchPointHue.X,
                         _lastTouchPointHue.Y,
@@ -277,8 +286,8 @@ namespace Crochet.Controls
 
                     // Outer circle (Ring)
                     var outerRingRadius =
-                        (skImageInfo.Width /
-                            skImageInfo.Height) * (float)14;
+                        ((float)skImageInfo.Width /
+                            (float)skImageInfo.Height) * (float)14;
                     skCanvas.DrawCircle(
                         _lastTouchPoint.X,
                         _lastTouchPoint.Y,
@@ -289,8 +298,8 @@ namespace Crochet.Controls
 
                     // Outer circle (Ring)
                     var innerRingRadius =
-                        (skImageInfo.Width /
-                            skImageInfo.Height) * (float)12;
+                        ((float)skImageInfo.Width /
+                            (float)skImageInfo.Height) * (float)10;
                     skCanvas.DrawCircle(
                         _lastTouchPoint.X,
                         _lastTouchPoint.Y,

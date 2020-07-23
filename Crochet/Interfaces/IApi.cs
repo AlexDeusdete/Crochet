@@ -65,6 +65,8 @@ namespace Crochet.Interfaces
 
         [Put("/ProductYarns/{id}")]
         Task<ProductYarn> PutProductYarn(int id, [Body] ProductYarn product);
+        [Delete("/ProductYarns/{id}")]
+        Task<ProductYarn> DeleteProductYarn(int id);
         #endregion
 
         #region ProductPictures
@@ -99,6 +101,9 @@ namespace Crochet.Interfaces
 
         [Put("/Yarns/{id}")]
         Task<FeedStock> PutYarn(int id, [Body] FeedStock yarn);
+
+        [Delete("/Yarns/{id}")]
+        Task<FeedStock> DeleteYarn(int id);
         #endregion
     }
 }

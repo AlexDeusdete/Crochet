@@ -149,5 +149,15 @@ namespace Crochet.Services.API
         {
             return await _api.PutYarn(id, product);
         }
+
+        public async Task<ProductYarn> DeleteProductYarn(int id)
+        {
+            return await _api.DeleteProductYarn(id);
+        }
+
+        public async Task<FeedStock> DeleteYarn(int id)
+        {
+            return await _api.DeleteYarn(id);
+        }
     }
 }

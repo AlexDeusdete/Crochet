@@ -31,6 +31,7 @@ namespace Crochet.ViewModels
         public ICommand DeletePictureCommand { get; private set; }
         public ICommand CreateVariationCommand { get; private set; }
         public ICommand CreateYarnCommand { get; private set; }
+        public ICommand DeleteYarnCommand { get; private set; }
         public ObservableCollection<ProductPicture> Pictures { get; private set; }
         public ObservableCollection<ProductYarnGroup> YarnGroups { get; private set; }
         public ObservableCollection<FeedStockGroup> FeedStockGroups { get; private set; }
@@ -211,10 +212,19 @@ namespace Crochet.ViewModels
             DeletePictureCommand = new DelegateCommand<object>(DeletePicture);
             CreateVariationCommand = new DelegateCommand(CreateVariation);
             CreateYarnCommand = new DelegateCommand<object>(CreateYarn);
+            DeleteYarnCommand = new DelegateCommand<object>(DeleteYarn);
 
             Pictures = new ObservableCollection<ProductPicture>();
             YarnGroups = new ObservableCollection<ProductYarnGroup>();
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
+        }
+        private async void DeleteYarn(object obj)
+        {
+            if (obj == null)
+                return;
+
+            await _productYarnService.DeleteItem((ProductYarn)obj);
+            await LoadYarnsGroups();
         }
         private async void CreateYarn(object obj)
         {
@@ -231,7 +241,7 @@ namespace Crochet.ViewModels
 
             await _productYarnService.UpsertItem(yarn);
 
-            LoadYarnsGroups();
+            await LoadYarnsGroups();
         }
         private async void CreateVariation()
         {
@@ -247,7 +257,7 @@ namespace Crochet.ViewModels
                 YarnGroups.Add(yarnGroup);
             }
         }
-        private async void LoadYarnsGroups()
+        private async Task LoadYarnsGroups()
         {
             var yarnGroups = await GetYarnsGroups();
             YarnGroups.Clear();

@@ -18,6 +18,12 @@ namespace Crochet.Services.LiteDB
             var database = GetDBInstance();
             _liteCollection = database.GetCollection<ProductYarn>();
         }
+
+        public Task<ProductYarn> DeleteItem(ProductYarn productYarn)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IList<ProductYarnGroup>> GetProductYarnsGroup(int productId)
         {
             var yarnGroups = new List<ProductYarnGroup>();
