@@ -20,6 +20,16 @@ namespace Crochet.ViewModels
         public ICommand NavigateToFeedStockCreateCommand { get; private set; }
         public ICommand NavigateToFeedStockEditCommand { get; private set; }
         public ICommand DeleteFeedStockCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
+
+        #region Property 
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set { SetProperty(ref _isRefreshing, value); }
+        }
+        #endregion
         public InventoryPageViewModel(IFeedStockService feedStockService, INavigationService navigationService)
             : base(navigationService)
         {
@@ -28,6 +38,11 @@ namespace Crochet.ViewModels
             NavigateToFeedStockCreateCommand = new DelegateCommand(NavigateToFeedStockCreate);
             NavigateToFeedStockEditCommand = new DelegateCommand<object>(NavigateToFeedStockEdit);
             DeleteFeedStockCommand = new DelegateCommand<object>(DeleteFeedStock);
+            RefreshCommand = new DelegateCommand(() =>
+            {
+                LoadItens();
+            });
+
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
         }
 
@@ -64,6 +79,7 @@ namespace Crochet.ViewModels
 
         private async void LoadItens()
         {
+            IsRefreshing = true;
             var feedStockGroups = await GetFeedStockGroups();
             FeedStockGroups.Clear();
 
@@ -71,6 +87,7 @@ namespace Crochet.ViewModels
             {
                 FeedStockGroups.Add(item);
             }
+            IsRefreshing = false;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
