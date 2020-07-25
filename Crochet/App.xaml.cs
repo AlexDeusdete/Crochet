@@ -10,6 +10,9 @@ using Crochet.Interfaces;
 using Prism.Mvvm;
 using Crochet.Views.ProductContentView;
 using Crochet.Services.API;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Crochet
@@ -23,11 +26,18 @@ namespace Crochet
          */
         public App() : this(null) { }
 
-        public App(IPlatformInitializer initializer) : base(initializer, true) { }
+        public App(IPlatformInitializer initializer) : base(initializer, true) 
+        {
+        }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
+
+            AppCenter.Start("android=b1c1da21-0549-4661-80b1-1e4aca722a8c;" +
+                              "uwp={Your UWP App secret here};" +
+                              "ios={Your iOS App secret here}",
+                              typeof(Analytics), typeof(Crashes));
 
             await NavigationService.NavigateAsync("NavigationPage/TabbedHomePage");
         }

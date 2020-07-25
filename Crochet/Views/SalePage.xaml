@@ -6,10 +6,19 @@
              x:Class="Crochet.Views.SalePage"
              Title="Vendas">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Tela em Desenvolvimento"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
-        </StackLayout>
+        <FlexLayout>
+            <Frame>
+                <Image Source="closedsale" HeightRequest="80" WidthRequest="80"/>
+            </Frame>
+            <Frame>
+                <Label Text="Vendas Abertas"/>
+            </Frame>
+            <Frame>
+                <Label Text="Vendas Fechadas"/>
+            </Frame>
+            <Frame>
+                <Label Text="Relatorios"/>
+            </Frame>
+        </FlexLayout>
     </ContentPage.Content>
 </ContentPage>
