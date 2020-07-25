@@ -23,37 +23,36 @@
                          Command="{Binding RefreshCommand}">
                 <CollectionView IsGrouped="True" 
                             ItemsSource="{Binding FeedStockGroups}"
-                            VerticalScrollBarVisibility="Never">
-                <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <FlexLayout Direction="ColumnReverse"
+                            VerticalScrollBarVisibility="Never"
+                                ItemSizingStrategy="MeasureAllItems">
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <FlexLayout Direction="ColumnReverse"
                                     Margin="20">
-                            <Label Text="{Binding Hue}"
+                                <Label Text="{Binding Hue}"
                                     FontSize="Medium"
                                     BackgroundColor="{StaticResource BGColor}"
                                     TextColor="{StaticResource colorAccent}"
                                     HorizontalOptions="EndAndExpand"
                                     Padding="10,0"
                                     />
-                        </FlexLayout>
-                    </DataTemplate>
-                </CollectionView.GroupHeaderTemplate>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <FlexLayout Direction="Column"
-                                    HeightRequest="140"
-                                    BackgroundColor="{StaticResource BGColor}">
+                            </FlexLayout>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
                             <CollectionView 
+                                BindingContextChanged="MyCollectionView_BindingContextChanged"
                                 x:Name="MyCollectionView"
-                                HorizontalScrollBarVisibility="Never"
+                                BackgroundColor="{StaticResource BGColor}"
                                 ItemsSource="{Binding FeedStocks}"
-                                HeightRequest="135"
                                 SelectionMode="Single"
                                 SelectionChangedCommand="{Binding BindingContext.NavigateToFeedStockEditCommand, Source={x:Reference root}}"
                                 SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference MyCollectionView}}">
                                 <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Horizontal"/>
+                                    <GridItemsLayout Orientation="Vertical"
+                                                     Span="3"
+                                                     VerticalItemSpacing="10"/>
                                 </CollectionView.ItemsLayout>
 
                                 <CollectionView.ItemTemplate>
@@ -62,37 +61,38 @@
                                             <SwipeView.LeftItems>
                                                 <SwipeItems>
                                                     <SwipeItemView Command="{Binding BindingContext.DeleteFeedStockCommand, Source={x:Reference root}}"
-                                                                   CommandParameter="{Binding BindingContext, Source={x:Reference sl}}">
+                                                                CommandParameter="{Binding BindingContext, Source={x:Reference sl}}">
                                                         <StackLayout x:Name="sl"
-                                                                     WidthRequest="50"
-                                                                     Spacing="0">
+                                                                    WidthRequest="50"
+                                                                    Spacing="0">
                                                             <ImageButton Source="remove"
-                                                                         VerticalOptions="Center"
-                                                                         Margin="10"/>
+                                                                        VerticalOptions="Center"
+                                                                        Margin="10"/>
                                                             <Label Text="Excluir"
-                                                                   HorizontalTextAlignment="End"
-                                                                   HorizontalOptions="Center"
-                                                                   Style="{StaticResource LabelSmallStyle}"/>
+                                                                HorizontalTextAlignment="End"
+                                                                HorizontalOptions="Center"
+                                                                Style="{StaticResource LabelSmallStyle}"/>
                                                         </StackLayout>
                                                     </SwipeItemView>
                                                 </SwipeItems>
                                             </SwipeView.LeftItems>
                                             <FlexLayout Padding="10,0,0,0">
                                                 <Frame Padding="5"
-                                                   BorderColor="{StaticResource colorAccent}">
+                                                        BorderColor="{StaticResource colorAccent}"
+                                                       HeightRequest="140">
                                                     <FlexLayout WidthRequest="90"
-                                                    Direction="Column">
+                                                                Direction="Column">
                                                         <controls:YarnSpoolControl x:Name="spool"
-                                                    Colors="{Binding Colors, Converter={StaticResource sDColorListToFormsColorList}}"
-                                                    HeightRequest="60"
-                                                    FlexLayout.AlignSelf="Center"/>
+                                                                Colors="{Binding Colors, Converter={StaticResource sDColorListToFormsColorList}}"
+                                                                HeightRequest="60"
+                                                                FlexLayout.AlignSelf="Center"/>
                                                         <Label
-                                                    Text="{Binding Brand.Name}"
-                                                    FontSize="Micro">
+                                                                Text="{Binding Brand.Name}"
+                                                                FontSize="Micro">
                                                         </Label>
                                                         <Label                                                    
-                                                    FontSize="Micro"
-                                                    LineBreakMode="TailTruncation">
+                                                                FontSize="Micro"
+                                                                LineBreakMode="TailTruncation">
                                                             <Label.Text>
                                                                 <MultiBinding StringFormat="{}{0} - N° {1}">
                                                                     <Binding Path="ColorName"/>
@@ -101,8 +101,8 @@
                                                             </Label.Text>
                                                         </Label>
                                                         <Label                                                    
-                                                    FontSize="Micro"
-                                                    LineBreakMode="TailTruncation">
+                                                                    FontSize="Micro"
+                                                                    LineBreakMode="TailTruncation">
                                                             <Label.Text>
                                                                 <MultiBinding StringFormat="{}{0} / {1} gramas">
                                                                     <Binding Path="InventoryAvailable"/>
@@ -111,11 +111,11 @@
                                                             </Label.Text>
                                                         </Label>
                                                         <Label
-                                                    Text="{Binding Price, StringFormat='{0:C}'}"
-                                                    FontSize="Micro"/>
+                                                Text="{Binding Price, StringFormat='{0:C}'}"
+                                                FontSize="Micro"/>
                                                         <Label
-                                                    Text="{Binding TEX, StringFormat='TEX {0}'}"
-                                                    FontSize="Micro"/>
+                                                Text="{Binding TEX, StringFormat='TEX {0}'}"
+                                                FontSize="Micro"/>
                                                     </FlexLayout>
                                                 </Frame>
                                             </FlexLayout>
@@ -123,10 +123,9 @@
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
-                        </FlexLayout>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </RefreshView>
             <controls:FormsFloatingActionButton
                     BackgroundColor="{StaticResource BGColor}"
