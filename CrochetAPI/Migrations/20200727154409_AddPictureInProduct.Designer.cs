@@ -4,14 +4,16 @@ using CrochetAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrochetAPI.Migrations
 {
     [DbContext(typeof(CrochetAPIContext))]
-    partial class CrochetAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200727154409_AddPictureInProduct")]
+    partial class AddPictureInProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,6 +73,12 @@ namespace CrochetAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("ProductPictureId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductPictureId1")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProductTypeId")
                         .HasColumnType("int");
 
@@ -85,6 +93,8 @@ namespace CrochetAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
+
+                    b.HasIndex("ProductPictureId1");
 
                     b.HasIndex("ProductTypeId");
 
@@ -144,8 +154,6 @@ namespace CrochetAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductPictures");
                 });
@@ -292,18 +300,13 @@ namespace CrochetAPI.Migrations
 
             modelBuilder.Entity("Crochet.Models.Product", b =>
                 {
+                    b.HasOne("Crochet.Models.ProductPicture", "ProductPicture")
+                        .WithMany()
+                        .HasForeignKey("ProductPictureId1");
+
                     b.HasOne("Crochet.Models.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeId");
-                });
-
-            modelBuilder.Entity("Crochet.Models.ProductPicture", b =>
-                {
-                    b.HasOne("Crochet.Models.Product", null)
-                        .WithMany("ProductPictures")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Crochet.Models.ProductYarn", b =>

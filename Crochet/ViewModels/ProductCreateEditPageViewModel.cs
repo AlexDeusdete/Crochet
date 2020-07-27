@@ -1,6 +1,7 @@
 ﻿using Crochet.Controls;
 using Crochet.Interfaces;
 using Crochet.Models;
+using DryIoc;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -26,15 +27,18 @@ namespace Crochet.ViewModels
         private readonly IProductYarnService _productYarnService;
         private readonly IFeedStockService _feedStockService;
         private readonly IProductFinalcialService _productFinalcialService;
+        private readonly IProductTypeService _productTypeService;
         public ICommand SaveCommand { get; private set; }
         public ICommand SavePictureCommand { get; private set; }
         public ICommand DeletePictureCommand { get; private set; }
         public ICommand CreateVariationCommand { get; private set; }
         public ICommand CreateYarnCommand { get; private set; }
         public ICommand DeleteYarnCommand { get; private set; }
+        public ICommand SaveProductTypeCommand { get; set; }
         public ObservableCollection<ProductPicture> Pictures { get; private set; }
         public ObservableCollection<ProductYarnGroup> YarnGroups { get; private set; }
         public ObservableCollection<FeedStockGroup> FeedStockGroups { get; private set; }
+        public ObservableCollection<ProductType> ProductTypes { get; private set; }
 
         #region Propertys
         private string _productCode;
@@ -46,6 +50,7 @@ namespace Crochet.ViewModels
         private int _weight;
         private string _difficulty;
         private string _comments;
+        private ProductType _productType;
         //Yarns
         private int _variationId;
         private string _variationName;
@@ -62,6 +67,11 @@ namespace Crochet.ViewModels
         private float _profitPracticed;
         private float _profitValue;
 
+        public ProductType ProductType
+        {
+            get { return _productType; }
+            set { SetProperty(ref _productType, value); }
+        }
         public ProductYarnGroup Variation
         {
             get { return _variation; }
@@ -197,7 +207,8 @@ namespace Crochet.ViewModels
                                                 IProductPictureService productPicture,
                                                 IProductYarnService productYarnService,
                                                 IFeedStockService feedStockService,
-                                                IProductFinalcialService productFinalcialService)
+                                                IProductFinalcialService productFinalcialService,
+                                                IProductTypeService productTypeService)
             :base(navigationService)
         {
             _productService = productService;
@@ -206,6 +217,7 @@ namespace Crochet.ViewModels
             _productYarnService = productYarnService;
             _feedStockService = feedStockService;
             _productFinalcialService = productFinalcialService;
+            _productTypeService = productTypeService;
 
             SaveCommand = new DelegateCommand(Save);
             SavePictureCommand = new DelegateCommand(SavePictureAsync);
@@ -213,10 +225,34 @@ namespace Crochet.ViewModels
             CreateVariationCommand = new DelegateCommand(CreateVariation);
             CreateYarnCommand = new DelegateCommand<object>(CreateYarn);
             DeleteYarnCommand = new DelegateCommand<object>(DeleteYarn);
+            SaveProductTypeCommand = new DelegateCommand(SaveProductType);
 
             Pictures = new ObservableCollection<ProductPicture>();
             YarnGroups = new ObservableCollection<ProductYarnGroup>();
             FeedStockGroups = new ObservableCollection<FeedStockGroup>();
+            ProductTypes = new ObservableCollection<ProductType>();
+        }
+        private async void SaveProductType()
+        {
+            string result = await Prism.PrismApplicationBase.Current.MainPage.DisplayPromptAsync("Tipo", "Novo Tipo de Produto :", "Salvar", "Cancelar", "Sem Tipo");
+            if (string.IsNullOrEmpty(result))
+                return;
+
+            var productType = ProductTypes.Where(x => x.Name == result).FirstOrDefault();
+
+            if (productType == null)
+            {
+                productType = new ProductType()
+                {
+                    Name = result
+                };
+
+                productType = await _productTypeService.InsertItem(productType);
+
+                ProductTypes.Add(productType);
+            }
+
+            ProductType = ProductTypes.Where(x => x.Id == productType.Id).FirstOrDefault();
         }
         private async void DeleteYarn(object obj)
         {
@@ -319,6 +355,20 @@ namespace Crochet.ViewModels
         }
         private async void Save()
         {
+            if (ProductType == null)
+            {
+                ProductType = ProductTypes.Where(x => x.Name == "Sem Tipo").FirstOrDefault();
+
+                if (ProductType == null)
+                {
+                    var productType = new ProductType()
+                    {
+                        Name = "Sem Tipo"
+                    };
+
+                    ProductType = await _productTypeService.InsertItem(productType);
+                }
+            }
             var product = new Product()
             {
                 Id = _idProduct,
@@ -328,7 +378,8 @@ namespace Crochet.ViewModels
                 Height = Height,
                 Weight = Weight,
                 Comments = Comments,
-                Difficulty = Difficulty
+                Difficulty = Difficulty,
+                ProductType = ProductType
             };
 
             await _productService.UpsertItem(product);
@@ -379,9 +430,11 @@ namespace Crochet.ViewModels
             Height = product.Height;
             Weight = product.Weight;
             Difficulty = product.Difficulty;
-            Comments = product.Comments;           
+            Comments = product.Comments;
+            await LoadProductTypes();
+            ProductType = ProductTypes.Where(x => x.Id == product.ProductTypeId).FirstOrDefault();
 
-            GetPictures();
+            GetPictures();            
             LoadYarnsGroups();
             LoadAllYarns();
             _productFinalcials = (await _productFinalcialService.GetFinalcialsByProductId(_idProduct)).ToList() ;
@@ -468,6 +521,20 @@ namespace Crochet.ViewModels
             SuggestedPrice = financialItem.SuggestedPrice;
             ProfitPracticed = financialItem.ProfitPracticed;
             ProfitValue = financialItem.ProfitValue;
+        }
+        private async Task<IList<ProductType>> GetProductTypes()
+        {
+            return await _productTypeService.GetItems();
+        }
+        private async Task LoadProductTypes()
+        {
+            var productTypes = await GetProductTypes();
+            ProductTypes.Clear();
+
+            foreach (var item in productTypes)
+            {
+                ProductTypes.Add(item);
+            }
         }
     }
 }

@@ -18,6 +18,11 @@ namespace CrochetAPI.Data
         public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<ProductYarn> ProductYarns { get; set; }
         public DbSet<Yarn> Yarns { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleItem> SaleItems { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

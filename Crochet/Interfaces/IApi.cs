@@ -89,6 +89,17 @@ namespace Crochet.Interfaces
         Task<ProductPicture> DeleteProductPicture(int id);
         #endregion
 
+        #region ProductType
+        [Get("/ProductTypes")]
+        Task<List<ProductType>> GetProductType();
+
+        [Get("/ProductTypes/{id}")]
+        Task<ProductType> GetProductType(int id);
+
+        [Post("/ProductTypes")]
+        Task<ProductType> PostProductType([Body] ProductType productType);
+        #endregion
+
         #region Yarn
         [Get("/Yarns")]
         Task<List<FeedStock>> GetYarns();

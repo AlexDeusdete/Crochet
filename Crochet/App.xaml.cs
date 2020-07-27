@@ -13,6 +13,7 @@ using Crochet.Services.API;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Crochet.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Crochet
@@ -59,9 +60,12 @@ namespace Crochet
             containerRegistry.Register<IBrandService, BrandService>();
             containerRegistry.Register<IProductService, ProductService>();
             containerRegistry.RegisterSingleton<IProductPictureService, ProductPictureService>();
+            containerRegistry.RegisterSingleton<IPictureService, PictureService>();
             containerRegistry.Register<IProductYarnService, ProductYarnService>();
             containerRegistry.Register<IProductFinalcialService, ProductFinalcialService>();
+            containerRegistry.Register<IProductTypeService, ProductTypeService>();
             containerRegistry.Register<IApi, API>();
+            containerRegistry.RegisterForNavigation<NewSalePage, NewSalePageViewModel>();
         }
     }
 }

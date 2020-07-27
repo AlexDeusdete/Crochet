@@ -24,16 +24,5 @@ namespace Crochet.Views.ProductContentView
         {
             return "Fotos";
         }
-        private void Image_BindingContextChanged(object sender, EventArgs e)
-        {
-            var image = (Image)sender;
-            if (image.BindingContext == null)
-                return;
-
-            var service  = DependencyService.Resolve<IProductPictureService>();
-            Stream stream = service.GetPictureById("IMG"+(image.BindingContext as ProductPicture).Id.ToString());
-            if(stream != null)
-                image.Source = ImageSource.FromStream(() => stream);
-        }
     }
 }

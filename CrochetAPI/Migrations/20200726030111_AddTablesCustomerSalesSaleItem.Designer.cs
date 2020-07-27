@@ -4,14 +4,16 @@ using CrochetAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrochetAPI.Migrations
 {
     [DbContext(typeof(CrochetAPIContext))]
-    partial class CrochetAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200726030111_AddTablesCustomerSalesSaleItem")]
+    partial class AddTablesCustomerSalesSaleItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,9 +73,6 @@ namespace CrochetAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ProductTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
@@ -85,8 +84,6 @@ namespace CrochetAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
-
-                    b.HasIndex("ProductTypeId");
 
                     b.ToTable("Products");
                 });
@@ -145,24 +142,7 @@ namespace CrochetAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("ProductPictures");
-                });
-
-            modelBuilder.Entity("Crochet.Models.ProductType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductTypes");
                 });
 
             modelBuilder.Entity("Crochet.Models.ProductYarn", b =>
@@ -288,22 +268,6 @@ namespace CrochetAPI.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Yarns");
-                });
-
-            modelBuilder.Entity("Crochet.Models.Product", b =>
-                {
-                    b.HasOne("Crochet.Models.ProductType", "ProductType")
-                        .WithMany()
-                        .HasForeignKey("ProductTypeId");
-                });
-
-            modelBuilder.Entity("Crochet.Models.ProductPicture", b =>
-                {
-                    b.HasOne("Crochet.Models.Product", null)
-                        .WithMany("ProductPictures")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Crochet.Models.ProductYarn", b =>

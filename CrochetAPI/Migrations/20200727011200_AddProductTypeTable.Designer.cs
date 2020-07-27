@@ -4,14 +4,16 @@ using CrochetAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrochetAPI.Migrations
 {
     [DbContext(typeof(CrochetAPIContext))]
-    partial class CrochetAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200727011200_AddProductTypeTable")]
+    partial class AddProductTypeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,8 +146,6 @@ namespace CrochetAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductPictures");
                 });
@@ -295,15 +295,6 @@ namespace CrochetAPI.Migrations
                     b.HasOne("Crochet.Models.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeId");
-                });
-
-            modelBuilder.Entity("Crochet.Models.ProductPicture", b =>
-                {
-                    b.HasOne("Crochet.Models.Product", null)
-                        .WithMany("ProductPictures")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Crochet.Models.ProductYarn", b =>
