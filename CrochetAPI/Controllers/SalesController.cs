@@ -12,52 +12,50 @@ namespace CrochetAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class SalesController : ControllerBase
     {
         private readonly CrochetAPIContext _context;
 
-        public ProductsController(CrochetAPIContext context)
+        public SalesController(CrochetAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Sales
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(string name)
+        public async Task<ActionResult<IEnumerable<Sale>>> GetSales()
         {
-            if (name == null)
-                return await _context.Products.ToListAsync();
-            else
-                return await _context.Products.Where(x => x.Name == name).ToListAsync();
+            return await _context.Sales.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Sales/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<Sale>> GetSale(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var sale = await _context.Sales.FindAsync(id);
 
-            if (product == null)
+            if (sale == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return sale;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Sales/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutSale(int id, Sale sale)
         {
-            if (id != product.Id)
+            if (id != sale.Id)
             {
                 return BadRequest();
             }
-            product.ProductType = null;
 
-            _context.Entry(product).State = EntityState.Modified;
+            sale.Customer = null;
+
+            _context.Entry(sale).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +63,7 @@ namespace CrochetAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!SaleExists(id))
                 {
                     return NotFound();
                 }
@@ -78,37 +76,37 @@ namespace CrochetAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Sales
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Sale>> PostSale(Sale sale)
         {
-            _context.Products.Add(product);
+            _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetSale", new { id = sale.Id }, sale);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Sales/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<Sale>> DeleteSale(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var sale = await _context.Sales.FindAsync(id);
+            if (sale == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.Sales.Remove(sale);
             await _context.SaveChangesAsync();
 
-            return product;
+            return sale;
         }
 
-        private bool ProductExists(int id)
+        private bool SaleExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Sales.Any(e => e.Id == id);
         }
     }
 }

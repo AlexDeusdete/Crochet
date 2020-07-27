@@ -61,7 +61,9 @@ namespace Crochet
             containerRegistry.RegisterSingleton<IProductPictureService, ProductPictureService>();
             containerRegistry.Register<IProductYarnService, ProductYarnService>();
             containerRegistry.Register<IProductFinalcialService, ProductFinalcialService>();
+            containerRegistry.Register<IProductTypeService, ProductTypeService>();
             containerRegistry.Register<IApi, API>();
+            containerRegistry.RegisterForNavigation<NewSalePage, NewSalePageViewModel>();
         }
     }
 }

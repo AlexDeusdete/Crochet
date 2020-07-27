@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.4.4" />
     <PackageReference Include="LiteDB" Version="5.0.8" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.3.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.3.0" />
@@ -43,6 +44,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\InventoryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewSalePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ProductContentView\ProductYarnView.xaml">

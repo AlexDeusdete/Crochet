@@ -7,6 +7,7 @@ namespace Crochet.Models
     public class Product
     {
         public int Id { get; set; }
+        public int? ProductTypeId { get { return ProductType == null ? 0 : ProductType.Id; } set { } }
         public string ProductCode 
         {
             get
@@ -22,6 +23,7 @@ namespace Crochet.Models
         public int Weight { get; set; }
         public string Difficulty { get; set; }
         public string Comments { get; set; }
+        public ProductType ProductType { get; set; }
     }
 
     public class ProductCollection

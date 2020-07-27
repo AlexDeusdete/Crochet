@@ -6,18 +6,80 @@
              x:Class="Crochet.Views.SalePage"
              Title="Vendas">
     <ContentPage.Content>
-        <FlexLayout>
-            <Frame>
-                <Image Source="closedsale" HeightRequest="80" WidthRequest="80"/>
+        <FlexLayout AlignItems="Start"
+                    Wrap="Wrap"
+                    AlignContent="SpaceEvenly"
+                    JustifyContent="SpaceEvenly">
+            <Frame BorderColor="{StaticResource colorAccent}" 
+                   CornerRadius="10"
+                   Padding="0" 
+                   HeightRequest="145"
+                   WidthRequest="130">
+                <StackLayout VerticalOptions="Center">
+                    <Frame CornerRadius="40" 
+                       HorizontalOptions="Center">
+                        <Image Source="closedsale"
+                       HeightRequest="40" 
+                       WidthRequest="40"/>
+                    </Frame>
+                    <Label Text="Vendas Fechadas"
+                       HorizontalOptions="Center"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                </StackLayout>
             </Frame>
-            <Frame>
-                <Label Text="Vendas Abertas"/>
+            <Frame BorderColor="{StaticResource colorAccent}" 
+                   CornerRadius="10"
+                   Padding="0" 
+                   HeightRequest="145"
+                   WidthRequest="130">
+                <StackLayout VerticalOptions="Center">
+                    <Frame CornerRadius="40"
+                       HorizontalOptions="Center">
+                        <Image Source="dashboard" 
+                       HeightRequest="40" 
+                       WidthRequest="40"/>
+                    </Frame>
+                    <Label Text="Relatórios"
+                       HorizontalOptions="Center"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                </StackLayout>
             </Frame>
-            <Frame>
-                <Label Text="Vendas Fechadas"/>
+            <Frame BorderColor="{StaticResource colorAccent}" 
+                   CornerRadius="10" 
+                   Padding="0" 
+                   HeightRequest="145"
+                   WidthRequest="130">
+                <StackLayout VerticalOptions="Center">
+                    <Frame CornerRadius="40"
+                       HorizontalOptions="Center">
+                        <Image Source="opensale" 
+                       HeightRequest="40" 
+                       WidthRequest="40"/>
+                    </Frame>
+                    <Label Text="Vendas Abertas"
+                       HorizontalOptions="Center"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                </StackLayout>
             </Frame>
-            <Frame>
-                <Label Text="Relatorios"/>
+            <Frame BorderColor="{StaticResource colorAccent}" 
+                   CornerRadius="10"
+                   Padding="0" 
+                   HeightRequest="145"
+                   WidthRequest="130">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToNewSaleCommand}"/>
+                </Frame.GestureRecognizers>
+                <StackLayout VerticalOptions="Center">
+                    <Frame CornerRadius="40"
+                       HorizontalOptions="Center">
+                        <Image Source="plus" 
+                       HeightRequest="40" 
+                       WidthRequest="40"/>
+                    </Frame>
+                    <Label Text="Nova Venda"
+                       HorizontalOptions="Center"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                </StackLayout>
             </Frame>
         </FlexLayout>
     </ContentPage.Content>
