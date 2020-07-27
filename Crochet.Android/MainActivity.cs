@@ -28,6 +28,7 @@ namespace Crochet.Droid
             Forms.SetFlags("SwipeView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
             LoadApplication(new App(new AndroidInitializer()));
 
             Instance = this;

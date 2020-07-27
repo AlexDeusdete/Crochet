@@ -8,6 +8,7 @@ namespace Crochet.Interfaces
 {
     public interface IPictureService
     {
-        Task<string> UploadImage(MemoryStream image);
+        Task<string> UploadImage(string fileName, Stream image);
+        Task<bool> DeleteImage(string fileName);
     }
 }

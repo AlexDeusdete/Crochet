@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Crochet.Models
 {
@@ -14,5 +15,6 @@ namespace Crochet.Models
         public string Difficulty { get; set; }
         public string Comments { get; set; }
         public virtual ProductType ProductType { get; set; }
+        public virtual ICollection<ProductPicture> ProductPictures { get; set; }
     }
 }

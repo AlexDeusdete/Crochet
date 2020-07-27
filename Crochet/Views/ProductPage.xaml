@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Crochet.Views.ProductPage"
              x:Name="root"
@@ -52,7 +53,8 @@
                                             <Frame BorderColor="{StaticResource colorAccent}"
                                                 Padding="5">
                                                 <FlexLayout Direction="Row">
-                                                    <Image BindingContextChanged="Image_BindingContextChanged"
+                                                    <ffimageloading:CachedImage 
+                                                           Source="{Binding ProductPictures[0].Uri}"
                                                            HeightRequest="85"
                                                            WidthRequest="85"/>
                                                     <FlexLayout Direction="Column"

@@ -56,6 +56,7 @@ namespace CrochetAPI.Controllers
                 return BadRequest();
             }
             product.ProductType = null;
+            product.ProductPictures = null;
 
             _context.Entry(product).State = EntityState.Modified;
 

@@ -24,6 +24,7 @@ namespace Crochet.Models
         public string Difficulty { get; set; }
         public string Comments { get; set; }
         public ProductType ProductType { get; set; }
+        public IList<ProductPicture> ProductPictures { get; set; }
     }
 
     public class ProductCollection

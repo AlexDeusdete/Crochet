@@ -1,6 +1,5 @@
 ﻿using Crochet.Interfaces;
 using Crochet.Models;
-using Crochet.Services.LiteDB;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,12 +10,17 @@ namespace Crochet.Services.API
 {
     public class ProductPictureService : ApiBase, IProductPictureService
     {
-        public ProductPictureService(IApi api) : base(api){}
+        private readonly IPictureService _pictureService;
+        public ProductPictureService(IApi api,
+                                     IPictureService pictureService) : base(api)
+        {
+            _pictureService = pictureService;
+        }
         public async Task<ProductPicture> DeletePicture(ProductPicture picture)
         {
-            LiteDBBase dBBase = new LiteDBBase();
+   
             if (picture != null && picture.Name != null)
-                dBBase.GetDBInstance().FileStorage.Delete(picture.Name);
+                await _pictureService.DeleteImage(picture.Name);
 
             return await API.DeleteProductPicture(picture.Id);
         }
@@ -28,15 +32,7 @@ namespace Crochet.Services.API
 
         public Stream GetPictureById(string id)
         {
-            try
-            {
-                LiteDBBase dBBase = new LiteDBBase();
-                return dBBase.GetDBInstance().FileStorage.OpenRead(id);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
         public async Task<IList<ProductPicture>> GetPicturesByProductId(int id)
@@ -52,10 +48,8 @@ namespace Crochet.Services.API
             else
                 updatedPicture = await API.PostProductPicture(picture);
 
-            LiteDBBase dBBase = new LiteDBBase();
-
-            string imgName = "IMG" + updatedPicture.Id.ToString();
-            dBBase.GetDBInstance().FileStorage.Upload(imgName, imgName, pictureStream);
+            string imgName = "IMG" + updatedPicture.Id.ToString() + ".png";
+            updatedPicture.Uri = await _pictureService.UploadImage(imgName, pictureStream);
 
             updatedPicture.Name = imgName;
             return await API.PutProductPicture(updatedPicture.Id, updatedPicture);
