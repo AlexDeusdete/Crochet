@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Crochet.Converters"
              xmlns:prism="http://prismlibrary.com"
              x:Class="Crochet.App">
   <Application.Resources>
 
         <ResourceDictionary>
+            <converters:ProductFinalcialsToRangePrice x:Key="productFinalcialsToRangePrice"/>
+            
             <Color x:Key="colorPrimary">#ffcccc</Color>
             <Color x:Key="colorPrimaryDark">#ff9999</Color>
             <Color x:Key="colorAccent">#666699</Color>
@@ -31,7 +34,13 @@
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
             </Style>
-
+            
+            <Style x:Key="LabelLargeStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="{StaticResource BGColor}" />
+                <Setter Property="FontAttributes" Value="Italic" />
+            </Style>
+            
             <Style x:Key="PickerStyle" TargetType="Picker">
                 <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
                 <Setter Property="TitleColor" Value="{StaticResource colorAccent}" />

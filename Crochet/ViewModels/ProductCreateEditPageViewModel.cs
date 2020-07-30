@@ -30,6 +30,7 @@ namespace Crochet.ViewModels
         private readonly IProductTypeService _productTypeService;
         public ICommand SaveCommand { get; private set; }
         public ICommand SavePictureCommand { get; private set; }
+        public ICommand TakePictureCommand { get; private set; }
         public ICommand DeletePictureCommand { get; private set; }
         public ICommand CreateVariationCommand { get; private set; }
         public ICommand CreateYarnCommand { get; private set; }
@@ -221,6 +222,7 @@ namespace Crochet.ViewModels
 
             SaveCommand = new DelegateCommand(Save);
             SavePictureCommand = new DelegateCommand(SavePictureAsync);
+            TakePictureCommand = new DelegateCommand(TakePicture);
             DeletePictureCommand = new DelegateCommand<object>(DeletePicture);
             CreateVariationCommand = new DelegateCommand(CreateVariation);
             CreateYarnCommand = new DelegateCommand<object>(CreateYarn);
@@ -439,6 +441,20 @@ namespace Crochet.ViewModels
             LoadAllYarns();
             _productFinalcials = (await _productFinalcialService.GetFinalcialsByProductId(_idProduct)).ToList() ;
         }
+        private async void TakePicture()
+        {
+            Stream stream = await _galleryService.TakePicture();
+            if (stream != null)
+            {
+                var picture = new ProductPicture()
+                {
+                    ProductId = _idProduct
+                };
+
+                var newpic = await _productPictureService.UpsertPicture(picture, stream);
+                Pictures.Add(newpic);
+            }
+        }
         private async void LoadVariantPropertys()
         {
             if (Variation == null)
@@ -481,7 +497,8 @@ namespace Crochet.ViewModels
                     ProfitPercentage = ProfitPercentage,
                     FinalPrice = FinalPrice,
                     ProductId = _idProduct,
-                    VariationId = Variation.VariationId           
+                    VariationId = Variation.VariationId,
+                    VariationName = Variation.VariationName
                 };
 
                 _productFinalcials.Add(await _productFinalcialService.UpSertItem(financialItem));

@@ -44,7 +44,15 @@
                     VerticalOptions="End"
                     HeightRequest="90"
                     WidthRequest="80"
-                    Command="{Binding SavePictureCommand}"/>            
+                    Command="{Binding SavePictureCommand}"/>
+            <controls:FormsFloatingActionButton
+                    BackgroundColor="{StaticResource BGColor}"
+                    HorizontalOptions="Start"
+                    ImageSource="photo"
+                    VerticalOptions="End"
+                    HeightRequest="90"
+                    WidthRequest="80"
+                    Command="{Binding TakePictureCommand}"/>
         </Grid>
   </ContentView.Content>
 </ContentView>

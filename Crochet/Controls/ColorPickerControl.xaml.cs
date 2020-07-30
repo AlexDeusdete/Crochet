@@ -160,31 +160,13 @@ namespace Crochet.Controls
 
                 var colorsBW = new SKColor[]
                 {
+                    SKColors.White,
                     SKColors.Black,
+                    (_pickedColorHue.Hue != 0 ? _pickedColorHue.ToSKColor() : SKColors.Transparent),
                     SKColors.White
                 };
 
-                var colorsPCT = new SKColor[]
-                {
-                    (_pickedColorHue.Hue != 0 ? _pickedColorHue.ToSKColor() : SKColors.Transparent),
-                    SKColors.Transparent
-                };
-
-                fillPaint.Shader = SKShader.CreateLinearGradient(
-                        new SKPoint(_trinangleV2.X, 0),
-                        new SKPoint(_trinangleV3.X, 0),
-                        colorsBW,
-                        new float[] { 0.25f, 0.95f },
-                        SKShaderTileMode.Clamp);
-
-                skCanvas.DrawPath(path, fillPaint);
-
-                fillPaint.Shader = SKShader.CreateLinearGradient(
-                        new SKPoint(0, _trinangleV1.Y),
-                        new SKPoint(0, _trinangleV2.Y),
-                        colorsPCT,
-                        new float[] { 0.45f, 1 },
-                        SKShaderTileMode.Clamp);
+                fillPaint.Shader = SKShader.CreateSweepGradient(_circleCenter, colorsBW, new float[] {0f,0.25f, 0.75f, 1f });
 
                 skCanvas.DrawPath(path, fillPaint);
 

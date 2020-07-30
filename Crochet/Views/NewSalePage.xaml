@@ -4,36 +4,52 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:views="clr-namespace:Crochet.Views.NewSaleContentView"
              Title="Nova Venda"
              x:Class="Crochet.Views.NewSalePage">
     <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding ProductTypes}"
-                        BackgroundColor="{StaticResource BGColor}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10,10">
-                        <yummy:PancakeView BackgroundColor="{StaticResource colorPrimary}" Padding="20,0"
-                               HorizontalOptions="FillAndExpand" HeightRequest="80" CornerRadius="20">
-
-                            <yummy:PancakeView.Shadow>
-                                <yummy:DropShadow x:Name="shadow" Color="Black"/>
-                            </yummy:PancakeView.Shadow>
-                            <FlexLayout AlignItems="Center">
-                                <Label
-                                    FlexLayout.Grow="1"
-                                    Text="{Binding Name}"
-                                    FontSize="Large"
-                                    TextColor="{StaticResource BGColor}"
-                                    FontAttributes="Italic"  />
-                                <Image Source="next"/>
-                            </FlexLayout>
-                        </yummy:PancakeView>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>           
-        </CollectionView>
+        <Grid x:Name="MyGrid">
+            <Grid x:Name="Views" VerticalOptions="FillAndExpand">
+                <views:ProductTypeListView x:Name="productTypeListView" PropertyChanged="ProductTypeListView_PropertyChanged"/>
+                <views:ProductListView x:Name="productListView" IsVisible="False" PropertyChanged="ProductTypeListView_PropertyChanged"/>
+            </Grid>
+            <yummy:PancakeView x:Name="cart"
+                               VerticalOptions="End" 
+                               HeightRequest="50"
+                               CornerRadius="20,20,0,0"
+                               Padding="10,0"
+                               BackgroundColor="{StaticResource colorPrimary}">
+                <FlexLayout Direction="Column">
+                    <FlexLayout Direction="Row" 
+                            HeightRequest="50"
+                            AlignItems="Center"
+                            JustifyContent="SpaceEvenly">
+                        <FlexLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </FlexLayout.GestureRecognizers>
+                        <Image x:Name="arrowCart"
+                               Source="next"
+                               Rotation="-90"/>
+                        <Label Text="Carrinho" 
+                               Style="{StaticResource LabelLargeStyle}"
+                               FlexLayout.Basis="60%"/>
+                        <Frame Padding="0"
+                               HasShadow="False"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               CornerRadius="40">
+                            <Label Text="5"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"
+                                   BackgroundColor="{StaticResource BGColor}"
+                                   TextColor="{StaticResource colorAccent}"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalOptions="Center"/>
+                        </Frame>
+                    </FlexLayout>
+                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource BGColor}"/>
+                </FlexLayout>
+            </yummy:PancakeView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

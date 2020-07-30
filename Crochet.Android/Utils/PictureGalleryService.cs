@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Crochet.Interfaces;
+using Plugin.Media;
 
 namespace Crochet.Droid.Utils
 {
@@ -33,6 +34,27 @@ namespace Crochet.Droid.Utils
 
             // Return Task object
             return MainActivity.Instance.PickImageTaskCompletionSource.Task;
+        }
+
+        public async Task<Stream> TakePicture()
+        {
+            await CrossMedia.Current.Initialize();
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                return null;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                AllowCropping = true,
+                CompressionQuality = 50
+            });
+
+            if (file == null)
+                return null;
+
+            var stream = file.GetStream();
+            return stream;
         }
     }
 }

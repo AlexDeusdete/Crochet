@@ -23,6 +23,9 @@ namespace Crochet.Interfaces
         [Get("/Products?name={name}")]
         Task<List<Product>> GetProducts(string name);
 
+        [Get("/Products?productTypeId={productTypeId}")]
+        Task<List<Product>> GetProductsByType(int productTypeId);
+
         [Get("/Products/{id}")]
         Task<Product> GetProduct(int id);
 
