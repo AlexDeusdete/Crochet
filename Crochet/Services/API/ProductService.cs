@@ -48,6 +48,11 @@ namespace Crochet.Services.API
             return await API.GetProducts(null);
         }
 
+        public async Task<IList<Product>> GetItemsByType(int productTypeid)
+        {
+            return await API.GetProductsByType(productTypeid);
+        }
+
         public async Task<Product> UpsertItem(Product Item)
         {
             if (Item.Id > 0)

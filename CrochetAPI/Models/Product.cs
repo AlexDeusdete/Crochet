@@ -16,5 +16,6 @@ namespace Crochet.Models
         public string Comments { get; set; }
         public virtual ProductType ProductType { get; set; }
         public virtual ICollection<ProductPicture> ProductPictures { get; set; }
+        public virtual ICollection<ProductFinalcial> ProductFinalcials { get; set; }
     }
 }

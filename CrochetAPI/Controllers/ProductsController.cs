@@ -23,12 +23,16 @@ namespace CrochetAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(string name)
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(string name, int? productTypeId)
         {
-            if (name == null)
+            if (name == null && productTypeId == null)
                 return await _context.Products.ToListAsync();
-            else
+            else if(name != null && productTypeId != null)
+                return await _context.Products.Where(x => x.Name == name && x.ProductTypeId == productTypeId).ToListAsync();
+            else if(name != null)
                 return await _context.Products.Where(x => x.Name == name).ToListAsync();
+            else
+                return await _context.Products.Where(x => x.ProductTypeId == productTypeId).ToListAsync();
         }
 
         // GET: api/Products/5
@@ -57,6 +61,7 @@ namespace CrochetAPI.Controllers
             }
             product.ProductType = null;
             product.ProductPictures = null;
+            product.ProductFinalcials = null;
 
             _context.Entry(product).State = EntityState.Modified;
 
@@ -85,6 +90,10 @@ namespace CrochetAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            product.ProductType = null;
+            product.ProductPictures = null;
+            product.ProductFinalcials = null;
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 

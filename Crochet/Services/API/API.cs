@@ -174,5 +174,10 @@ namespace Crochet.Services.API
         {
             return await _api.PostProductType(productType);
         }
+
+        public async Task<List<Product>> GetProductsByType(int productTypeId)
+        {
+            return await _api.GetProductsByType(productTypeId);
+        }
     }
 }

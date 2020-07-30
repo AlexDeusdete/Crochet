@@ -9,5 +9,7 @@ namespace Crochet.Interfaces
     public interface IPictureGalleryService
     {
         Task<Stream> GetPictureStreamAsync();
+
+        Task<Stream> TakePicture();
     }
 }

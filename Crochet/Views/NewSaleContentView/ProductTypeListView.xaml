@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="Crochet.Views.NewSaleContentView.ProductTypeListView">
+  <ContentView.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Transparent" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentView.Resources>
+  <ContentView.Content>
+        <CollectionView ItemsSource="{Binding ProductTypes}"
+                        BackgroundColor="{StaticResource BGColor}"
+                        x:Name="MyCollectionView"
+                        SelectionMode="Single"
+                        SelectionChanged="MyCollectionView_SelectionChanged"
+                        SelectionChangedCommand="{Binding LoadProductsCommand}"
+                        SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10,10">
+                        <yummy:PancakeView BackgroundColor="{StaticResource colorPrimary}" Padding="20,0"
+                               HorizontalOptions="FillAndExpand" HeightRequest="80" CornerRadius="20">
+
+                            <yummy:PancakeView.Shadow>
+                                <yummy:DropShadow x:Name="shadow" Color="Black"/>
+                            </yummy:PancakeView.Shadow>
+                            <FlexLayout AlignItems="Center">
+                                <Label
+                                    FlexLayout.Grow="1"
+                                    Text="{Binding Name}"
+                                    Style="{StaticResource LabelLargeStyle}" />
+                                <Image Source="next"/>
+                            </FlexLayout>
+                        </yummy:PancakeView>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+  </ContentView.Content>
+</ContentView>
