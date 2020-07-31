@@ -16,5 +16,10 @@ namespace Crochet.Views.NewSaleContentView
         {
             InitializeComponent();
         }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            this.IsVisible = false;
+        }
     }
 }

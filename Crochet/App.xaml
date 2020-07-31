@@ -28,6 +28,7 @@
 
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="TextColor" Value="{StaticResource colorAccent}" />
             </Style>
 
             <Style x:Key="LabelSmallStyle" TargetType="Label">

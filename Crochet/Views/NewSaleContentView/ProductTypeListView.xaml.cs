@@ -19,7 +19,7 @@ namespace Crochet.Views.NewSaleContentView
 
         private void MyCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.IsVisible = false;
+            this.IsVisible = false;            
         }
     }
 }
