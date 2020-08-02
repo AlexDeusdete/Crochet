@@ -23,10 +23,9 @@ namespace Crochet.Controls
 
             var anim = new Animation(v => FinancialCard.Opacity = v,
                                     FinancialCard.Opacity,
-                                    FinancialCard.Opacity > 0.5 ? 0 : 1,
-                                    null,
-                                    () => PriceList.IsVisible = FinancialCard.Opacity == 1);
-            anim.Commit(this, "FinancialCard", 16, 700);
+                                    FinancialCard.Opacity > 0.5 ? 0 : 1);
+
+            anim.Commit(this, "FinancialCard", 16, 700, null, (v, c) => PriceList.IsVisible = FinancialCard.Opacity > 0.5);
         }
     }
 }

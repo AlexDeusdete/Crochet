@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
              xmlns:controls="clr-namespace:Crochet.Controls"
              mc:Ignorable="d"
              x:Class="Crochet.Views.NewSaleContentView.ProductListView">
@@ -14,6 +15,29 @@
                                  VerticalItemSpacing="10"
                                  HorizontalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+                <yummy:PancakeView CornerRadius="20" HeightRequest="50">
+                    <yummy:PancakeView.BackgroundGradientStops>
+                        <yummy:GradientStopCollection>
+                            <yummy:GradientStop Color="{StaticResource colorPrimary}" Offset="0" />
+                            <yummy:GradientStop Color="{StaticResource colorPrimaryDark}" Offset="1" />
+                        </yummy:GradientStopCollection>
+                    </yummy:PancakeView.BackgroundGradientStops>
+                    <yummy:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </yummy:PancakeView.GestureRecognizers>
+                    <FlexLayout Margin="20,0">
+                        <Image Source="next" Rotation="180"/>
+                        <Label Text="Produtos"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource colorAccent}"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   FlexLayout.Grow="1"/>
+                    </FlexLayout>
+                </yummy:PancakeView>
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

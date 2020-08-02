@@ -67,7 +67,9 @@
                                            Padding="5,5"
                                            Margin="10,0">
                             <yummy:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                      Command="{Binding BindingContext.AddProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                      CommandParameter="{Binding .}"/>
                             </yummy:PancakeView.GestureRecognizers>
                             <yummy:PancakeView CornerRadius="25,0,25,25">
                                 <yummy:PancakeView.BackgroundGradientStops>

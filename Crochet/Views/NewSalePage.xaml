@@ -4,8 +4,10 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             NavigationPage.HasNavigationBar="False"
              xmlns:views="clr-namespace:Crochet.Views.NewSaleContentView"
              Title="Nova Venda"
+             x:Name="root"
              x:Class="Crochet.Views.NewSalePage">
     <ContentPage.Content>
         <Grid x:Name="MyGrid">
@@ -19,13 +21,13 @@
                                CornerRadius="20,20,0,0"
                                Padding="10,0"
                                BackgroundColor="{StaticResource colorPrimary}">
-                <FlexLayout Direction="Column">
+                <StackLayout>
                     <FlexLayout Direction="Row" 
                             HeightRequest="50"
                             AlignItems="Center"
                             JustifyContent="SpaceEvenly">
                         <FlexLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            <TapGestureRecognizer Tapped="AddProductevent"/>
                         </FlexLayout.GestureRecognizers>
                         <Image x:Name="arrowCart"
                                Source="next"
@@ -38,7 +40,7 @@
                                WidthRequest="30"
                                HeightRequest="30"
                                CornerRadius="40">
-                            <Label Text="5"
+                            <Label Text="{Binding TotalItems}"
                                    FontSize="Large"
                                    FontAttributes="Bold"
                                    BackgroundColor="{StaticResource BGColor}"
@@ -48,7 +50,95 @@
                         </Frame>
                     </FlexLayout>
                     <BoxView HeightRequest="1" BackgroundColor="{StaticResource BGColor}"/>
-                </FlexLayout>
+                    <FlexLayout HeightRequest="100"
+                                Direction="Column">
+                        <CollectionView ItemsSource="{Binding SaleItems}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" 
+                                                   ItemSpacing="10"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <yummy:PancakeView CornerRadius="20"
+                                                       BorderColor="{StaticResource BGColor}"
+                                                       BorderThickness="3">
+                                        <yummy:PancakeView.BackgroundGradientStops>
+                                            <yummy:GradientStopCollection>
+                                                <yummy:GradientStop Color="{StaticResource colorPrimary}" Offset="0" />
+                                                <yummy:GradientStop Color="{StaticResource colorPrimaryDark}" Offset="1" />
+                                            </yummy:GradientStopCollection>
+                                        </yummy:PancakeView.BackgroundGradientStops>
+                                        <FlexLayout Direction="Column"
+                                                    WidthRequest="150"
+                                                    Padding="10">
+                                            <Label Style="{StaticResource LabelStyle}">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                        <Binding Path="Product.Name"/>
+                                                        <Binding Path="VariationName"/>
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                            <Label Style="{StaticResource LabelStyle}"
+                                                   FlexLayout.Grow="1"
+                                                   VerticalTextAlignment="Center">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}Preço: {0:C} | Total: {1:C}">
+                                                        <Binding Path="Price"/>
+                                                        <Binding Path="TotalPrice"/>
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                            <StackLayout Orientation="Horizontal">
+                                                <yummy:PancakeView CornerRadius="15">
+                                                    <yummy:PancakeView.BackgroundGradientStops>
+                                                        <yummy:GradientStopCollection>
+                                                            <yummy:GradientStop Color="{StaticResource colorPrimary}" Offset="0" />
+                                                            <yummy:GradientStop Color="{StaticResource colorPrimaryDark}" Offset="1" />
+                                                        </yummy:GradientStopCollection>
+                                                    </yummy:PancakeView.BackgroundGradientStops>
+                                                    <yummy:PancakeView.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="RemoveQtdProductevent"/>
+                                                    </yummy:PancakeView.GestureRecognizers>                                                    
+                                                    <Label Text="-"
+                                                       FontSize="Title" 
+                                                       Margin="10,0" 
+                                                       TextColor="White" 
+                                                       FontAttributes="Bold"/>
+                                                </yummy:PancakeView>
+
+                                                <Label Text="{Binding Qtd, Mode=TwoWay}" 
+                                                        VerticalOptions="Center"
+                                                        Margin="2,0"
+                                                        FontSize="Medium"
+                                                        TextColor="{StaticResource colorAccent}" 
+                                                        FontAttributes="Bold"/>
+
+                                                <yummy:PancakeView CornerRadius="15">
+                                                    <yummy:PancakeView.BackgroundGradientStops>
+                                                        <yummy:GradientStopCollection>
+                                                            <yummy:GradientStop Color="{StaticResource colorPrimary}" Offset="0" />
+                                                            <yummy:GradientStop Color="{StaticResource colorPrimaryDark}" Offset="1" />
+                                                        </yummy:GradientStopCollection>
+                                                    </yummy:PancakeView.BackgroundGradientStops>
+                                                    <yummy:PancakeView.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="AddQtdProductevent"/>
+                                                    </yummy:PancakeView.GestureRecognizers>
+                                                    <Label Text="+" 
+                                                       FontSize="Title" 
+                                                       Margin="10, 0" 
+                                                       TextColor="White" 
+                                                       FontAttributes="Bold"/>
+                                                </yummy:PancakeView>
+                                            </StackLayout>
+                                        </FlexLayout>
+                                    </yummy:PancakeView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </FlexLayout>
+                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource BGColor}"/>
+                </StackLayout>
             </yummy:PancakeView>
         </Grid>
     </ContentPage.Content>

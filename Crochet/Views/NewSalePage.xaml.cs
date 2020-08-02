@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using Crochet.Models;
+using Crochet.ViewModels;
+using Crochet.Views.NewSaleContentView;
+using Xamarin.Forms;
 
 namespace Crochet.Views
 {
@@ -9,7 +12,7 @@ namespace Crochet.Views
             InitializeComponent();
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
+        private void AddProductevent(object sender, System.EventArgs e)
         {
             AnimationCart();
         }
@@ -34,7 +37,38 @@ namespace Crochet.Views
                 || productTypeListView.IsVisible)
                 return;
 
-            productListView.IsVisible = true;
+            if (sender is ProductListView)
+                productTypeListView.IsVisible = !(sender as ProductListView).IsVisible;
+            else
+                productListView.IsVisible = !(sender as ProductTypeListView).IsVisible;
+        }
+
+        private void AddQtdProductevent(object sender, System.EventArgs e)
+        {
+            AddRemoveProduct(sender, 1);
+        }
+
+        private void AddRemoveProduct(object sender, int qtd)
+        {
+            var btn = (TemplatedView)sender;
+            var item = (SaleItem)btn.BindingContext;
+            if ((item.Qtd + qtd) < 0)
+                return;
+            item.Qtd += qtd;
+
+            var label = (btn.Parent as StackLayout).Children[1] as Label;
+            label.BindingContext = item;
+            label.SetBinding(Label.TextProperty, "Qtd", BindingMode.TwoWay);
+
+            label = ((btn.Parent as StackLayout).Parent as FlexLayout).Children[1] as Label;
+            label.Text = string.Format("Preço: {0:C} | Total: {1:C}", item.Price, item.TotalPrice);
+
+            (this.BindingContext as NewSalePageViewModel).UpdateSaleValuesCommand.Execute(null);
+        }
+
+        private void RemoveQtdProductevent(object sender, System.EventArgs e)
+        {
+            AddRemoveProduct(sender, -1);
         }
     }
 }
