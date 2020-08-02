@@ -44,7 +44,7 @@ namespace Crochet.Services
             var result = await blobClient.UploadAsync(image, new BlobHttpHeaders { ContentType = "image/png" });
 
             if (result.GetRawResponse().Status == 201)
-                return "https://crochet.blob.core.windows.net/pictures/" + fileName;
+                return "https://crochet.blob.core.windows.net/thumbnails/" + fileName;
             else
                 return "";
         }
