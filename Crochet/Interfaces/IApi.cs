@@ -119,5 +119,52 @@ namespace Crochet.Interfaces
         [Delete("/Yarns/{id}")]
         Task<FeedStock> DeleteYarn(int id);
         #endregion
+
+        #region Sale
+        [Get("/Sales?status={status}&finalized={finalized}")]
+        Task<List<Sale>> GetSales(int? status, bool? finalized);
+
+        [Get("/Sales/{id}")]
+        Task<Sale> GetSale(int id);
+
+        [Post("/Sales")]
+        Task<Sale> PostSale([AliasAs("Sale")] [Body] Sale sale);
+
+        [Put("/Sales/{id}")]
+        Task<Sale> PutSale(int id, [Body] Sale sale);
+
+        [Delete("/Sales/{id}")]
+        Task<Sale> DeleteSale(int id);
+        #endregion
+
+        #region SaleItem
+        [Get("/SaleItems?sale={sale}")]
+        Task<List<SaleItem>> GetSaleItems(int? sale);
+
+        [Get("/SaleItems/{id}")]
+        Task<SaleItem> GetSaleItem(int id);
+
+        [Post("/SaleItems")]
+        Task<SaleItem> PostSaleItems([AliasAs("SaleItem")] [Body] SaleItem saleItem);
+
+        [Put("/SaleItems/{id}")]
+        Task<SaleItem> PutSaleItem(int id, [Body] SaleItem saleItem);
+
+        [Delete("/SaleItems/{id}")]
+        Task<SaleItem> DeleteSaleItem(int id);
+        #endregion
+
+        #region Customer
+        [Get("/Customers")]
+        Task<List<Customer>> GetCustomers();
+
+        [Get("/Customers/{id}")]
+        Task<Customer> GetCustomer(int id);
+
+        [Post("/Customers")]
+        Task<Customer> PostCustomer([Body] Customer customer);
+        [Put("/Customers/{id}")]
+        Task<Customer> PutCustomer(int id, [Body] Customer customer);
+        #endregion
     }
 }

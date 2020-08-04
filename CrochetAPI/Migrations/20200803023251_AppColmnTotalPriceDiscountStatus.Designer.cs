@@ -4,14 +4,16 @@ using CrochetAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrochetAPI.Migrations
 {
     [DbContext(typeof(CrochetAPIContext))]
-    partial class CrochetAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200803023251_AppColmnTotalPriceDiscountStatus")]
+    partial class AppColmnTotalPriceDiscountStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,9 +219,6 @@ namespace CrochetAPI.Migrations
 
                     b.Property<float>("Discount")
                         .HasColumnType("real");
-
-                    b.Property<bool>("Finalized")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Observation")
                         .HasColumnType("nvarchar(max)");

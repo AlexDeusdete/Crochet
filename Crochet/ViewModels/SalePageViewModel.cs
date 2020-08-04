@@ -11,12 +11,18 @@ namespace Crochet.ViewModels
     public class SalePageViewModel : ViewModelBase
     {
         public ICommand NavigateToNewSaleCommand { get; set; }
+        public ICommand NavigateToTrackingCommand { get; set; }
         public SalePageViewModel(INavigationService navigationService)
             :base(navigationService)
         {
             NavigateToNewSaleCommand = new DelegateCommand(() => 
             {
                 NavigationService.NavigateAsync("NewSalePage");
+            });
+
+            NavigateToTrackingCommand = new DelegateCommand(() =>
+            {
+                NavigationService.NavigateAsync("TrackingPage", new NavigationParameters { { "finalized", false} });
             });
         }
     }

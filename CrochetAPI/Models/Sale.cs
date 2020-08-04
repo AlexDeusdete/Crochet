@@ -11,6 +11,10 @@ namespace Crochet.Models
         public DateTime SaleDate { get; set; }
         public DateTime DeliveryDate { get; set; }
         public string Observation { get; set; }
+        public float TotalPrice { get; set; }
+        public float Discount { get; set; }
+        public int Status { get; set; }
+        public bool Finalized { get; set; }
 
         public virtual Customer Customer { get; set; }
     }

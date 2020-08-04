@@ -22,7 +22,7 @@
                     <DataTemplate>
                         <FlexLayout Direction="Column">
                             <ffimageloading:CachedImage 
-                                        Source="{Binding Uri}"
+                                        Source="{Binding UriOriginalImage}"
                                         Aspect="AspectFill"
                                         HeightRequest="90"
                                         WidthRequest="90"

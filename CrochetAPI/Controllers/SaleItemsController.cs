@@ -23,9 +23,9 @@ namespace CrochetAPI.Controllers
 
         // GET: api/SaleItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SaleItem>>> GetSaleItems()
+        public async Task<ActionResult<IEnumerable<SaleItem>>> GetSaleItems(int sale)
         {
-            return await _context.SaleItems.ToListAsync();
+            return await _context.SaleItems.Where(x => x.SaleId == sale).ToListAsync();
         }
 
         // GET: api/SaleItems/5
@@ -82,6 +82,7 @@ namespace CrochetAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<SaleItem>> PostSaleItem(SaleItem saleItem)
         {
+            saleItem.Product = null;
             _context.SaleItems.Add(saleItem);
             await _context.SaveChangesAsync();
 

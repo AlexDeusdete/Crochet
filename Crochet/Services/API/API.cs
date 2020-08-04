@@ -179,5 +179,75 @@ namespace Crochet.Services.API
         {
             return await _api.GetProductsByType(productTypeId);
         }
+
+        public async Task<List<Sale>> GetSales(int? status, bool? finalized)
+        {
+            return await _api.GetSales(status, finalized);
+        }
+
+        public async Task<Sale> GetSale(int id)
+        {
+            return await _api.GetSale(id);
+        }
+
+        public async Task<Sale> PostSale([AliasAs("Sale"), Body] Sale sale)
+        {
+            return await _api.PostSale(sale);
+        }
+
+        public async Task<Sale> PutSale(int id, [Body] Sale sale)
+        {
+            return await _api.PutSale(id, sale);
+        }
+
+        public async Task<Sale> DeleteSale(int id)
+        {
+            return await _api.DeleteSale(id);
+        }
+
+        public async Task<List<SaleItem>> GetSaleItems(int? sale)
+        {
+            return await _api.GetSaleItems(sale);
+        }
+
+        public async Task<SaleItem> GetSaleItem(int id)
+        {
+            return await _api.GetSaleItem(id);
+        }
+
+        public async Task<SaleItem> PostSaleItems([AliasAs("SaleItem"), Body] SaleItem saleItem)
+        {
+            return await _api.PostSaleItems(saleItem);
+        }
+
+        public async Task<SaleItem> PutSaleItem(int id, [Body] SaleItem saleItem)
+        {
+            return await _api.PutSaleItem(id, saleItem);
+        }
+
+        public async Task<SaleItem> DeleteSaleItem(int id)
+        {
+            return await _api.DeleteSaleItem(id);
+        }
+
+        public async Task<List<Customer>> GetCustomers()
+        {
+            return await _api.GetCustomers();
+        }
+
+        public async Task<Customer> GetCustomer(int id)
+        {
+            return await _api.GetCustomer(id);
+        }
+
+        public async Task<Customer> PostCustomer([Body] Customer customer)
+        {
+            return await _api.PostCustomer(customer);
+        }
+
+        public async Task<Customer> PutCustomer(int id, [Body] Customer customer)
+        {
+            return await _api.PutCustomer(id, customer);
+        }
     }
 }

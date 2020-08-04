@@ -103,7 +103,6 @@ namespace Crochet.ViewModels
         {
             return await _brandService.GetItems();
         }
-
         private async void FeedStockCreate()
         {
             if (Brand == null)
@@ -139,7 +138,6 @@ namespace Crochet.ViewModels
 
             await NavigationService.GoBackAsync();
         }
-
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             await LoadBrands();
@@ -161,7 +159,6 @@ namespace Crochet.ViewModels
             ColorCode = feedStock.ColorCode;
             ColorName = feedStock.ColorName;
         }
-
         private async Task LoadBrands()
         {
             var brands = await GetBrands();
@@ -170,7 +167,6 @@ namespace Crochet.ViewModels
                 Brands.Add(item);
             }
         }
-
         private async void FeedStockCreateBrand()
         {
             string result = await Prism.PrismApplicationBase.Current.MainPage.DisplayPromptAsync("Marca", "Nome da Marca :", "Salvar", "Cancelar", "Sem Marca");
