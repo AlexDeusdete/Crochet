@@ -69,6 +69,7 @@ namespace Crochet
             containerRegistry.Register<IApi, API>();
             containerRegistry.RegisterForNavigation<NewSalePage, NewSalePageViewModel>();
             containerRegistry.RegisterForNavigation<TrackingPage, TrackingPageViewModel>();
+            containerRegistry.RegisterForNavigation<TrackingDetailPage, TrackingDetailPageViewModel>();
         }
     }
 }

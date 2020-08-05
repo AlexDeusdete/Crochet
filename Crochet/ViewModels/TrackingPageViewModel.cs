@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Crochet.ViewModels
@@ -22,13 +23,23 @@ namespace Crochet.ViewModels
         #region Collections
         public ObservableCollection<Sale> Sales { get; private set; }
         #endregion
+
+        #region Command
+        public ICommand NavigateToTrackingDetailCommand { get; private set; }
+        #endregion
         public TrackingPageViewModel(INavigationService navigationService,
                                      ISaleService saleService
                                      ):base(navigationService)
         {
             _saleService = saleService;
 
+            NavigateToTrackingDetailCommand = new DelegateCommand<object>(NavigateToTrackingDetail);
             Sales = new ObservableCollection<Sale>();
+        }
+
+        private void NavigateToTrackingDetail(object obj)
+        {
+            NavigationService.NavigateAsync("TrackingDetailPage", new NavigationParameters { { "sale", (Sale)obj } });
         }
 
         private async void LoadSales(bool? Finalized)

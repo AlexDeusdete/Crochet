@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Crochet.Views.TrackingDetailPage"
+             BackgroundColor="{StaticResource BGColor}"
+             Title="Venda Detalhe">
+    <ContentPage.Content>
+        <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="{StaticResource colorPrimary}"
+                     HorizontalOptions="Center"
+                     CornerRadius="5"
+                     WidthRequest="5"
+                     Margin="5"
+                     Grid.RowSpan="6"/>
+            <FlexLayout Direction="Column"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Grid.Row="0">
+                <Frame HeightRequest="20"
+                   WidthRequest="20"
+                   Padding="0"
+                   BorderColor="{StaticResource colorPrimary}"
+                   CornerRadius="10"
+                   HasShadow="False"/>
+                <Label Text="Pedido Criado"
+                       Style="{StaticResource LabelSmallStyle}"/>
+            </FlexLayout>
+            <FlexLayout Direction="Column"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Grid.Row="1">
+                <Frame HeightRequest="20"
+                   WidthRequest="20"
+                   Padding="0"
+                   BorderColor="{StaticResource colorPrimary}"
+                   CornerRadius="10"
+                   HasShadow="False"/>
+                <Label Text="Comprar Materia Prima"
+                       HorizontalTextAlignment="Center"
+                       Style="{StaticResource LabelSmallStyle}" />
+            </FlexLayout>
+            <FlexLayout Direction="Column"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Grid.Row="2">
+                <Frame HeightRequest="20"
+                   WidthRequest="20"
+                   Padding="0"
+                   BorderColor="{StaticResource colorPrimary}"
+                   CornerRadius="10"
+                   HasShadow="False"/>
+
+                <Label Text="Peças em Produção"
+                       HorizontalTextAlignment="Center"
+                       Style="{StaticResource LabelSmallStyle}"/>                
+            </FlexLayout>
+            <FlexLayout Direction="Column"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Grid.Row="3">
+                <Frame HeightRequest="20"
+                   WidthRequest="20"
+                   Padding="0"
+                   BorderColor="{StaticResource colorPrimary}"
+                   CornerRadius="10"
+                   HasShadow="False"/>
+                <Label Text="Peças Prontas"
+                       Style="{StaticResource LabelSmallStyle}" />
+            </FlexLayout>
+            <FlexLayout Direction="Column"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Grid.Row="4">
+                <Frame HeightRequest="20"
+                   WidthRequest="20"
+                   Padding="0"
+                   BorderColor="{StaticResource colorPrimary}"
+                   CornerRadius="10"
+                   HasShadow="False"/>
+                <Label Text="Pedido Entregue"
+                       Style="{StaticResource LabelSmallStyle}" />
+            </FlexLayout>
+            <FlexLayout Direction="Column"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Grid.Row="5">
+                <Frame HeightRequest="20"
+                   WidthRequest="20"
+                   Padding="0"
+                   BorderColor="{StaticResource colorPrimary}"
+                   CornerRadius="10"
+                   HasShadow="False"/>
+                <Label Text="Pedido Finalizado"
+                       Style="{StaticResource LabelSmallStyle}" />
+            </FlexLayout>
+
+            <FlexLayout Grid.Column="1"
+                        Grid.RowSpan="6"
+                        Direction="Column">
+                <Label Text="{Binding Sale.Customer.Name}"
+                       Style="{StaticResource LabelLargeStyle}"
+                       TextColor="{StaticResource colorAccent}"/>
+                <Label Style="{StaticResource LabelSmallStyle}">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} - {1:dd/MM/yyyy HH:mm}">
+                            <Binding Path="Sale.Id"/>
+                            <Binding Path="Sale.SaleDate"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <Label Text="{Binding Sale.TotalPrice, StringFormat='{}Total Bruto : {0:C}'}"
+                       Margin="0,15,0,0"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                <Label Text="{Binding Sale.Discount, StringFormat='{}Desconto : {0:C}'}"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                <Label Text="{Binding Sale.TotalPriceAfterDiscount, StringFormat='{}Total Liquido : {0:C}'}"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                <Label Text="{Binding Sale.Observation}"
+                       Margin="0,15,0,0"
+                       Style="{StaticResource LabelSmallStyle}"/>
+                
+                <CollectionView HeightRequest="90"/>
+                <Button Text="Prox"/>
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+    

@@ -7,7 +7,10 @@
              Title="Vendas Abertas">
     <ContentPage.Content>
         <CollectionView ItemsSource="{Binding Sales}"
-                        Margin="10">
+                        Margin="10"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding NavigateToTrackingDetailCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem , Source={x:RelativeSource Self}}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="{StaticResource colorAccent}"
