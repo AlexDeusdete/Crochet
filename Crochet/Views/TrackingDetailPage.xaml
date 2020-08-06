@@ -4,6 +4,8 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Crochet.Views.TrackingDetailPage"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"  
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              BackgroundColor="{StaticResource BGColor}"
              Title="Venda Detalhe">
     <ContentPage.Content>
@@ -26,16 +28,20 @@
                      WidthRequest="5"
                      Margin="5"
                      Grid.RowSpan="6"/>
-            <FlexLayout Direction="Column"
+            <FlexLayout x:Name="FL_Status" 
+                        Direction="Column"
+                        BindingContext="{Binding Sale}"
+                        BindingContextChanged="FlexLayout_BindingContextChanged"
                         JustifyContent="Center"
                         AlignItems="Center"
                         Grid.Row="0">
-                <Frame HeightRequest="20"
-                   WidthRequest="20"
-                   Padding="0"
-                   BorderColor="{StaticResource colorPrimary}"
-                   CornerRadius="10"
-                   HasShadow="False"/>
+                <Frame x:Name="Frame01"
+                       HeightRequest="20"
+                       WidthRequest="20"
+                       Padding="0"
+                       BorderColor="{StaticResource colorPrimary}"
+                       CornerRadius="10"
+                       HasShadow="False"/>
                 <Label Text="Pedido Criado"
                        Style="{StaticResource LabelSmallStyle}"/>
             </FlexLayout>
@@ -43,7 +49,8 @@
                         JustifyContent="Center"
                         AlignItems="Center"
                         Grid.Row="1">
-                <Frame HeightRequest="20"
+                <Frame x:Name="Frame02"
+                       HeightRequest="20"
                    WidthRequest="20"
                    Padding="0"
                    BorderColor="{StaticResource colorPrimary}"
@@ -57,7 +64,8 @@
                         JustifyContent="Center"
                         AlignItems="Center"
                         Grid.Row="2">
-                <Frame HeightRequest="20"
+                <Frame x:Name="Frame03"
+                       HeightRequest="20"
                    WidthRequest="20"
                    Padding="0"
                    BorderColor="{StaticResource colorPrimary}"
@@ -72,7 +80,8 @@
                         JustifyContent="Center"
                         AlignItems="Center"
                         Grid.Row="3">
-                <Frame HeightRequest="20"
+                <Frame x:Name="Frame04"
+                       HeightRequest="20"
                    WidthRequest="20"
                    Padding="0"
                    BorderColor="{StaticResource colorPrimary}"
@@ -85,7 +94,8 @@
                         JustifyContent="Center"
                         AlignItems="Center"
                         Grid.Row="4">
-                <Frame HeightRequest="20"
+                <Frame x:Name="Frame05"
+                       HeightRequest="20"
                    WidthRequest="20"
                    Padding="0"
                    BorderColor="{StaticResource colorPrimary}"
@@ -98,7 +108,8 @@
                         JustifyContent="Center"
                         AlignItems="Center"
                         Grid.Row="5">
-                <Frame HeightRequest="20"
+                <Frame x:Name="Frame06"
+                       HeightRequest="20"
                    WidthRequest="20"
                    Padding="0"
                    BorderColor="{StaticResource colorPrimary}"
@@ -110,7 +121,8 @@
 
             <FlexLayout Grid.Column="1"
                         Grid.RowSpan="6"
-                        Direction="Column">
+                        Direction="Column"
+                        Padding="0,0,0,20">
                 <Label Text="{Binding Sale.Customer.Name}"
                        Style="{StaticResource LabelLargeStyle}"
                        TextColor="{StaticResource colorAccent}"/>
@@ -132,9 +144,66 @@
                 <Label Text="{Binding Sale.Observation}"
                        Margin="0,15,0,0"
                        Style="{StaticResource LabelSmallStyle}"/>
-                
-                <CollectionView HeightRequest="90"/>
-                <Button Text="Prox"/>
+
+                <Label Text="Produtos :"
+                       TextColor="{StaticResource colorAccent}"/>
+                <CollectionView HeightRequest="90"
+                                ItemsSource="{Binding SaleItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" 
+                                                   ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="55"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <yummy:PancakeView Grid.RowSpan="2"
+                                                   CornerRadius="20">
+                                    <ffimageloading:CachedImage Source="{Binding Product.ProductPictures[0].Uri}"
+                                                            Aspect="AspectFill"/>
+                                </yummy:PancakeView>
+                                <yummy:PancakeView CornerRadius="0,0,20,20"
+                                                   BorderColor="{StaticResource BGColor}"
+                                                   BorderThickness="3"
+                                                   Grid.Row="1"
+                                                   BackgroundColor="#B3FF9999">
+                                    <FlexLayout Direction="Column"
+                                                WidthRequest="150"
+                                                Padding="10,0">
+                                        <Label Style="{StaticResource LabelStyle}"
+                                               TextColor="{StaticResource BGColor}">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                    <Binding Path="Product.Name"/>
+                                                    <Binding Path="VariationName"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label Style="{StaticResource LabelStyle}"
+                                                   FlexLayout.Grow="1"
+                                                   VerticalTextAlignment="Center"
+                                               TextColor="{StaticResource BGColor}">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}Preço: {0:C} | Total: {1:C}">
+                                                    <Binding Path="Price"/>
+                                                    <Binding Path="TotalPrice"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </FlexLayout>
+                                </yummy:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <BoxView FlexLayout.Grow="1"/>
+                <Button x:Name="ButtonStatus"
+                        Text="Materia Prima"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding NextStatusCommand}"/>
             </FlexLayout>
         </Grid>
     </ContentPage.Content>

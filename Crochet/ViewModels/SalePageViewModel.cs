@@ -10,8 +10,11 @@ namespace Crochet.ViewModels
 {
     public class SalePageViewModel : ViewModelBase
     {
+        #region Commands
         public ICommand NavigateToNewSaleCommand { get; set; }
         public ICommand NavigateToTrackingCommand { get; set; }
+        public ICommand NavigateToSaleClosedCommand { get; set; }
+        #endregion
         public SalePageViewModel(INavigationService navigationService)
             :base(navigationService)
         {
@@ -23,6 +26,11 @@ namespace Crochet.ViewModels
             NavigateToTrackingCommand = new DelegateCommand(() =>
             {
                 NavigationService.NavigateAsync("TrackingPage", new NavigationParameters { { "finalized", false} });
+            });
+
+            NavigateToSaleClosedCommand = new DelegateCommand(() =>
+            {
+                NavigationService.NavigateAsync("TrackingPage", new NavigationParameters { { "finalized", true } });
             });
         }
     }

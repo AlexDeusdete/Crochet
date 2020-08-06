@@ -3,8 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:Crochet.Converters"
              x:Class="Crochet.Views.TrackingPage"
-             Title="Vendas Abertas">
+             Title="Vendas">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:IntToStatusNameConverter x:Key="IntToStatusNameConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>    
     <ContentPage.Content>
         <CollectionView ItemsSource="{Binding Sales}"
                         Margin="10"
@@ -39,7 +45,8 @@
                                         AlignItems="Center">
                                 <Label Text="{Binding SaleDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"
                                        TextColor="{StaticResource colorAccent}"/>
-                                <Label Text="{Binding Status}" Margin="20,0"
+                                <Label Text="{Binding Status, Converter={StaticResource IntToStatusNameConverter}}" 
+                                       Margin="20,0"
                                        TextColor="{StaticResource colorAccent}"/>
                             </FlexLayout>
                         </FlexLayout>
