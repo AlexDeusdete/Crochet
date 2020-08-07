@@ -6,9 +6,16 @@
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="False"
              xmlns:views="clr-namespace:Crochet.Views.NewSaleContentView"
+             xmlns:controls="clr-namespace:Crochet.Controls"
+             xmlns:local="clr-namespace:Crochet.Converters"
              Title="Nova Venda"
              x:Name="root"
              x:Class="Crochet.Views.NewSalePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:FloatToString x:Key="FloatToStringConvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>    
     <ContentPage.Content>
         <Grid x:Name="MyGrid">
             <Grid x:Name="Views" VerticalOptions="FillAndExpand">
@@ -138,6 +145,47 @@
                         </CollectionView>
                     </FlexLayout>
                     <BoxView HeightRequest="1" BackgroundColor="{StaticResource BGColor}"/>
+                    <FlexLayout Direction="Column" 
+                                VerticalOptions="FillAndExpand">
+                        <Label x:Name="lbl" 
+                               Text="{Binding TotalPrice, StringFormat='Total Bruto : {0:C}'}"
+                               FontSize="Medium" Padding="0,5"/>
+                        <FlexLayout HeightRequest="{Binding Height, Source={x:Reference lbl}}">
+                            <Label Text="Desconto : " FontSize="Medium" FlexLayout.AlignSelf="Center"/>
+                            <controls:EntryFloat  FlexLayout.Grow="1"
+                                                  Style="{StaticResource EntryStyle}"
+                                                  Placeholder="0"
+                                                  Text="{Binding Discount, Converter={StaticResource FloatToStringConvert}}"/>
+                        </FlexLayout>
+                        <Label Text="{Binding TotalAfterDiscount, StringFormat='Total Liquido : {0:C}'}"
+                               FontSize="Medium" 
+                               Padding="0,5"/>
+                        <FlexLayout Direction="Row"
+                                    FlexLayout.Grow="1" 
+                                    AlignItems="Start"
+                                    Wrap="Wrap">
+                            <Picker Title="Selecione o Cliente"
+                                    ItemsSource="{Binding Customers}"
+                                    SelectedItem="{Binding Customer, Mode=TwoWay}"                            
+                                    ItemDisplayBinding="{Binding Name}"
+                                    Style="{StaticResource PickerStyle}"
+                                    FlexLayout.Basis="80%"
+                                    Margin="0,15"/>
+                            <Button Text="+"
+                                    Command="{Binding CreateCustomerCommand}"
+                                    Style="{StaticResource ButtonStyleAdd}"
+                                    FontSize="Large"
+                                    FlexLayout.Basis="20%"/>
+                            <Editor Text="{Binding Observation}"
+                                    Placeholder="Observações"
+                                    FlexLayout.Basis="100%"
+                                    Style="{StaticResource EditorStyle}"/>
+                        </FlexLayout>
+                        <Button Text="Salvar"
+                            Command="{Binding SaveSaleCommand}"
+                            Style="{StaticResource ButtonStyle}"
+                            Margin="0,10"/>
+                    </FlexLayout>
                 </StackLayout>
             </yummy:PancakeView>
         </Grid>

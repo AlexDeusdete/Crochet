@@ -23,9 +23,16 @@ namespace CrochetAPI.Controllers
 
         // GET: api/Sales
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sale>>> GetSales()
+        public async Task<ActionResult<IEnumerable<Sale>>> GetSales(int? status, bool? finalized)
         {
-            return await _context.Sales.ToListAsync();
+            if (status == null && finalized == null)
+                return await _context.Sales.ToListAsync();
+            else if (status != null && finalized == null)
+                return await _context.Sales.Where(x => x.Status == status).ToListAsync();
+            else if (status != null && finalized != null)
+                return await _context.Sales.Where(x => x.Status == status && x.Finalized == finalized).ToListAsync();
+            else
+                return await _context.Sales.Where(x => x.Finalized == finalized).ToListAsync();
         }
 
         // GET: api/Sales/5
@@ -82,6 +89,7 @@ namespace CrochetAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Sale>> PostSale(Sale sale)
         {
+            sale.Customer = null;
             _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
 

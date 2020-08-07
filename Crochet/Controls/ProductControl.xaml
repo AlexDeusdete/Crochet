@@ -54,6 +54,13 @@
         <CollectionView x:Name="PriceList"
                         IsVisible="False"
                         ItemsSource="{Binding ProductFinalcials}">
+            <CollectionView.Footer>
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Clicked="TapGestureRecognizer_Tapped"
+                    Rotation="180"
+                    Source="next"/>
+            </CollectionView.Footer>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Spacing="0" 

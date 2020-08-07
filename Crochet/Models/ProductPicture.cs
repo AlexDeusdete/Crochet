@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Crochet.Models
 {
@@ -10,5 +11,11 @@ namespace Crochet.Models
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Uri { get; set; }
+        [JsonIgnore]
+        public string UriOriginalImage
+        {
+            get { return Uri.Replace("thumbnails", "pictures"); } 
+            set { } 
+        }
     }
 }

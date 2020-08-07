@@ -15,6 +15,9 @@
                    Padding="0" 
                    HeightRequest="145"
                    WidthRequest="130">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToSaleClosedCommand}"/>
+                </Frame.GestureRecognizers>                
                 <StackLayout VerticalOptions="Center">
                     <Frame CornerRadius="40" 
                        HorizontalOptions="Center">
@@ -49,6 +52,9 @@
                    Padding="0" 
                    HeightRequest="145"
                    WidthRequest="130">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToTrackingCommand}"/>
+                </Frame.GestureRecognizers>
                 <StackLayout VerticalOptions="Center">
                     <Frame CornerRadius="40"
                        HorizontalOptions="Center">

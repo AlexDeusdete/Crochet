@@ -64,8 +64,12 @@ namespace Crochet
             containerRegistry.Register<IProductYarnService, ProductYarnService>();
             containerRegistry.Register<IProductFinalcialService, ProductFinalcialService>();
             containerRegistry.Register<IProductTypeService, ProductTypeService>();
+            containerRegistry.Register<ISaleService, SaleService>();
+            containerRegistry.Register<ICustomerService, CustomerService>();
             containerRegistry.Register<IApi, API>();
             containerRegistry.RegisterForNavigation<NewSalePage, NewSalePageViewModel>();
+            containerRegistry.RegisterForNavigation<TrackingPage, TrackingPageViewModel>();
+            containerRegistry.RegisterForNavigation<TrackingDetailPage, TrackingDetailPageViewModel>();
         }
     }
 }
