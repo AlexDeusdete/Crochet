@@ -14,7 +14,7 @@ namespace Crochet.Models
         [JsonIgnore]
         public string UriOriginalImage
         {
-            get { return Uri.Replace("thumbnails", "pictures"); } 
+            get { return Uri?.Replace("thumbnails", "pictures"); } 
             set { } 
         }
     }
